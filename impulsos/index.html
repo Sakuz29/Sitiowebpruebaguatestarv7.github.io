@@ -1,0 +1,3118 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IMPULSOS · Siguiendo las señales de Dios</title>
+<!-- Swiper.js (CDN) — únicamente usado por el carrusel "Momentos Históricos" -->
+<!-- Mismas familias y mismos pesos que el sitio principal: sin esto la
+     página se veía de otra marca. Montserrat para titulares e interfaz,
+     Poppins para lectura. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<style>
+  :root{
+    --header-bg:#1c1b22;
+    --header-text:#f4ead9;
+    --accent:#c1592f;
+    --accent-dark:#9c4423;
+    --bg-outer-1:#f3d9ab;
+    --bg-outer-2:#e08a4a;
+    --stage-bg:#fbf6ec;
+    --panel-bg:#f7f1e2;
+    --panel-border:#e6d9bd;
+    --text-main:#3c2c22;
+    --text-soft:#7a6553;
+    --page-shadow: 0 18px 40px rgba(60,30,10,.35);
+  }
+  html[data-theme="dark"]{
+    --header-bg:#0d0c10;
+    --header-text:#f4ead9;
+    --accent:#e08a4a;
+    --accent-dark:#c1592f;
+    --bg-outer-1:#2a2118;
+    --bg-outer-2:#120f0c;
+    --stage-bg:#1b1712;
+    --panel-bg:#241e17;
+    --panel-border:#3a2f22;
+    --text-main:#f1e6d8;
+    --text-soft:#c3ab90;
+    --page-shadow: 0 18px 40px rgba(0,0,0,.6);
+  }
+
+  /* Iconos de interfaz: trazo, no emoji. Los emojis los dibuja el sistema
+     operativo, así que cada equipo los veía de otro color y otro grosor —
+     imposible mantener una identidad visual con ellos. */
+  .ui-ico{width:1.05em;height:1.05em;display:block;flex:none}
+
+
+
+  /* ══════════════════════════════════════════════════════════════════
+     PANEL DE MARCADORES · rediseño
+     Antes era una pila de etiquetas sueltas sobre el mismo fondo: todo
+     pesaba igual y nada parecía agrupado. Ahora cada función vive en su
+     propia tarjeta, con el rótulo dentro y no flotando encima.
+     ══════════════════════════════════════════════════════════════════ */
+  .col-side{gap:12px}
+  .side-card{
+    background:var(--panel-bg);
+    border:1px solid var(--panel-border);
+    border-radius:14px;
+    padding:13px 13px 14px;
+    display:flex;flex-direction:column;gap:9px;
+    transition:border-color .3s var(--eo),transform .3s var(--eo);
+  }
+  @media(hover:hover){.side-card:hover{border-color:rgba(193,89,47,.42)}}
+  .side-card .side-title{margin-bottom:0}
+
+  /* ── tamaño de letra: control segmentado ─────────────────────────
+     Tres piezas pegadas dentro de un mismo raíl se leen como un único
+     control. Separadas parecían tres botones sin relación. */
+  .zoom-row{gap:0}
+  .zoom-controls{
+    width:100%;justify-content:space-between;gap:0;padding:3px;
+    background:var(--stage-bg);
+  }
+  .zoom-btn{
+    border:none;background:transparent;flex:none;
+    font-family:'Montserrat',sans-serif;font-weight:800;font-size:12px;
+    color:var(--text-main);
+    transition:background .22s var(--eo),color .22s var(--eo),transform .16s var(--eo);
+  }
+  .zoom-btn:active{transform:scale(.88)}
+  @media(hover:hover){.zoom-btn:hover{background:var(--panel-bg);color:var(--accent)}}
+  .zoom-level{
+    font-family:'Poppins',sans-serif;font-weight:600;font-size:11px;
+    font-variant-numeric:tabular-nums;color:var(--text-soft);
+    min-width:44px;text-align:center;
+  }
+  .zoom-label{
+    font-family:'Montserrat',sans-serif;font-weight:800;
+    font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--text-soft);
+  }
+
+  /* ── progreso: el número manda, la barra acompaña ──────────────── */
+  .prog-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+  .prog-pct{
+    font-family:'Montserrat',sans-serif;font-weight:900;
+    font-size:22px;line-height:1;letter-spacing:-.03em;
+    color:var(--accent);font-variant-numeric:tabular-nums;
+  }
+  .progress-track{height:6px;margin:0;background:var(--stage-bg);position:relative}
+  .progress-fill{
+    border-radius:99px;
+    /* 520ms es más de lo que pido para la interfaz, pero aquí el
+       movimiento ES la información: se ve avanzar la lectura. */
+    transition:width .52s var(--eio);
+    background:linear-gradient(90deg,var(--accent-dark),var(--accent));
+  }
+  .progress-text{font-size:9.5px;font-variant-numeric:tabular-nums}
+
+  /* ── ir a página: campo y botón como una sola pieza ────────────── */
+  .goto-form{
+    margin-top:0;gap:0;
+    border:1px solid var(--panel-border);border-radius:10px;
+    background:var(--stage-bg);overflow:hidden;
+    transition:border-color .25s var(--eo),box-shadow .25s var(--eo);
+  }
+  .goto-form:focus-within{
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(193,89,47,.14);
+  }
+  .goto-form input{
+    border:none;background:transparent;border-radius:0;
+    padding:9px 11px;font-size:11.5px;min-width:0;
+  }
+  .goto-form input:focus{outline:none}
+  .goto-form button{
+    border-radius:0;padding:9px 15px;
+    font-family:'Montserrat',sans-serif;font-weight:800;
+    font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+    transition:background .25s var(--eo),transform .16s var(--eo);
+  }
+  .goto-form button:active{transform:scale(.94)}
+  @media(hover:hover){.goto-form button:hover{background:var(--accent-dark)}}
+
+  /* ── vídeo ─────────────────────────────────────────────────────── */
+  .side-video{display:flex;flex-direction:column;gap:9px}
+  .side-video-player{
+    border-radius:12px;
+    transition:transform .35s var(--eo),box-shadow .35s var(--eo);
+  }
+  @media(hover:hover){
+    .side-video-player:hover{
+      transform:translateY(-3px);
+      box-shadow:0 22px 38px -20px rgba(60,30,10,.6);
+    }
+  }
+
+  .side-cab{display:flex;flex-direction:column;gap:6px}
+  .side-desc{
+    font-family:'Poppins',sans-serif;font-weight:300;
+    font-size:.72rem;line-height:1.55;color:var(--text-soft);
+  }
+  .side-note{border-top:1px solid var(--panel-border);opacity:.85}
+
+  /* entrada escalonada de las tarjetas, una sola vez al cargar */
+  .col-side>*{animation:sideEntra .42s var(--eo) both}
+  .col-side>*:nth-child(1){animation-delay:.02s}
+  .col-side>*:nth-child(2){animation-delay:.07s}
+  .col-side>*:nth-child(3){animation-delay:.12s}
+  .col-side>*:nth-child(4){animation-delay:.17s}
+  .col-side>*:nth-child(5){animation-delay:.22s}
+  @keyframes sideEntra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  @media(prefers-reduced-motion:reduce){
+    .col-side>*{animation:none}
+    .side-card,.progress-fill,.side-video-player{transition-duration:.01ms}
+  }
+
+  /* ══════════════════════════════════════════════════════════════════
+     PANELES LATERALES · rediseño
+     Curvas: ease-out fuerte para lo que entra y responde. Nada por
+     encima de 300ms salvo el desplegable, que es el único gesto lento
+     a propósito. Todo lo que se pulsa baja de escala al pulsarlo: es lo
+     que hace que la interfaz parezca estar escuchando.
+     ══════════════════════════════════════════════════════════════════ */
+  :root{
+    --eo:cubic-bezier(.23,1,.32,1);
+    --eio:cubic-bezier(.77,0,.175,1);
+  }
+
+  /* ── barras deslizantes: dejan de ser las del sistema ──────────────
+     El relleno se pinta con un degradado duro cuya parada se mueve con
+     --p, que actualiza el JS. Así la parte ya reproducida se ve, cosa
+     que un input por defecto no muestra en todos los navegadores. */
+  .ab-seek,.ab-vol-slider{
+    -webkit-appearance:none;appearance:none;
+    height:14px;background:transparent;cursor:pointer;
+  }
+  .ab-seek::-webkit-slider-runnable-track,
+  .ab-vol-slider::-webkit-slider-runnable-track{
+    height:5px;border-radius:99px;
+    background:linear-gradient(90deg,
+      var(--accent) 0 calc(var(--p,0) * 1%),
+      var(--panel-border) calc(var(--p,0) * 1%) 100%);
+  }
+  .ab-seek::-moz-range-track,.ab-vol-slider::-moz-range-track{
+    height:5px;border-radius:99px;background:var(--panel-border);
+  }
+  .ab-seek::-moz-range-progress,.ab-vol-slider::-moz-range-progress{
+    height:5px;border-radius:99px;background:var(--accent);
+  }
+  .ab-seek::-webkit-slider-thumb,.ab-vol-slider::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;
+    width:13px;height:13px;margin-top:-4px;border-radius:50%;
+    background:var(--accent);border:2px solid var(--stage-bg);
+    box-shadow:0 1px 4px rgba(60,30,10,.35);
+    transition:transform .18s var(--eo),box-shadow .18s var(--eo);
+  }
+  .ab-seek::-moz-range-thumb,.ab-vol-slider::-moz-range-thumb{
+    width:13px;height:13px;border-radius:50%;border:2px solid var(--stage-bg);
+    background:var(--accent);box-shadow:0 1px 4px rgba(60,30,10,.35);
+  }
+  .ab-seek:hover::-webkit-slider-thumb,
+  .ab-vol-slider:hover::-webkit-slider-thumb{transform:scale(1.28)}
+  .ab-seek:active::-webkit-slider-thumb{transform:scale(1.4)}
+  .ab-seek:focus-visible,.ab-vol-slider:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:99px}
+
+  .ab-progress-row{padding:2px 0}
+  .ab-times{
+    display:flex;justify-content:space-between;
+    font-family:'Poppins',sans-serif;font-size:9.5px;
+    color:var(--text-soft);font-variant-numeric:tabular-nums;
+    margin-top:-2px;
+  }
+
+  /* ── volumen: línea propia ─────────────────────────────────────── */
+  .ab-volume{
+    display:flex;align-items:center;gap:9px;min-width:0;
+    padding:9px 11px;border-radius:11px;
+    background:var(--stage-bg);
+    border:1px solid transparent;
+    transition:border-color .25s var(--eo);
+  }
+  .ab-volume:focus-within{border-color:var(--panel-border)}
+  .ab-vol-icon{
+    color:var(--text-soft);cursor:pointer;flex:none;font-size:13px;
+    transition:color .2s var(--eo),transform .16s var(--eo);
+  }
+  .ab-vol-icon:hover{color:var(--accent)}
+  .ab-vol-icon:active{transform:scale(.9)}
+  .ab-vol-slider{flex:1 1 0;min-width:0}
+
+  /* ── controles ─────────────────────────────────────────────────── */
+  .ab-main-controls{gap:16px;padding:2px 0}
+  .ab-btn{transition:transform .16s var(--eo),background .25s var(--eo),color .25s var(--eo)}
+  .ab-btn:active{transform:scale(.94)}
+  .ab-btn-play{
+    box-shadow:0 6px 16px -6px rgba(193,89,47,.9);
+    position:relative;
+  }
+  /* anillo que late solo mientras suena: dice "esto está vivo" sin
+     ocupar ni un píxel más de columna */
+  .ab-btn-play::after{
+    content:"";position:absolute;inset:-5px;border-radius:50%;
+    border:1.5px solid var(--accent);opacity:0;
+  }
+  .audiobook.playing .ab-btn-play::after{animation:abPulso 2.4s var(--eio) infinite}
+  @keyframes abPulso{
+    0%{opacity:.55;transform:scale(.94)}
+    70%{opacity:0;transform:scale(1.16)}
+    100%{opacity:0;transform:scale(1.16)}
+  }
+  @media(hover:hover) and (pointer:fine){
+    .ab-btn-icon:hover{color:var(--accent)}
+    .ab-btn-play:hover{transform:scale(1.05)}
+  }
+
+  .ab-chip{
+    transition:transform .16s var(--eo),border-color .25s var(--eo),
+               color .25s var(--eo),background .25s var(--eo);
+  }
+  .ab-chip:active{transform:scale(.92)}
+  @media(hover:hover){.ab-chip:hover{border-color:var(--accent);color:var(--accent)}}
+  .ab-chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+  .ab-speed{
+    transition:border-color .25s var(--eo);
+    font-family:'Poppins',sans-serif;font-weight:600;
+  }
+  .ab-speed:hover{border-color:var(--accent)}
+
+  /* ── el título del capítulo cambia con desenfoque ────────────────
+     Un corte seco entre dos títulos se lee como un parpadeo. El
+     desenfoque funde los dos estados y el ojo ve una sola cosa
+     transformándose, no dos cosas intercambiándose. */
+  .ab-now-playing{transition:filter .22s ease,opacity .22s ease}
+  .ab-now-playing.ab-cambiando{filter:blur(3px);opacity:.35}
+
+  /* ── lista de capítulos ─────────────────────────────────────────── */
+  .audiobook-list{max-height:206px;padding-right:3px;scrollbar-width:thin}
+  .ab-item{
+    position:relative;border-radius:9px;padding:8px 10px 8px 12px;
+    cursor:pointer;overflow:hidden;
+    transition:background .22s var(--eo),transform .18s var(--eo);
+  }
+  /* la barra de la izquierda crece desde el centro, no aparece de golpe */
+  .ab-item::before{
+    content:"";position:absolute;left:0;top:8px;bottom:8px;width:2.5px;
+    border-radius:99px;background:var(--accent);
+    transform:scaleY(0);transform-origin:center;
+    transition:transform .28s var(--eo);
+  }
+  @media(hover:hover){.ab-item:hover{background:var(--stage-bg);transform:translateX(2px)}}
+  .ab-item:active{transform:scale(.985)}
+  .ab-item.active{background:var(--stage-bg)}
+  .ab-item.active::before{transform:scaleY(1)}
+  .ab-item-duration{font-variant-numeric:tabular-nums}
+
+  /* Títulos largos: recortados en reposo para que la lista quepa, pero
+     completos al pasar por encima o al recibir el foco del teclado.
+     Se anima max-height, no height: no hay que saber cuánto mide el
+     texto y funciona igual con dos líneas que con cuatro. */
+  .ab-item-title{
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  /* Capa flotante con el título entero. `content:attr(data-full)` lee el
+     texto que el JS deja en el elemento, así no hay que duplicarlo en el
+     marcado. Solo se marca .recortado cuando de verdad no cabe: si el
+     título entra completo, no aparece nada. */
+  .ab-item-title::after{
+    content:attr(data-full);
+    position:absolute;left:9px;right:8px;top:5px;z-index:5;
+    padding:7px 9px;border-radius:9px;
+    background:var(--panel-bg);
+    border:1px solid var(--panel-border);
+    box-shadow:0 14px 26px -14px rgba(60,30,10,.55);
+    white-space:normal;line-height:1.34;
+    opacity:0;transform:translateY(-3px);pointer-events:none;
+    transition:opacity .17s var(--eo),transform .17s var(--eo);
+  }
+  .ab-item:hover .ab-item-title.recortado::after,
+  .ab-item:focus-visible .ab-item-title.recortado::after{
+    opacity:1;transform:none;
+  }
+
+  /* ecualizador: tres barras que solo se mueven en el capítulo que suena */
+  .ab-item-playing-icon{
+    display:none;align-items:flex-end;gap:2px;height:11px;flex:none;
+  }
+  .ab-item.active .ab-item-playing-icon{display:flex}
+  .ab-item-playing-icon i{
+    width:2.5px;border-radius:2px;background:var(--accent);height:35%;
+  }
+  .audiobook.playing .ab-item.active .ab-item-playing-icon i{
+    animation:abEq .9s var(--eio) infinite alternate;
+  }
+  .ab-item-playing-icon i:nth-child(2){animation-delay:.18s}
+  .ab-item-playing-icon i:nth-child(3){animation-delay:.36s}
+  @keyframes abEq{from{height:28%}to{height:100%}}
+
+  /* al abrir el panel, los capítulos entran escalonados */
+  .audiobook.open .ab-item{animation:abEntra .34s var(--eo) both}
+  .audiobook.open .ab-item:nth-child(1){animation-delay:.04s}
+  .audiobook.open .ab-item:nth-child(2){animation-delay:.09s}
+  .audiobook.open .ab-item:nth-child(3){animation-delay:.14s}
+  .audiobook.open .ab-item:nth-child(4){animation-delay:.19s}
+  .audiobook.open .ab-item:nth-child(5){animation-delay:.24s}
+  .audiobook.open .ab-item:nth-child(6){animation-delay:.29s}
+  @keyframes abEntra{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  @media(prefers-reduced-motion:reduce){
+    .audiobook.playing .ab-btn-play::after,
+    .audiobook.playing .ab-item.active .ab-item-playing-icon i,
+    .audiobook.open .ab-item{animation:none}
+    .ab-item,.ab-btn,.ab-chip{transition-duration:.01ms}
+  }
+
+  /* ── Audiolibro plegable ────────────────────────────────────────────
+     El reproductor entero medía más que la portada del libro y empujaba
+     todo hacia abajo en una columna de 250px. Plegado, la columna
+     respira y el audiolibro se anuncia con una sola línea.
+     La animación va sobre grid-template-rows (0fr → 1fr) en vez de
+     max-height: así no hay que adivinar una altura máxima ni queda un
+     retardo al final cuando el contenido mide menos de lo previsto. */
+  .ab-toggle{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    width:100%;padding:11px 13px;
+    background:var(--stage-bg);
+    border:1px solid var(--panel-border);
+    border-radius:12px;
+    color:var(--text-main);
+    cursor:pointer;text-align:left;
+    transition:border-color .3s var(--ease,cubic-bezier(.22,1,.36,1)),
+               background .3s cubic-bezier(.22,1,.36,1);
+  }
+  .ab-toggle:hover{border-color:var(--accent)}
+  .ab-toggle-t{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .ab-toggle-k{
+    font-family:'Montserrat',sans-serif;font-weight:800;
+    font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  }
+  .ab-toggle-s{font-size:10.5px;color:var(--text-soft);line-height:1.3}
+  .ab-caret{
+    width:11px;height:11px;flex:none;color:var(--accent);
+    transition:transform .38s cubic-bezier(.22,1,.36,1);
+  }
+  .audiobook.open .ab-caret{transform:rotate(180deg)}
+
+  .ab-collapse{
+    display:grid;grid-template-rows:0fr;
+    transition:grid-template-rows .42s cubic-bezier(.22,1,.36,1);
+  }
+  .audiobook.open .ab-collapse{grid-template-rows:1fr}
+  .ab-collapse-in{
+    overflow:hidden;min-height:0;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  /* el contenido aparece un pelo después de que se abra el hueco, si no
+     se ve el texto comprimiéndose contra el borde */
+  .ab-collapse-in>*{opacity:0;transition:opacity .3s .1s ease}
+  .audiobook.open .ab-collapse-in>*{opacity:1}
+  .audiobook.open .ab-collapse-in{padding-top:10px}
+
+  @media(prefers-reduced-motion:reduce){
+    .ab-collapse,.ab-caret,.ab-collapse-in>*{transition-duration:.01ms}
+  }
+  .ab-btn-play .ui-ico{width:1.25em;height:1.25em}
+  *{box-sizing:border-box;}
+  /* Salvaguarda global anti-scroll-horizontal: no cambia ningún estilo
+     visual, solo evita que cualquier elemento pueda generar una barra
+     de desplazamiento horizontal en el documento, a cualquier ancho. */
+  html,body{margin:0;max-width:100%;overflow-x:hidden;}
+  body{
+    font-family:'Poppins',sans-serif;
+    background:var(--stage-bg);
+    display:block;
+    min-height:100vh;
+    padding:0;
+    transition:background .4s ease;
+  }
+  .stage{
+    width:100%;
+    max-height:none;
+    background:var(--stage-bg);
+    border-radius:0;
+    box-shadow:none;
+    overflow-x:hidden;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    transition:background .4s ease;
+  }
+
+
+  /* ══════════════════════════════════════════════════════════════════
+     ENCABEZADO DE GUATESTAR · trasplantado tal cual desde la portada
+     No es una imitación: son las mismas reglas del sitio principal,
+     extraídas de su hoja de estilos. Solo se añade debajo lo propio
+     de esta página (el interruptor de modo lectura) y se ajusta el
+     ancho del panel, que aquí no compite con un menú de cuatro
+     secciones sino con seis.
+     ══════════════════════════════════════════════════════════════════ */
+:root{
+    /* paleta CLARA anclada al logo de GuateStar */
+    --sky:#00b4c6;          /* turquesa del logo — acción principal / botones */
+    --sky-light:#5fd3e0;    /* azul más claro — bloque puente entre secciones */
+    --sky-deep:#007ea2;     /* azul del logo — texto/hover accesible */
+    --sky-wash:#e4f7fa;     /* fondo suave turquesa */
+    --leaf:#90b412;         /* verde del logo */
+    --leaf-wash:#eef6dc;
+    --sun:#fcb400;          /* amarillo del logo — solo acentos pequeños */
+    --sun-wash:#fff3d6;
+    --coral:#d81224;        /* rojo del logo — acentos mínimos */
+    --coral-wash:#fde8ea;
+    /* fondos: todo claro */
+    --cream:#fffdf7;
+    --paper:#ffffff;
+    --sand:#fdf7ec;
+    --line:#eee7da;
+    --ink:#1d3a42;          /* teal profundo en vez de negro */
+    --muted:#5f7480;
+    --ease:cubic-bezier(.32,.72,0,1);
+    --ease-out:cubic-bezier(.23,1,.32,1);   /* entradas y salidas de UI */
+  }
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,44px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-align:center;gap:13px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:.84rem;letter-spacing:.01em;padding:15px 30px;border-radius:999px;border:none;cursor:pointer;transition:transform .5s var(--ease),background .4s var(--ease),box-shadow .4s var(--ease)}
+.btn-ci{padding:12px 12px 12px 26px}
+.btn .ci{width:33px;height:33px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:transform .5s var(--ease)}
+.btn:active{transform:scale(.98)}
+.btn-sky{background:var(--sky);color:#fff;box-shadow:0 12px 26px -14px rgba(0,180,198,.85)}
+.btn-sky .ci{background:rgba(255,255,255,.25)}
+.btn-line{background:var(--paper);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn-line .ci{background:var(--sky-wash);color:var(--sky-deep)}
+@media(hover:hover){
+.btn:hover{transform:translateY(-2px)}
+.btn:hover .ci{transform:translateX(3px)}
+.btn-sky:hover{background:var(--sky-deep)}
+.btn-line:hover{background:var(--sand)}
+}
+.topstrip{background:var(--ink);color:rgba(255,255,255,.72);font-size:.74rem;letter-spacing:.04em}
+.topstrip .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:9px;padding-bottom:9px}
+.ts-a{display:inline-flex;align-items:center;gap:7px;font-weight:500;color:#fff}
+.ts-a svg{width:13px;height:13px;color:var(--sky-light)}
+.ts-b{font-weight:300}
+.langsel{position:relative;display:flex;align-items:center;gap:2px;padding:3px 3px 3px 9px;border-radius:999px;
+    background:rgba(255,255,255,.09);flex:none}
+.ls-globe{width:14px;height:14px;color:rgba(255,255,255,.6);margin-right:4px;flex:none}
+.ls-opt{position:relative;z-index:2;background:none;border:none;cursor:pointer;padding:5px 11px;border-radius:999px;
+    font-family:'Montserrat',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.04em;
+    color:rgba(255,255,255,.62);transition:color .3s var(--ease)}
+.ls-opt.on{color:var(--ink)}
+.ls-opt:focus-visible{outline:2px solid var(--sky-light);outline-offset:2px}
+.ls-pill{position:absolute;z-index:1;top:3px;bottom:3px;left:27px;width:calc(50% - 15px);border-radius:999px;
+    background:#fff;transition:transform .4s var(--ease)}
+.langsel.en .ls-pill{transform:translateX(100%)}
+@media(max-width:680px){
+.ts-b{display:none}
+.topstrip .wrap{justify-content:space-between;gap:10px}
+.ls-opt{padding:5px 9px;font-size:.64rem}
+}
+.navlink i{font-style:normal;font-family:'Montserrat',sans-serif;font-weight:900;font-size:.68rem;
+    color:var(--sky);margin-right:7px;letter-spacing:.02em;transition:color .3s var(--ease)}
+.mainnav>li:hover .navlink i,.mainnav>li.open .navlink i{color:var(--sky-deep)}
+.site-header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+    transition:transform .5s var(--ease),opacity .35s var(--ease),box-shadow .4s var(--ease)}
+body.hd-stuck .site-header{box-shadow:0 14px 34px -26px rgba(29,58,66,.45)}
+body.hd-off .site-header{transform:translateY(-102%);opacity:0;pointer-events:none}
+@media(prefers-reduced-motion:reduce){
+.site-header{transition:opacity .2s linear}
+body.hd-off .site-header{transform:none}
+}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:14px 0}
+.hd .acciones{display:flex;align-items:center;gap:12px}
+.hd .logo img{height:clamp(44px,4.4vw,58px);width:auto}
+.hd .logo .lg-light{display:none}
+.nav-wrap{display:contents}
+.mainnav{display:flex;align-items:center;gap:clamp(6px,1.4vw,20px)}
+.mainnav>li{list-style:none;position:relative}
+.navlink{display:inline-flex;align-items:center;gap:7px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.86rem;letter-spacing:.005em;color:var(--ink);padding:12px 14px;border-radius:12px;cursor:pointer;background:none;border:none;transition:background .3s var(--ease),color .3s var(--ease)}
+.navlink .cv{width:9px;height:9px;transition:transform .35s var(--ease);opacity:.55}
+.mainnav>li:hover .navlink,.mainnav>li.open .navlink{background:var(--sky-wash);color:var(--sky-deep)}
+.mainnav>li:hover .navlink .cv,.mainnav>li.open .navlink .cv{transform:rotate(180deg)}
+.drop{position:absolute;top:calc(100% + 10px);left:0;min-width:236px;background:var(--paper);border-radius:18px;padding:10px;box-shadow:0 26px 54px -26px rgba(29,58,66,.42),inset 0 0 0 1px var(--line);opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .32s var(--ease),transform .32s var(--ease),visibility .32s;list-style:none}
+.mainnav>li:hover .drop,.mainnav>li.open .drop{opacity:1;visibility:visible;transform:none}
+.drop a{display:block;padding:11px 14px;border-radius:12px;transition:background .25s var(--ease)}
+.drop a:hover{background:var(--sand)}
+.drop b{display:block;font-family:'Montserrat',sans-serif;font-weight:800;font-size:.9rem;color:var(--ink);line-height:1.3;letter-spacing:-.01em}
+.drop span{display:block;font-size:.72rem;color:#9aa9b1;font-weight:400;line-height:1.45;margin-top:3px;
+    letter-spacing:.09em;text-transform:uppercase}
+.hd .btn{padding:11px 24px;font-size:.79rem;flex:none;text-transform:uppercase;letter-spacing:.06em}
+.hd .btn .ci{width:30px;height:30px}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:10px;border-radius:12px;color:var(--ink)}
+.burger .bl{display:flex;flex-direction:column;gap:5px}
+.burger .bl span{display:block;width:22px;height:2px;background:currentColor;border-radius:2px;
+    transition:transform .4s var(--ease),opacity .3s var(--ease)}
+body.nav-open .burger .bl span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+body.nav-open .burger .bl span:nth-child(2){opacity:0}
+body.nav-open .burger .bl span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:940px){
+:root{--lg-h:clamp(64px,17vw,84px);--hd-h:calc(var(--lg-h) + 80px);
+          --hd-s:64px}
+.site-header{background:transparent;backdrop-filter:none;border-bottom:0;
+      margin-bottom:calc(-1 * var(--hd-h))}
+.site-header{transition:background .28s var(--ease),transform .5s var(--ease),opacity .35s var(--ease)}
+body.hd-stuck .site-header,
+    body.nav-open .site-header{background:#fff;
+      -webkit-backdrop-filter:none;backdrop-filter:none;
+      border-bottom:1px solid var(--line)}
+body.nav-open .site-header{transform:none;filter:none}
+.hd .logo .lg-dark{display:none}
+.hd .logo .lg-light{display:block}
+body.hd-stuck .hd .logo .lg-dark,
+    body.nav-open .hd .logo .lg-dark{display:block}
+body.hd-stuck .hd .logo .lg-light,
+    body.nav-open .hd .logo .lg-light{display:none}
+.hd{display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:14px;height:var(--hd-h);padding:0}
+.hd .logo,
+    .hd .acciones{position:relative;z-index:60}
+.hd .logo{order:1}
+.hd .logo img{height:var(--lg-h)}
+.hd .acciones{order:2;display:flex;align-items:center;gap:10px}
+.hd .acciones .btn{padding:0 20px;font-size:.78rem;letter-spacing:.03em;height:42px}
+.hd .acciones .btn .ci{display:none}
+.burger{display:flex;align-items:center;justify-content:center;
+      width:42px;height:42px;padding:0;background:transparent;color:#fff}
+body.hd-stuck .site-header{margin-bottom:calc(-1 * var(--hd-s))}
+body.hd-stuck .hd{flex-direction:row;justify-content:space-between;
+      align-items:center;height:var(--hd-s);gap:12px}
+body.hd-stuck .hd .logo{padding-left:10px}
+body.hd-stuck .hd .logo img{height:38px}
+body.hd-stuck .hd .acciones{gap:8px}
+body.hd-stuck .hd .acciones .btn{height:36px;padding:0 16px;font-size:.74rem}
+body.hd-stuck .burger{width:38px;height:38px}
+body.hd-stuck .nav-wrap{top:var(--hd-s)}
+.burger .bl{gap:4.5px}
+.burger .bl span{width:20px}
+body.hd-stuck .burger,
+    body.nav-open .burger{color:var(--ink)}
+.nav-wrap{display:block;position:fixed;left:0;right:0;
+      top:var(--hd-h);bottom:0;z-index:50;
+      overflow:hidden;pointer-events:none}
+body.nav-open .nav-wrap{pointer-events:auto}
+.mainnav{position:relative;width:100%;max-height:100%;
+      display:flex;flex-direction:column;align-items:stretch;gap:2px;
+      overflow-y:auto;overscroll-behavior:contain;
+      background:var(--paper);
+      padding:14px clamp(20px,5vw,32px) 30px;
+      border-bottom:1px solid var(--line);
+      box-shadow:0 26px 44px -28px rgba(29,58,66,.5);
+      will-change:transform;
+      transform:translateY(-100%);
+      visibility:hidden}
+body.nav-open .mainnav,
+    body.nav-closing .mainnav{visibility:visible}
+.nav-scrim{position:fixed;inset:0;z-index:45;background:rgba(10,30,36,.42);
+      opacity:0;visibility:hidden;pointer-events:none;
+      transition:opacity .3s var(--ease),visibility 0s linear .3s}
+body.nav-open .nav-scrim{opacity:1;visibility:visible;pointer-events:auto;
+      transition:opacity .3s var(--ease),visibility 0s linear 0s}
+.navlink{width:100%;justify-content:flex-start;gap:10px;padding:17px 2px;
+      font-weight:800;font-size:.84rem;letter-spacing:.11em;text-transform:uppercase;
+      border-radius:0;background:none}
+.navlink i{display:none}
+.navlink .cv{margin-left:auto;width:11px;height:11px;opacity:.75}
+.mainnav>li:hover .navlink,.mainnav>li.open .navlink{background:none;color:var(--sky-deep)}
+.drop{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;
+      min-width:0;display:none;background:none;padding:0 0 10px}
+.mainnav>li.open .drop{display:block}
+.drop a{display:block;padding:13px 2px 13px 18px;border-radius:0;border-top:1px solid var(--line)}
+.drop b{font-weight:600;font-size:.88rem;letter-spacing:0;text-transform:none}
+.drop span{margin-top:2px;font-size:.68rem}
+.nav-foot{list-style:none;margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+.nav-foot .nf-t{display:block;font-family:'Montserrat',sans-serif;font-weight:800;font-size:.64rem;
+      letter-spacing:.18em;text-transform:uppercase;color:#9aa9b1;margin-bottom:12px}
+.nav-social{display:flex;gap:10px}
+.nav-social a{width:40px;height:40px;border-radius:12px;background:var(--sand);color:var(--sky-deep);
+      display:flex;align-items:center;justify-content:center;transition:background .3s var(--ease),color .3s var(--ease)}
+.nav-social a:hover{background:var(--sky);color:#fff}
+.nav-social svg{width:17px;height:17px}
+.mainnav .mob-cta{display:none}
+}
+.nav-scrim{display:none}
+@media(max-width:940px){
+.nav-scrim{display:block}
+}
+@media(min-width:941px){
+.mainnav .mob-cta,.mainnav .nav-foot{display:none}
+}
+@media(max-width:640px){
+}
+.btn-white{background:#fff;color:var(--ink)}
+@media(prefers-reduced-motion:reduce){
+html{scroll-snap-type:none}
+}
+@keyframes okPop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+.kp-ok-cta .btn-ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.42)}
+.kp-ok-cta .btn-ghost .ci{background:rgba(255,255,255,.2)}
+.kp-ok-cta .btn-ghost:hover{background:rgba(255,255,255,.12)}
+.ft-bridge .btn{flex:none}
+.legal-body h4{font-family:'Montserrat',sans-serif;font-weight:800;font-size:.94rem;color:var(--ink);
+    margin-top:22px;margin-bottom:6px;letter-spacing:-.01em}
+.legal-body p{font-size:.93rem;line-height:1.72;color:var(--muted);font-weight:300}
+
+  /* El cian de la marca solo dentro de esta página: se redefinen las
+     variables en el encabezado, igual que se hizo en el pie. Las reglas
+     copiadas siguen intactas; solo cambia lo que consumen. La sombra del
+     botón iba con el cian escrito a mano, así que hay que darla aparte. */
+  .site-header{--sky:#c1592f;--sky-deep:#9c4423;--sky-wash:#f6e5d4;--sky-light:#e08a4a}
+  .site-header .btn-sky{box-shadow:0 12px 26px -14px rgba(193,89,47,.9)}
+  @media(hover:hover){.site-header .btn-sky:hover{background:var(--sky-deep)}}
+
+  /* El sitio principal apaga el subrayado en su reseteo global. No copié
+     ese reseteo para no alterar los estilos del libro, así que se apaga
+     solo dentro de la cabecera, que es donde hace falta. */
+  /* El sitio principal apaga el subrayado Y hereda el color en su reseteo
+     global (`a{text-decoration:none;color:inherit}`). No copié ese reseteo
+     para no alterar los estilos del libro, y por eso los enlaces del pie
+     salían en el azul por defecto del navegador. Se aplica lo mismo, pero
+     acotado a las piezas trasplantadas de la portada. */
+  .topstrip a,.site-header a,.mainnav a,.drop a,.nav-social a,.logo,
+  .foot a,.ft-col a,.ft-write,.ft-legal a{
+    text-decoration:none;color:inherit;
+  }
+  /* los enlaces legales conservan su color de acento al pasar por encima,
+     como en la portada */
+  @media(hover:hover){.ft-col li a:hover{color:var(--sky-deep)}}
+
+
+  /* ── aviso de idioma en la franja superior ──────────────────────── */
+  .ts-idioma{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:.72rem;line-height:1.4;color:rgba(255,255,255,.72);
+    max-width:42ch;
+  }
+  .ts-idioma svg{width:14px;height:14px;flex:none;opacity:.8}
+
+  /* ── accesos del libro, bajo el hero ────────────────────────────
+     Cinco piezas iguales en una fila que se reparte el ancho. Van aquí
+     y no en el menú porque el menú pertenece al sitio; estas son
+     secciones de esta página. */
+  .hero-acc{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));
+    gap:1px;background:var(--panel-border);
+    border-bottom:1px solid var(--panel-border);
+  }
+  .ha-btn{
+    display:flex;flex-direction:column;gap:3px;
+    padding:15px clamp(12px,1.6vw,20px);
+    background:var(--panel-bg);border:none;cursor:pointer;
+    text-align:left;text-decoration:none;color:var(--text-main);
+    position:relative;overflow:hidden;
+    transition:background .26s var(--eo);
+  }
+  /* la línea de acento crece desde la izquierda al pasar por encima */
+  .ha-btn::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+    background:var(--accent);
+    transform:scaleX(0);transform-origin:left;
+    transition:transform .32s var(--eo);
+  }
+  @media(hover:hover){
+    .ha-btn:hover{background:var(--stage-bg)}
+    .ha-btn:hover::after{transform:scaleX(1)}
+  }
+  .ha-btn:active{background:var(--stage-bg)}
+  /* Mismos valores que los rótulos de la portada (.ft-col h4 y .navlink):
+     Montserrat 800, .7rem y .18em de tracking. Antes iba a .72/.11em, que
+     de cerca parece igual pero no lo es. */
+  .ha-k{
+    display:flex;align-items:center;gap:7px;
+    font-family:'Montserrat',sans-serif;font-weight:800;
+    font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--text-main);line-height:1.3;
+  }
+  .ha-k svg{width:14px;height:14px;transition:transform .5s var(--eio)}
+  /* El pie de los rótulos en la portada usa Poppins 300 a .78rem con
+     interlineado 1.6. Aquí se baja de tamaño pero se conserva el peso
+     ligero y el interlineado, que es lo que da el aire. */
+  .ha-s{
+    font-family:'Poppins',sans-serif;font-weight:300;
+    font-size:.72rem;line-height:1.5;
+    color:var(--text-soft);letter-spacing:.01em;
+  }
+  /* La única acción de la franja, así que lleva el color de acento.
+     Las otras cuatro solo llevan a un sitio de esta misma página. */
+  .ha-avisos{background:var(--accent)}
+  .ha-avisos .ha-k{color:#fff}
+  .ha-avisos .ha-s{color:rgba(255,255,255,.82)}
+  .ha-avisos::after{background:#fff}
+  @media(hover:hover){.ha-avisos:hover{background:var(--accent-dark)}}
+  .ha-avisos:active{background:var(--accent-dark)}
+
+  html[data-theme="dark"] .ha-tema .hb-luna{transform:rotate(-180deg)}
+  @media(prefers-reduced-motion:reduce){.ha-btn,.ha-btn::after{transition-duration:.01ms}}
+
+  /* ── lo propio de esta página, con el lenguaje del sitio ────────── */
+  .ts-libro{opacity:.9}
+
+
+  /* la página del libro no tiene hero claro debajo: el encabezado va
+     siempre en su estado sólido */
+  .site-header{position:sticky}
+
+  .icon-btn{
+    display:flex;align-items:center;gap:8px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.18);
+    color:var(--header-text);
+    border-radius:999px;
+    padding:9px 18px;
+    /* Montserrat 800 con tracking abierto: es la firma de los botones del
+       sitio principal. Sin esto, dos botones idénticos en función se leían
+       como de dos marcas distintas. */
+    font-family:'Montserrat',sans-serif;
+    font-weight:800;
+    letter-spacing:.03em;
+    font-size:clamp(10.5px,.9vw,12px);
+    cursor:pointer;
+    transition:background .3s cubic-bezier(.22,1,.36,1),transform .3s cubic-bezier(.22,1,.36,1);
+    white-space:nowrap;
+  }
+  .icon-btn:hover{transform:translateY(-2px)}
+  .icon-btn:hover{background:rgba(255,255,255,.18);}
+  .btn-contact{
+    background:var(--accent);
+    border-color:var(--accent);
+  }
+  .btn-contact:hover{background:var(--accent-dark);}
+  /* "Leer ahora" pasa a contorno y "Quiero ImpulSOS" se queda llena.
+     Dos botones del mismo color compiten y no gana ninguno: la vista no
+     sabe cuál es el paso siguiente. */
+  .btn-read{
+    background:transparent;
+    border-color:rgba(255,255,255,.34);
+  }
+  @media(hover:hover){
+    .btn-read:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.55)}
+  }
+  .icon-btn:active{transform:scale(.95)}
+  .btn-contact{box-shadow:0 8px 20px -8px rgba(193,89,47,.95)}
+  .header-controls{flex:none}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    width:100%;
+    aspect-ratio:1672/941;
+    flex-shrink:0;
+    overflow:hidden;
+    background-color:#5a3417;
+    background-image:url('assets/hero_full.jpg');
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
+  }
+
+  /* ---------- MAIN ---------- */
+  main.content{
+    height:calc(44vh + 8cm);
+    min-height:calc(340px + 8cm);
+    flex-shrink:0;
+    display:flex;
+    background:var(--stage-bg);
+  }
+
+  /* left author column */
+  .col-author{
+    width:15%;
+    border-right:1px solid var(--panel-border);
+    padding:clamp(10px,1.6vw,20px);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:10px;
+    overflow:auto;
+  }
+  .author-cover{
+    width:82%;
+    aspect-ratio:1632/2600;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:var(--page-shadow);
+    border:3px solid var(--panel-bg);
+    outline:1px solid var(--panel-border);
+  }
+  .author-cover img{width:100%;height:100%;object-fit:cover;display:block;}
+  .author-label{
+    font-size:clamp(9px,.85vw,11px);
+    color:var(--text-soft);
+    letter-spacing:.03em;
+  }
+  .author-name{
+    font-size:clamp(12px,1.15vw,16px);
+    font-weight:700;
+    letter-spacing:.06em;
+    color:var(--text-main);
+  }
+  .author-sub{
+    font-size:clamp(9px,.8vw,11px);
+    color:var(--text-soft);
+    line-height:1.5;
+  }
+
+  /* =====================================================================
+     AUDIOLIBRO — Reproductor mejorado (tarjetas + reproductor completo)
+     Reemplaza el antiguo bloque .listen-box. Vive en la barra lateral
+     izquierda (.col-author), dentro de la misma columna existente:
+     no se toca el resto del layout del sitio.
+     ===================================================================== */
+  .audiobook{
+    margin-top:auto;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    background:var(--panel-bg);
+    border:1px solid var(--panel-border);
+    border-radius:16px;
+    padding:12px;
+    font-family:'Poppins',sans-serif;
+  }
+  .audiobook-header{
+    display:flex;align-items:center;gap:8px;
+    font-weight:700;
+    font-size:clamp(11px,1vw,13px);
+    color:var(--text-main);
+    letter-spacing:.03em;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--panel-border);
+  }
+  .audiobook-icon{font-size:15px;line-height:1;}
+
+  /* Lista de capítulos (tarjetas), generada dinámicamente por JS */
+  .audiobook-list{
+    list-style:none;
+    margin:0;padding:0;
+    display:flex;flex-direction:column;
+    gap:6px;
+    max-height:210px;
+    overflow-y:auto;
+  }
+  .ab-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    padding:8px 10px;
+    border-radius:10px;
+    background:var(--stage-bg);
+    border:1px solid transparent;
+    cursor:pointer;
+    position:relative;
+    transition:background .2s ease, transform .2s ease, border-color .2s ease;
+  }
+  .ab-item:hover{
+    background:var(--panel-border);
+    transform:translateX(2px);
+  }
+  .ab-item.active{
+    background:rgba(193,89,47,.14);
+    border-color:var(--accent);
+  }
+  /* Pequeña barra lateral que marca el capítulo activo */
+  .ab-item.active::before{
+    content:'';
+    position:absolute;
+    left:0; top:10%;
+    width:4px; height:80%;
+    border-radius:4px;
+    background:var(--accent);
+  }
+  .ab-item-main{display:flex;flex-direction:column;gap:2px;min-width:0;}
+  .ab-item-title{
+    font-size:clamp(10.5px,.95vw,12px);
+    color:var(--text-main);
+    font-weight:700;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .ab-item.active .ab-item-title{color:var(--accent-dark);}
+  .ab-item-duration{
+    font-size:9.5px;
+    color:var(--text-soft);
+  }
+  .ab-item-playing-icon{
+    font-size:13px;
+    color:var(--accent);
+    flex-shrink:0;
+    opacity:0;
+    transform:scale(.6);
+    transition:opacity .25s ease, transform .25s ease;
+  }
+  .ab-item.active .ab-item-playing-icon{opacity:1;transform:scale(1);}
+
+  /* =====================================================================
+     Cuadro informativo "Acceso al Audiolibro Completo"
+     Se ubica debajo del listado de capítulos. Reutiliza únicamente las
+     variables de color/tipografía ya existentes en el sitio (misma
+     identidad visual), sin afectar ningún otro bloque.
+     ===================================================================== */
+  .audiobook-info-box{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:5px;
+    padding:11px 12px;
+    border-radius:14px;
+    background:rgba(193,89,47,.07);
+    border:1px solid var(--panel-border);
+  }
+  .audiobook-info-icon{
+    font-size:17px;
+    line-height:1;
+  }
+  .audiobook-info-title{
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.02em;
+    color:var(--text-main);
+  }
+  .audiobook-info-text{
+    font-size:9.5px;
+    line-height:1.5;
+    color:var(--text-soft);
+    margin:0;
+  }
+
+  /* Aviso amigable de error de reproducción (oculto salvo que un audio falle) */
+  .ab-error-msg{
+    display:none;
+    font-size:10px;
+    line-height:1.4;
+    text-align:center;
+    color:#b3261e;
+    background:rgba(179,38,30,.08);
+    border:1px solid rgba(179,38,30,.25);
+    border-radius:8px;
+    padding:6px 8px;
+  }
+  .ab-error-msg.show{display:block;}
+
+  /* Reproductor (título actual + controles) */
+  .audiobook-player{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    padding-top:8px;
+    border-top:1px solid var(--panel-border);
+  }
+  .ab-now-playing{text-align:center;}
+  @keyframes abFadeIn{
+    from{opacity:0; transform:translateY(3px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .ab-now-playing.ab-anim{animation:abFadeIn .35s ease;}
+  .ab-track-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:clamp(11.5px,1.05vw,13.5px);
+    font-weight:700;
+    color:var(--text-main);
+    /* dos líneas antes de recortar: con nowrap se cortaba hasta el texto
+       de reposo y parecía un error de la página */
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;
+    overflow:hidden;line-height:1.3;
+  }
+  .ab-track-sub{
+    font-size:9.5px;
+    color:var(--text-soft);
+    margin-top:1px;
+  }
+
+  .ab-progress-row{
+    display:flex;align-items:center;gap:6px;min-width:0;
+  }
+  .ab-time{font-size:9px;color:var(--text-soft);min-width:30px;text-align:center;}
+  .ab-seek{flex:1 1 0;min-width:0;width:100%;accent-color:var(--accent);height:4px;cursor:pointer;}
+
+  .ab-main-controls{
+    display:flex;align-items:center;justify-content:center;gap:14px;
+  }
+  .ab-btn{
+    border:none;
+    background:none;
+    cursor:pointer;
+    color:var(--text-main);
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .15s ease, background .2s ease, color .2s ease;
+  }
+  .ab-btn-icon{
+    font-size:15px;
+    width:30px;height:30px;
+    border-radius:50%;
+  }
+  .ab-btn-icon:hover{background:var(--panel-border);transform:scale(1.08);}
+  .ab-btn-play{
+    width:42px;height:42px;
+    border-radius:50%;
+    background:var(--accent);
+    color:#fff;
+    font-size:16px;
+  }
+  .ab-btn-play:hover{background:var(--accent-dark);transform:scale(1.06);}
+
+  .ab-secondary-controls{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:8px;flex-wrap:wrap;min-width:0;
+  }
+  .ab-chip{
+    width:28px;height:28px;
+    border-radius:50%;
+    font-size:13px;
+    background:var(--stage-bg);
+    border:1px solid var(--panel-border);
+    color:var(--text-soft);
+    text-decoration:none;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    transition:background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .ab-chip:hover{background:var(--panel-border);color:var(--text-main);}
+  .ab-chip.active{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#fff;
+  }
+
+  .ab-volume{display:flex;align-items:center;gap:6px;flex:1 1 0;min-width:0;}
+  .ab-vol-icon{font-size:12px;color:var(--text-soft);cursor:pointer;}
+  .ab-vol-slider{flex:1 1 0;min-width:0;width:100%;accent-color:var(--accent);height:4px;cursor:pointer;}
+
+  .ab-speed{
+    font-family:inherit;
+    font-size:10.5px;
+    border:1px solid var(--panel-border);
+    border-radius:8px;
+    background:var(--stage-bg);
+    color:var(--text-main);
+    padding:3px 4px;
+    cursor:pointer;
+  }
+
+  /* center reader */
+  .col-reader{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:clamp(8px,1.4vh,16px);
+    min-width:0;
+    position:relative;
+    gap:6px;
+  }
+  .zoom-row{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    font-family:'Poppins',sans-serif;
+    flex-shrink:0;
+  }
+  .zoom-controls{
+    display:flex;align-items:center;gap:6px;
+    background:var(--panel-bg);
+    border:1px solid var(--panel-border);
+    border-radius:999px;
+    padding:4px 6px;
+  }
+  .zoom-btn{
+    width:26px;height:26px;border-radius:50%;
+    border:1px solid var(--panel-border);
+    background:var(--stage-bg);
+    color:var(--text-main);
+    font-family:'Montserrat',sans-serif;
+    font-weight:700;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;
+    transition:background .15s;
+  }
+  .zoom-btn:first-child{font-size:10px;}
+  .zoom-btn:hover{background:var(--accent);color:#fff;}
+  .zoom-level{
+    font-size:10.5px;color:var(--text-soft);min-width:34px;text-align:center;
+  }
+  .zoom-label{
+    font-size:10px;color:var(--text-soft);
+  }
+
+  .book-wrap{
+    flex:1;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:0;
+    gap:clamp(6px,1.4vw,18px);
+    perspective:2400px;
+  }
+  .nav-btn{
+    width:clamp(28px,3vw,40px);
+    height:clamp(28px,3vw,40px);
+    border-radius:50%;
+    border:1px solid var(--panel-border);
+    background:var(--panel-bg);
+    color:var(--text-main);
+    cursor:pointer;
+    flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    font-size:16px;
+    transition:transform .15s, background .2s;
+  }
+  .nav-btn:hover{background:var(--accent);color:#fff;transform:scale(1.08);}
+  .nav-btn:disabled{opacity:.3;cursor:default;transform:none;background:var(--panel-bg);color:var(--text-main);}
+
+  .book-spread{
+    position:relative;
+    height:100%;
+    max-height:100%;
+    display:flex;
+    align-items:stretch;
+    justify-content:center;
+    gap:0;
+    transform:scale(var(--zoom,1));
+    transform-origin:center center;
+    transition:transform .2s ease;
+  }
+  .page-slot{
+    position:relative;
+    height:100%;
+    aspect-ratio:0.625;
+    box-shadow:var(--page-shadow);
+    background:#fff;
+  }
+  .page-slot[data-side="left"]{border-radius:3px 0 0 3px;}
+  .page-slot[data-side="right"]{border-radius:0 3px 3px 0;}
+  .spine{
+    width:10px;
+    height:100%;
+    flex-shrink:0;
+    background:linear-gradient(90deg, rgba(0,0,0,.28), rgba(0,0,0,.05) 40%, rgba(0,0,0,.05) 60%, rgba(0,0,0,.28));
+    z-index:6;
+  }
+  .page-slot .base-page{
+    position:absolute;inset:0;
+    overflow:hidden;
+    background:#fff;
+  }
+  .page-slot .base-page img{width:100%;height:100%;object-fit:cover;display:block;}
+  .page-slot .flip-page{
+    position:absolute;inset:0;
+    overflow:hidden;
+    transform-origin:left center;
+    transform-style:preserve-3d;
+    transition:transform .75s cubic-bezier(.4,.1,.2,1);
+    z-index:5;
+  }
+  .page-slot[data-side="right"] .flip-page{transform-origin:left center;}
+  .page-slot[data-side="left"] .flip-page{transform-origin:right center;}
+  .page-slot .flip-page .face{
+    position:absolute;inset:0;
+    backface-visibility:hidden;
+    background:#fff;
+  }
+  .page-slot .flip-page .face img{width:100%;height:100%;object-fit:cover;display:block;}
+  .page-slot .flip-page .face.back{transform:rotateY(180deg);}
+  .page-slot[data-side="right"] .flip-page.turning{transform:rotateY(-180deg);}
+  .page-slot[data-side="left"] .flip-page.turning{transform:rotateY(180deg);}
+  .page-slot .flip-page::after{
+    content:'';
+    position:absolute;inset:0;
+    background:linear-gradient(90deg, rgba(0,0,0,.18), transparent 12%, transparent 88%, rgba(0,0,0,.12));
+    pointer-events:none;
+  }
+  .page-click-zone{
+    position:absolute;top:0;bottom:0;width:15%;cursor:pointer;z-index:8;
+  }
+  .page-click-zone.left{left:0;}
+  .page-click-zone.right{right:0;}
+
+  .page-indicator{
+    margin-top:2px;
+    font-family:'Poppins',sans-serif;
+    font-size:clamp(10px,.9vw,12px);
+    color:var(--text-soft);
+    display:flex;align-items:center;gap:10px;
+    flex-shrink:0;
+  }
+  .page-indicator input{
+    width:46px;font-family:inherit;font-size:inherit;
+    text-align:center;border:1px solid var(--panel-border);
+    border-radius:6px;padding:2px 4px;background:var(--panel-bg);color:var(--text-main);
+  }
+
+  /* right sidebar */
+  .col-side{
+    width:16%;
+    border-left:1px solid var(--panel-border);
+    padding:clamp(10px,1.6vw,20px);
+    display:flex;flex-direction:column;gap:14px;
+    overflow:auto;
+  }
+  .side-title{
+    display:flex;align-items:center;gap:8px;
+    font-family:'Montserrat',sans-serif;
+    font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+    font-size:clamp(11px,1vw,13px);
+    color:var(--text-main);
+  }
+  .bookmark-card{
+    background:var(--panel-bg);
+    border:1px solid var(--panel-border);
+    border-radius:10px;
+    padding:10px 12px;
+    font-family:'Poppins',sans-serif;
+  }
+  .bookmark-card .cap{
+    font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-soft);
+  }
+  .bookmark-card .val{
+    font-size:clamp(12px,1.05vw,15px);color:var(--text-main);font-weight:700;margin-top:2px;
+  }
+  .progress-label{
+    font-family:'Poppins',sans-serif;
+    font-size:10px;color:var(--text-soft);
+    display:flex;justify-content:space-between;
+  }
+  .progress-track{
+    width:100%;height:7px;border-radius:999px;
+    background:var(--panel-border);overflow:hidden;margin:6px 0 4px;
+  }
+  .progress-fill{
+    height:100%;background:var(--accent);width:0%;
+    transition:width .3s ease;
+  }
+  .progress-text{font-family:'Poppins',sans-serif;font-size:9.5px;color:var(--text-soft);}
+  /* Reproductor de video "Celebración de Vida de Lorenzo Anderson":
+     reutiliza el mismo lenguaje visual del resto de la barra lateral
+     (bordes redondeados, sombra de página) sin crear variables nuevas. */
+  .side-video-player{
+    width:100%;
+    display:block;
+    border-radius:10px;
+    background:#000;
+    box-shadow:var(--page-shadow);
+  }
+  .goto-form{display:flex;gap:6px;margin-top:2px;}
+  .goto-form input{
+    width:100%;font-family:'Poppins',sans-serif;font-size:11px;
+    border:1px solid var(--panel-border);border-radius:6px;padding:5px 8px;
+    background:var(--panel-bg);color:var(--text-main);
+  }
+  .goto-form button{
+    font-family:'Poppins',sans-serif;font-size:11px;
+    border:none;border-radius:6px;background:var(--accent);color:#fff;
+    padding:5px 10px;cursor:pointer;white-space:nowrap;
+  }
+  .side-note{
+    font-family:'Poppins',sans-serif;
+    font-size:10px;line-height:1.6;color:var(--text-soft);
+    margin-top:auto;
+    border-top:1px solid var(--panel-border);
+    padding-top:10px;
+  }
+
+
+  /* ══════════════════════════════════════════════════════════════════
+     PIE DE GUATESTAR · trasplantado desde la portada
+     Mismas reglas, con una sola diferencia: el cian de la marca se
+     sustituye por el naranja del libro. Dos identidades de color en la
+     misma página se leen como dos sitios distintos, y aquí manda el
+     mundo cálido de IMPULSOS.
+     ══════════════════════════════════════════════════════════════════ */
+  .foot{
+    --sky:#c1592f;          /* era #00b4c6 */
+    --sky-deep:#9c4423;     /* era #007ea2 */
+    --sky-light:#e08a4a;
+    --sky-wash:#f6e5d4;
+    --ink:#3c2c22;
+    --paper:#fbf6ec;
+    --sand:#f2e6d2;
+    --line:#e6d9bd;
+    --muted:#7a6553;
+    --coral:#c1592f;
+  }
+.foot{background:var(--paper);border-top:1px solid var(--line);color:var(--muted);font-size:.9rem;font-weight:300;display:flow-root}
+/* En la portada este bloque sube y se monta sobre la sección anterior.
+   Aquí encima hay un carrusel de vídeos: montarse sobre él tapa los
+   controles. Así que baja en vez de subir, con aire por arriba. */
+.ft-bridge{position:relative;z-index:4;
+    margin-top:clamp(16px,2.6vw,38px);margin-bottom:clamp(34px,4vw,56px);
+    border-radius:6px;overflow:hidden;
+    padding:clamp(38px,4.6vw,64px) clamp(26px,3.4vw,52px);
+    display:flex;align-items:center;justify-content:space-between;gap:clamp(20px,3vw,44px);flex-wrap:wrap;
+    box-shadow:0 40px 80px -46px rgba(74,38,16,.55)}
+
+/* El paisaje llena exactamente la caja, ni un píxel más: va como fondo
+   del propio bloque, no como un elemento aparte que habría que medir. */
+.ft-bridge::before{
+    content:"";position:absolute;inset:0;z-index:0;
+    background:url('assets/paisaje.jpg') center 58%/cover no-repeat;
+}
+/* El naranja encima, translúcido. Dos capas y no un color plano: la de
+   abajo asegura el contraste del texto, la de arriba deja respirar la
+   montaña por la derecha, que es donde no hay letras. */
+.ft-bridge::after{
+    content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(100deg,
+      rgba(156,68,35,.94) 0%,
+      rgba(193,89,47,.88) 46%,
+      rgba(193,89,47,.72) 100%);
+}
+.ft-bridge>*{position:relative;z-index:2}
+.ft-bridge p{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(1.02rem,1.7vw,1.45rem);
+    line-height:1.32;letter-spacing:.015em;color:#fff;text-transform:uppercase;max-width:34ch;
+    text-shadow:0 2px 18px rgba(60,22,6,.45)}
+.ft-bridge .btn{flex:none}
+@media(max-width:700px){
+.ft-bridge{justify-content:center;text-align:center;border-radius:0}
+}
+.ft-main{display:grid;grid-template-columns:1.4fr .92fr .88fr 1.05fr;gap:clamp(24px,3vw,50px);
+    padding-top:0;padding-bottom:clamp(38px,4.4vw,60px)}
+.ft-logo{height:clamp(46px,4.6vw,60px);width:auto;margin-bottom:18px}
+.ft-brand p{max-width:40ch;line-height:1.72}
+.ft-social{display:flex;gap:9px;margin-top:22px}
+.ft-social a{width:38px;height:38px;border-radius:12px;background:var(--sand);color:var(--sky-deep);
+    display:flex;align-items:center;justify-content:center;
+    transition:background .3s var(--ease),color .3s var(--ease),transform .3s var(--ease)}
+.ft-social svg{width:17px;height:17px}
+.ft-social a:hover{background:var(--sky);color:#fff;transform:translateY(-2px)}
+.ft-col h4{font-family:'Montserrat',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink);margin-bottom:18px;
+    padding-bottom:12px;border-bottom:1px solid var(--line)}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.ft-col li a{position:relative;display:inline-block;transition:color .25s var(--ease)}
+.ft-col li a::after{content:"";position:absolute;left:0;right:100%;bottom:-3px;height:1px;
+    background:var(--sky);transition:right .38s var(--ease)}
+.ft-col li a:hover{color:var(--sky-deep)}
+.ft-col li a:hover::after{right:0}
+.ft-reg{margin-top:20px;font-size:.78rem;line-height:1.6;color:#a2907c;max-width:26ch}
+.foot address{font-style:normal;display:flex;flex-direction:column;gap:16px}
+.ft-place{display:flex;gap:10px;align-items:flex-start;font-size:.86rem;line-height:1.6}
+.ft-place>svg{flex:none;width:15px;height:15px;margin-top:4px;color:var(--sky)}
+.ft-place b{display:block;font-family:'Montserrat',sans-serif;font-weight:800;font-size:.68rem;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:4px}
+.ft-write{display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-family:'Montserrat',sans-serif;
+    font-weight:800;font-size:.78rem;letter-spacing:.02em;color:var(--sky-deep)}
+.ft-write span{transition:transform .3s var(--ease)}
+.ft-write:hover span{transform:translateX(3px)}
+.ft-alloc p{margin-top:16px;font-size:.86rem;line-height:1.68;max-width:32ch}
+.ft-checks{list-style:none;margin-top:22px;display:flex;flex-direction:column;gap:11px}
+.ft-checks li{position:relative;padding-left:24px;font-size:.8rem;line-height:1.55}
+.ft-checks li::before{content:"";position:absolute;left:0;top:2px;width:15px;height:15px;border-radius:999px;
+    background:var(--sky-wash) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23007ea2' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/9px no-repeat}
+.ft-btm{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) auto;align-items:start;
+    gap:clamp(18px,2.6vw,44px);padding-top:22px;padding-bottom:26px;border-top:1px solid var(--line);
+    font-size:.78rem;color:#a2907c}
+.ft-cr{text-align:left;line-height:1.6;max-width:62ch}
+.ft-legal{text-align:right;line-height:1.6}
+.ft-top{align-self:center;width:40px;height:40px;border-radius:999px;border:1.5px solid var(--line);
+    background:var(--paper);color:var(--sky-deep);cursor:pointer;display:flex;align-items:center;
+    justify-content:center;transition:background .3s var(--ease),color .3s var(--ease),
+    transform .3s var(--ease),border-color .3s var(--ease)}
+.ft-top svg{width:16px;height:16px}
+.ft-top:hover{background:var(--sky);border-color:var(--sky);color:#fff;transform:translateY(-3px)}
+@media(max-width:1040px){
+.ft-main{grid-template-columns:1fr 1fr;gap:38px}
+}
+@media(max-width:860px){
+.ft-btm{grid-template-columns:1fr auto}
+.ft-legal{grid-column:1;text-align:left}
+.ft-top{grid-row:1;grid-column:2}
+}
+@media(max-width:600px){
+.ft-main{grid-template-columns:1fr;gap:34px}
+}
+.ft-col ul li{margin:0}
+.ft-reg{margin-top:18px;font-size:.78rem;line-height:1.6;color:#a2907c}
+.ft-legal{max-width:62ch;text-align:right;line-height:1.6}
+@media(max-width:760px){
+.ft-legal{text-align:left}
+}
+@media(max-width:700px){
+.ft-main{grid-template-columns:1fr;gap:0;text-align:center}
+.ft-brand{display:contents}
+.ft-brand .ft-logo{order:1;height:clamp(92px,20vw,120px);
+      margin:0 auto 16px}
+.ft-brand p{order:1;max-width:46ch;margin:0 auto}
+.ft-col{order:2;margin-top:clamp(30px,8vw,42px)}
+.ft-alloc{order:3}
+.ft-social{order:5;justify-content:center;margin-top:clamp(28px,7vw,38px)}
+.ft-col h4{margin-bottom:14px}
+.foot address{flex-direction:row;justify-content:center;
+      align-items:flex-start;gap:clamp(14px,4vw,26px)}
+.ft-place{flex:1 1 0;max-width:190px;flex-direction:column;
+      align-items:center;text-align:center;gap:7px;font-size:.8rem}
+.ft-place>svg{margin-top:0}
+.ft-write{justify-content:center}
+.ft-col ul:not(.ft-checks){flex-direction:row;flex-wrap:wrap;
+      justify-content:center;gap:10px 18px}
+.ft-col ul:not(.ft-checks) a{white-space:nowrap}
+.ft-reg{max-width:38ch;margin-left:auto;margin-right:auto}
+.ft-checks{max-width:34ch;margin-left:auto;margin-right:auto;text-align:left}
+.ft-btm{grid-template-columns:1fr;justify-items:center;text-align:center;
+      gap:16px;padding-top:26px}
+.ft-cr,.ft-legal{text-align:center;grid-column:1;max-width:52ch}
+.ft-top{order:-1;grid-row:auto;grid-column:1}
+}
+
+  /* el pie usa las tipografías del sitio, que esta página ya carga */
+  .foot,.foot input,.foot button{font-family:'Poppins',sans-serif}
+  .foot a{text-decoration:none}
+
+  /* ---------- CONTACT MODAL ---------- */
+  .modal-overlay{
+    /* fixed, no absolute. Cuando .stage tenía su propio scroll, absolute
+       centraba dentro de esa caja. Al quitarle el scroll, inset:0 pasó a
+       cubrir el documento entero y la ventana se centraba respecto a toda
+       la página: por eso aparecía muy por debajo del punto de lectura.
+       Con fixed se centra siempre en la pantalla. */
+    position:fixed;inset:0;
+    overflow-y:auto;
+    background:rgba(15,10,5,.55);
+    display:none;
+    align-items:center;justify-content:center;
+    z-index:50;
+    padding:20px;
+  }
+  .modal-overlay.open{display:flex;}
+  .bubble{
+    background:var(--stage-bg);
+    color:var(--text-main);
+    width:min(420px,92%);
+    border-radius:18px;
+    padding:22px 24px 20px;
+    box-shadow:0 24px 60px rgba(0,0,0,.4);
+    position:relative;
+    font-family:'Poppins',sans-serif;
+    transform:scale(.92);
+    opacity:0;
+    transition:transform .25s ease, opacity .25s ease;
+  }
+  .modal-overlay.open .bubble{transform:scale(1);opacity:1;}
+  .bubble::after{
+    content:'';position:absolute;top:-9px;right:38px;
+    width:18px;height:18px;background:var(--stage-bg);
+    transform:rotate(45deg);border-radius:3px;
+  }
+  .bubble h2{
+    margin:0 0 4px;font-family:'Montserrat',sans-serif;font-size:19px;color:var(--text-main);
+  }
+  .bubble .sub{font-size:11.5px;color:var(--text-soft);margin-bottom:14px;}
+  .bubble .close-x{
+    position:absolute;top:12px;right:14px;background:none;border:none;
+    font-size:18px;color:var(--text-soft);cursor:pointer;line-height:1;
+  }
+  .field{margin-bottom:10px;display:flex;flex-direction:column;gap:4px;}
+  .field label{font-size:10.5px;color:var(--text-soft);font-weight:700;letter-spacing:.02em;}
+  .field input,.field textarea{
+    font-family:inherit;font-size:12.5px;
+    border:1px solid var(--panel-border);border-radius:8px;
+    padding:8px 10px;background:var(--panel-bg);color:var(--text-main);
+    resize:none;
+  }
+  .field textarea{min-height:58px;}
+
+  /* Casillas "Quiero recibir más información" / "Quiero unirme a ImpulSOS" */
+  .field-checkbox{
+    flex-direction:row;
+    align-items:flex-start;
+    margin-bottom:8px;
+  }
+  .checkbox-label{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12px;
+    color:var(--text-main);
+    cursor:pointer;
+    line-height:1.4;
+  }
+  .checkbox-label input[type="checkbox"]{
+    width:16px;height:16px;
+    flex-shrink:0;
+    accent-color:var(--accent);
+    cursor:pointer;
+  }
+  .submit-btn{
+    width:100%;padding:10px;border:none;border-radius:9px;
+    background:var(--accent);color:#fff;font-size:13px;font-weight:700;
+    cursor:pointer;margin-top:4px;
+  }
+  .submit-btn:hover{background:var(--accent-dark);}
+  .form-msg{font-size:11.5px;margin-top:8px;text-align:center;min-height:14px;}
+  .form-msg.ok{color:#2e7d32;}
+  .form-msg.err{color:#b3261e;}
+  .hp{display:none;}
+
+  /* =====================================================================
+     INICIO — INTEGRACIÓN FORMULARIO JOTFORM
+     ("Sí, quiero recibir ImpulSOS")
+     Estas reglas son exclusivas de la burbuja de contacto (.bubble) y no
+     afectan ninguna otra sección del sitio: .bubble solo se usa aquí.
+     - .bubble-jotform amplía un poco el ancho de la burbuja para que el
+       formulario de Jotform se vea cómodo en pantallas grandes, sin
+       tocar el resto del diseño (colores, tipografías, radios, etc.).
+     - .jotform-embed-wrap recorta el iframe con esquinas redondeadas
+       (mismo criterio visual que el resto del sitio) y evita cualquier
+       barra de desplazamiento horizontal.
+     ===================================================================== */
+  .bubble.bubble-jotform{
+    width:min(760px, 94vw);
+  }
+  .jotform-embed-wrap{
+    width:100%;
+    max-width:100%;
+    overflow:hidden;       /* sin scroll horizontal */
+    border-radius:14px;    /* esquinas redondeadas, igual criterio que .bubble (18px) y .field input (8px) */
+    border:1px solid var(--panel-border);
+    background:var(--panel-bg);
+  }
+  .jotform-embed-wrap iframe{
+    display:block;
+    width:100%;
+    min-width:100%;
+    border:none;
+  }
+  /* ===================== FIN — INTEGRACIÓN FORMULARIO JOTFORM ===================== */
+
+  ::selection{background:var(--accent);color:#fff;}
+
+  /* =====================================================================
+     RESPONSIVE MÓVIL Y TABLET (≤1024px)
+     ---------------------------------------------------------------------
+     Todas las reglas de este bloque aplican en pantallas de 1024px de
+     ancho o menos: teléfonos (iPhone/Android) y tablets en orientación
+     vertical (iPad, iPad Pro, tablets Android), donde tres columnas
+     lado a lado ya no caben cómodamente. En pantallas más anchas
+     (laptops, escritorio, tablets en horizontal) ninguna de estas
+     reglas se activa, así que la experiencia de escritorio (visor de
+     doble página, animación de cambio de página, audiolibro, panel
+     derecho, video, formulario, modo oscuro) queda exactamente igual
+     que antes: nada de lo anterior se modificó.
+
+     Se eligió un único breakpoint consolidado (1024px) en vez de reglas
+     repetidas en 992/768/576/480/390/375/320px porque casi todos los
+     tamaños (fuentes, paddings, botones) ya usan clamp()/vw/% en el CSS
+     base de arriba: escalan de forma continua y fluida dentro de este
+     mismo bloque, sin necesidad de duplicar reglas por cada ancho.
+
+     No se oculta ninguna sección: en vez de "display:none" se usa
+     "flex-direction:column" en .content más la propiedad CSS "order"
+     para reordenar verticalmente las mismas columnas ya existentes:
+
+         PORTADA (.hero) -> LIBRO (.col-reader, una sola página) ->
+         AUDIOLIBRO (dentro de .col-author) -> PANEL DERECHO (.col-side)
+         -> MOMENTOS HISTÓRICOS (sin cambios, ya va después de .content)
+
+     El visor de una sola página reutiliza el mismo arreglo de imágenes
+     y el mismo elemento <img> del "lado izquierdo" (imgFrontL/imgUnderL/
+     imgBackL/flipPageL); solo se oculta el lado derecho y la lomera
+     (.spine) por CSS. La lógica de qué imagen mostrar sigue viviendo en
+     el mismo script de abajo (ver "isMobile", que usa este mismo 1024px
+     como umbral).
+     ===================================================================== */
+  @media (max-width:1024px){
+    /* Corrige un bug conocido de Flexbox (Chrome/Safari/Firefox): cuando
+       un elemento centrado verticalmente ("align-items:center" en el
+       body) es más alto que la pantalla, el navegador recorta la parte
+       de arriba y de abajo por igual, y esa parte no se puede alcanzar
+       con scroll. Antes esto nunca pasaba porque .stage tenía un límite
+       de altura (max-height:97vh) en escritorio. En móvil ese límite se
+       quita para que el libro de una sola página se vea completo, así
+       que .stage puede volverse más alto que la pantalla; por eso aquí
+       se alinea .stage arriba en vez de centrarlo, para que la página
+       crezca hacia abajo y el scroll vertical funcione con normalidad
+       (encabezado, libro, audiolibro, panel y momentos históricos
+       siempre alcanzables). No cambia ningún estilo visual, solo la
+       posición vertical del contenedor. */
+    body{
+      align-items:flex-start;
+      padding:6px;
+    }
+    .stage{
+      width:100%;
+      max-width:100%;
+      max-height:none;
+      border-radius:10px;
+    }
+
+    /* .content pasa de fila a columna: las mismas tres columnas de
+       siempre (.col-author, .col-reader, .col-side) se apilan una
+       debajo de otra, reordenadas con "order" para que el libro
+       aparezca primero. Ninguna se oculta. */
+    main.content{
+      flex-direction:column;
+      height:auto;
+      min-height:0;
+    }
+    .col-reader{
+      order:1;
+      width:100%;
+      padding:10px 8px;
+    }
+    /* Libro → marcadores → audiolibro. Los marcadores son las
+       herramientas del propio libro (tamaño de letra, progreso, ir a
+       página): tienen que quedar al alcance de la mano nada más
+       terminar de leer, no al final de la página. El audiolibro es una
+       alternativa a la lectura, así que va después. */
+    .col-side{
+      order:2;
+      width:100%;
+      border-left:none;
+      border-top:1px solid var(--panel-border);
+    }
+    .col-author{
+      order:3;
+      width:100%;
+      border-right:none;
+      border-top:1px solid var(--panel-border);
+    }
+
+    /* Visor del libro: una sola página, ancho completo, sin scroll
+       horizontal. Se oculta la lomera y la página derecha; la página
+       izquierda (misma imagen/lógica de siempre) ocupa todo el ancho
+       disponible entre las flechas de navegación. */
+    .book-wrap{
+      flex:none;
+      width:100%;
+      max-width:100%;
+      perspective:1400px;
+    }
+    .book-spread{
+      width:100%;
+      max-width:100%;
+      height:auto;
+    }
+    .spine{display:none;}
+    .page-slot[data-side="right"]{display:none;}
+    .page-slot[data-side="left"]{
+      flex:1 1 auto;
+      min-width:0;
+      width:auto;
+      height:auto;
+      aspect-ratio:0.625;
+      border-radius:8px;
+    }
+    .page-indicator{
+      flex-wrap:wrap;
+      justify-content:center;
+      text-align:center;
+    }
+
+    /* Hero: ya es 100% ancho/aspect-ratio-based, solo se asegura que no
+       tenga ningún ancho fijo heredado. */
+    .hero{
+      width:100%;
+      max-width:100%;
+    }
+
+    /* Momentos Históricos: se deja el mismo carrusel (no se toca su
+       propio CSS/JS), solo se garantiza que no exceda el ancho. */
+    .historic-moments{
+      width:100%;
+      max-width:100%;
+      overflow:hidden;
+    }
+
+    /* Servicio en Honor a Lorenzo Anderson: mismo criterio anti-scroll
+       horizontal que el resto de las secciones nuevas. */
+    .tribute-service{
+      width:100%;
+      max-width:100%;
+      overflow:hidden;
+    }
+  }
+
+  /* =====================================================================
+     SERVICIO EN HONOR A LORENZO ANDERSON — video incrustado de Google
+     Drive. Sección nueva, ubicada entre el libro y "Momentos Históricos".
+     Es un iframe del propio reproductor de Google Drive: los controles
+     de reproducción los administra Drive, no este sitio.
+     ===================================================================== */
+  .tribute-service{
+    flex-shrink:0;
+    padding:clamp(22px,3.4vh,40px) clamp(10px,2.4vw,32px) clamp(20px,2.8vh,32px);
+    background:var(--stage-bg);
+    border-top:1px solid var(--panel-border);
+  }
+  .tribute-video-wrap{
+    position:relative;
+    width:min(900px,100%);
+    margin:0 auto;
+    aspect-ratio:16/9;
+    border-radius:16px;
+    overflow:hidden;
+    background:#000;
+    box-shadow:none;
+  }
+  .tribute-video-wrap iframe{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    border:none;
+  }
+
+  /* =====================================================================
+     MOMENTOS HISTÓRICOS — Carrusel de videos (Swiper.js)
+     Bloque aislado: no reutiliza ni modifica ninguna regla existente
+     arriba, solo se agrega debajo de la sección de lectura.
+     SIN autoplay: el usuario navega manualmente (flechas, paginación o
+     arrastrando). Únicamente el video que queda CENTRADO se muestra más
+     grande y es interactivo (reproducir, pausar, pantalla completa,
+     subir/bajar/silenciar volumen) mediante sus controles nativos; los
+     videos laterales son solo vista previa, sin controles ni clics.
+     ===================================================================== */
+  .historic-moments{
+    flex-shrink:0;
+    padding:clamp(22px,3.4vh,40px) clamp(10px,2.4vw,32px) clamp(30px,4.2vh,48px);
+    background:var(--stage-bg);
+    border-top:1px solid var(--panel-border);
+    overflow:hidden;
+  }
+  .historic-moments .hm-title,
+  .tribute-service .hm-title{
+    text-align:center;
+    font-family:'Montserrat',sans-serif;
+    /* titulares del sitio principal: peso 900 y tracking NEGATIVO. El
+       positivo de antes los hacía parecer subtítulos. */
+    font-weight:900;
+    font-size:clamp(19px,2.3vw,29px);
+    letter-spacing:-.025em;
+    color:var(--text-main);
+    margin:0 0 clamp(16px,2.6vh,28px);
+  }
+
+  /* Contenedor Swiper: fondo transparente, altura fija para que las
+     diapositivas (video 16:9) y la paginación tengan espacio consistente. */
+  .historic-swiper{
+    width:100%;
+    background:transparent;
+    padding:10px 4px 46px; /* deja hueco abajo para los bullets de paginación */
+  }
+  .historic-swiper .swiper-slide{
+    width:clamp(190px,26vw,340px);
+    aspect-ratio:16/9;
+    background:transparent;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  /* Marco de cada video: bordes redondeados de 20px y sombra moderna. */
+  .historic-swiper .hm-video-frame{
+    width:100%;
+    height:100%;
+    border-radius:20px;
+    overflow:hidden;
+    background:#000;
+    /* sin sombra: sobre un fondo claro se leía como una mancha gris bajo
+       cada vídeo, y con las diapositivas superpuestas se acumulaba */
+    box-shadow:none;
+    transition:transform .4s ease;
+  }
+  /* Swiper marca automáticamente la diapositiva centrada con esta clase:
+     solo esa diapositiva se agranda (video central más grande). */
+  .historic-swiper .swiper-slide-active .hm-video-frame{
+    transform:scale(1.22);
+    box-shadow:none;
+  }
+  .historic-swiper video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    background:#000;
+    pointer-events:none; /* por defecto los videos laterales no son interactivos */
+  }
+  /* Solo el video central (activo) admite clics: reproducir, pausar,
+     pantalla completa y control de volumen mediante sus controles nativos. */
+  .historic-swiper .swiper-slide-active video{
+    pointer-events:auto;
+  }
+
+  /* Flechas de navegación */
+  .historic-swiper .swiper-button-next,
+  .historic-swiper .swiper-button-prev{
+    width:clamp(34px,3.6vw,46px);
+    height:clamp(34px,3.6vw,46px);
+    background:rgba(28,27,34,.55);
+    border-radius:50%;
+    color:#f4ead9;
+    --swiper-navigation-size:16px;
+    transition:background .2s, transform .2s;
+  }
+  .historic-swiper .swiper-button-next:hover,
+  .historic-swiper .swiper-button-prev:hover{
+    background:var(--accent);
+    transform:scale(1.06);
+  }
+  .historic-swiper .swiper-button-next:after,
+  .historic-swiper .swiper-button-prev:after{
+    font-size:15px;
+    font-weight:700;
+  }
+
+  /* Paginación inferior */
+  .historic-swiper .swiper-pagination-bullet{
+    background:var(--text-soft);
+    opacity:.45;
+    width:8px;height:8px;
+  }
+  .historic-swiper .swiper-pagination-bullet-active{
+    background:var(--accent);
+    opacity:1;
+  }
+
+  @media (max-width:760px){
+    .historic-swiper .swiper-button-next,
+    .historic-swiper .swiper-button-prev{display:none;}
+  }
+
+  /* ══════════════════════════════════════════════════════════════════
+     CABECERA EN MÓVIL · páginas interiores
+     La portada tiene una foto a pantalla completa detrás: por eso allí
+     la cabecera flota, centra el logo y reparte todo en dos filas. Aquí
+     no hay hero claro debajo — hay una franja de accesos y luego el
+     libro — así que esa forma no tiene contra qué destacar y solo roba
+     115px de alto antes de que empiece el contenido.
+
+     Estas páginas usan siempre la forma compacta: la misma a la que
+     llega la portada en cuanto haces scroll. Logo a la izquierda,
+     acción y menú a la derecha, en una sola fila y en flujo normal.
+     Va al final de la hoja a propósito: tiene que ganar a las reglas
+     copiadas de la portada, que están más arriba.
+     ══════════════════════════════════════════════════════════════════ */
+  @media(max-width:940px){
+    .site-header{
+      position:sticky;top:0;
+      background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none;
+      border-bottom:1px solid var(--line);
+      margin-bottom:0;transform:none;
+    }
+    .hd{
+      flex-direction:row;justify-content:space-between;align-items:center;
+      height:var(--hd-s);gap:12px;padding:0;
+    }
+    .hd .logo{order:0;padding-left:0}
+    .hd .logo img{height:38px}
+    /* el logo oscuro siempre: el fondo ya no es una foto */
+    .hd .logo .lg-dark{display:block}
+    .hd .logo .lg-light{display:none}
+    .hd .acciones{order:0;display:flex;align-items:center;gap:8px}
+    .hd .acciones .btn{height:36px;padding:0 16px;font-size:.74rem}
+    .burger{width:38px;height:38px;color:var(--ink)}
+    .nav-wrap{top:var(--hd-s)}
+    /* el desplazamiento ya no puede cambiarle la forma */
+    body.hd-stuck .site-header{margin-bottom:0}
+    body.hd-stuck .hd{height:var(--hd-s)}
+  }
+
+
+  /* ══════════════════════════════════════════════════════════════════
+     AJUSTES DE MÓVIL · página del libro
+     ══════════════════════════════════════════════════════════════════ */
+  @media(max-width:820px){
+
+    /* ── la franja superior ────────────────────────────────────────
+       Tres líneas de aviso a tamaño de párrafo pesaban más que el
+       propio encabezado. Es letra pequeña: debe leerse como tal. */
+    .topstrip .wrap{padding-top:7px;padding-bottom:7px;gap:8px}
+    .ts-a{font-size:.66rem;line-height:1.35}
+    .ts-a svg{width:12px;height:12px}
+    .ts-idioma{font-size:.64rem;line-height:1.35;max-width:none}
+    .ts-idioma svg{width:12px;height:12px}
+
+    /* ── los accesos del libro ─────────────────────────────────────
+       Seis celdas iguales en una rejilla que se parte sola: en móvil
+       salían tres filas de dos, todas con el mismo peso, ninguna
+       diciendo cuál es la acción. Ahora se ordena por lo que es cada
+       cosa: la acción arriba y a todo el ancho, los cuatro destinos
+       en dos columnas, y la preferencia de lectura al final. */
+    .hero-acc{
+      display:grid;grid-template-columns:1fr 1fr;
+      gap:8px;padding:14px clamp(14px,4vw,20px) 16px;
+      background:var(--panel-bg);border-bottom:1px solid var(--panel-border);
+    }
+    .ha-btn{
+      border:1px solid var(--panel-border);border-radius:12px;
+      padding:12px 13px;background:var(--stage-bg);
+      gap:2px;
+    }
+    .ha-btn::after{display:none}
+    .ha-k{font-size:.66rem;letter-spacing:.12em}
+    .ha-s{font-size:.66rem;line-height:1.4}
+
+    /* la acción, primero y entera */
+    .ha-avisos{
+      grid-column:1 / -1;order:-1;
+      background:var(--accent);border-color:var(--accent);
+    }
+    .ha-avisos .ha-k{color:#fff}
+    .ha-avisos .ha-s{color:rgba(255,255,255,.85)}
+    /* la preferencia, al final y en una sola línea */
+    .ha-tema{grid-column:1 / -1;order:1;flex-direction:row;align-items:center;
+      justify-content:space-between;gap:10px;background:transparent;
+      border-style:dashed}
+    .ha-tema .ha-s{margin:0}
+
+    /* ── la portada suelta ─────────────────────────────────────────
+       La imagen de la portada ya está a pantalla completa en el hero y
+       otra vez en la primera página del libro. Una tercera copia, sin
+       nada que hacer, solo aleja el contenido. */
+    .author-cover{display:none}
+    .col-author{padding-top:clamp(14px,4vw,20px)}
+  }
+
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+<div class="topstrip">
+  <div class="wrap">
+    <span class="ts-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 1 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>Totonicapán, Guatemala</span>
+    <span class="ts-b">Acompañando a la niñez del altiplano desde 1952</span>
+    <span class="ts-idioma">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18z"/></svg>
+      This book is available in Spanish only. The videos include English subtitles.
+    </span>
+  </div>
+</div>
+
+<div class="nav-scrim" id="navScrim" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="wrap hd">
+    <a class="logo" href="../index.html" aria-label="GuateStar — inicio"><img class="lg-dark" src="../logo-dark.png" alt="GuateStar"><img class="lg-light" src="../logo-light.png" alt="" aria-hidden="true"></a>
+
+
+
+    <div class="nav-wrap"><ul class="mainnav" id="mainnav">
+      <li><a class="navlink" href="../es/quienes-somos/index.html#desafio"><i>01</i>Propósito</a></li>
+      <li class="has-drop">
+        <button class="navlink"><i>02</i>Programas
+          <svg class="cv" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg>
+        </button>
+        <ul class="drop">
+          <li><a href="../es/programas/index.html"><b>Club Extra</b><span>Próximamente</span></a></li>
+          <li><a href="../es/programas/index.html"><b>Mentoría</b><span>Próximamente</span></a></li>
+          <li><a href="../es/programas/index.html"><b>Pathway</b><span>Próximamente</span></a></li>
+          <li><a href="../es/programas/index.html"><b>Familia y comunidad</b><span>Próximamente</span></a></li>
+        </ul>
+      </li>
+      <li class="has-drop">
+        <button class="navlink" aria-expanded="false"><i>03</i>Nuestra historia
+          <svg class="cv" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg>
+        </button>
+        <ul class="drop">
+          <li><a href="index.html"><b>IMPULSOS</b><span>Siguiendo las señales de Dios</span></a></li>
+        </ul>
+      </li>
+      <li><a class="navlink" href="../es/sumate/index.html"><i>04</i>Súmate</a></li>
+      <li class="mob-cta"><a class="btn btn-sky" href="../es/sumate/index.html">Donar</a></li>
+      <li class="nav-foot">
+        <span class="nf-t">Síguenos</span>
+        <div class="nav-social">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.25-1.5 1.55-1.5h1.65V4.63c-.29-.04-1.27-.13-2.41-.13-2.39 0-4.02 1.46-4.02 4.13v2.27H7.5V14h2.77v8h3.23z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 7.4a4.6 4.6 0 1 0 0 9.2 4.6 4.6 0 0 0 0-9.2zm0 7.6a3 3 0 1 1 0-6 3 3 0 0 1 0 6zM17 6.3a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2zM12 3.6c2.7 0 3 0 4.1.06 1 .05 1.5.2 1.9.35.5.18.8.4 1.2.8.4.4.62.7.8 1.2.15.4.3.9.35 1.9.05 1.1.06 1.4.06 4.1s0 3-.06 4.1c-.05 1-.2 1.5-.35 1.9-.18.5-.4.8-.8 1.2-.4.4-.7.62-1.2.8-.4.15-.9.3-1.9.35-1.1.05-1.4.06-4.1.06s-3 0-4.1-.06c-1-.05-1.5-.2-1.9-.35-.5-.18-.8-.4-1.2-.8-.4-.4-.62-.7-.8-1.2-.15-.4-.3-.9-.35-1.9C3.6 15 3.6 14.7 3.6 12s0-3 .06-4.1c.05-1 .2-1.5.35-1.9.18-.5.4-.8.8-1.2.4-.4.7-.62 1.2-.8.4-.15.9-.3 1.9-.35C9 3.6 9.3 3.6 12 3.6z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2s-.2-1.4-.8-2c-.75-.8-1.6-.8-2-.85C16 4.2 12 4.2 12 4.2h-.01s-4 0-6.8.2c-.4.05-1.25.05-2 .85-.6.6-.8 2-.8 2S2.2 8.8 2.2 10.5v1.6c0 1.6.2 3.3.2 3.3s.2 1.4.8 2c.75.8 1.75.77 2.2.86 1.6.15 6.8.2 6.8.2s4 0 6.8-.21c.4-.05 1.25-.05 2-.85.6-.6.8-2 .8-2s.2-1.65.2-3.3v-1.6c0-1.65-.2-3.3-.2-3.3zM10.1 14.2V8.9l5.15 2.66-5.15 2.64z"/></svg></a>
+        </div>
+      </li>
+    </ul></div>
+
+    <div class="acciones">
+      <a class="btn btn-sky" href="../es/sumate/index.html">Donar</a>
+      <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainnav"><span class="bl" aria-hidden="true"><span></span><span></span><span></span></span></button>
+    </div>
+  </div>
+</header>
+
+<button id="headerReadBtn" type="button" hidden aria-hidden="true"></button>
+
+  <section class="hero" role="img" aria-label="IMPULSOS - Siguiendo las señales de Dios para dejar un legado duradero - Una autobiografía devocional por Lorenzo Anderson"></section>
+
+  <!-- Los accesos del libro, que antes ocupaban la entrada 03 del menú.
+       Aquí abajo cumplen mejor: el menú es del sitio y estas cuatro son
+       secciones de esta página, no del sitio. -->
+  <nav class="hero-acc" aria-label="Secciones de IMPULSOS">
+    <a class="ha-btn" href="#libro" data-ir>
+      <span class="ha-k">Leer el libro</span><span class="ha-s">154 páginas</span>
+    </a>
+    <a class="ha-btn" href="#audiobook" data-ir>
+      <span class="ha-k">Audiolibro</span><span class="ha-s">Escúchalo narrado</span>
+    </a>
+    <a class="ha-btn" href="#celebracion" data-ir>
+      <span class="ha-k">Celebración de vida</span><span class="ha-s">Lorenzo Anderson</span>
+    </a>
+    <a class="ha-btn" href="#momentos" data-ir>
+      <span class="ha-k">Momentos históricos</span><span class="ha-s">Ocho vídeos</span>
+    </a>
+    <button class="ha-btn ha-tema" id="themeToggle" type="button">
+      <span class="ha-k">
+        <svg class="hb-luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20.5 14.4A8.6 8.6 0 1 1 9.6 3.5a6.8 6.8 0 0 0 10.9 10.9z"/>
+        </svg>
+        <span id="themeIcon" hidden></span><span id="themeLabel">Noche</span>
+      </span>
+      <span class="ha-s">Modo de lectura</span>
+    </button>
+    <!-- Abre el mismo formulario de siempre: conserva id="openContact",
+         que es al que se engancha el guion del modal. Va al final por ser
+         la única acción de la fila. -->
+    <button class="ha-btn ha-avisos" id="openContact" type="button">
+      <span class="ha-k">Quiero recibir avisos</span>
+      <span class="ha-s">Novedades del libro por correo</span>
+    </button>
+  </nav>
+
+  <main class="content">
+
+    <aside class="col-author">
+      <div class="author-cover"><img src="assets/portada_completa.jpg" alt="Portada del libro IMPULSOS con Lorenzo Anderson y su esposa"></div>
+      <div class="author-label">Una Autobiografía Devocional por</div>
+      <div class="author-name">LORENZO ANDERSON</div>
+      <div class="author-sub">Un testimonio de fe, familia y los impulsos de Dios a lo largo de una vida.</div>
+
+      <!--
+        AUDIOLIBRO (mejorado) — la lista de capítulos de abajo se genera
+        dinámicamente vía JavaScript (ver assets/audiobook.js) a partir
+        del arreglo "audios"; aquí solo se deja la estructura y los
+        controles del reproductor.
+      -->
+      <div class="audiobook" id="audiobook">
+        <button class="ab-toggle" id="abToggle" type="button"
+                aria-expanded="false" aria-controls="abPanel">
+          <span class="ab-toggle-t">
+            <span class="ab-toggle-k">Audiolibro</span>
+            <span class="ab-toggle-s">Escúchalo narrado</span>
+          </span>
+          <svg class="ab-caret" viewBox="0 0 10 6" fill="none" stroke="currentColor"
+               stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+               aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+        </button>
+
+        <div class="ab-collapse" id="abPanel">
+         <div class="ab-collapse-in">
+        <!-- Menú de capítulos: se llena por JS -->
+        <ul class="audiobook-list" id="audiobookList"></ul>
+
+        <!-- Cuadro informativo: acceso al audiolibro completo -->
+        <div class="audiobook-info-box" id="audiobookInfoBox">
+          
+          <div class="audiobook-info-title">Acceso al Audiolibro Completo</div>
+          <p class="audiobook-info-text">Los usuarios inscritos tienen acceso al audiolibro completo, incluyendo todos los capítulos, contenido exclusivo y futuras actualizaciones.</p>
+        </div>
+
+        <div class="audiobook-player">
+          <div class="ab-now-playing" id="abNowPlaying">
+            <div class="ab-track-title" id="abTrackTitle">Selecciona un capítulo</div>
+            <div class="ab-track-sub" id="abTrackSub">Toca un capítulo de la lista para comenzar</div>
+          </div>
+
+          <!-- Aviso amigable si un capítulo falla al cargar/reproducir -->
+          <div class="ab-error-msg" id="abErrorMsg" role="alert"></div>
+
+          <div class="ab-progress-row">
+            <input type="range" id="abSeek" class="ab-seek" value="0" min="0" max="100" step="0.1" aria-label="Progreso del audio">
+          </div>
+          <div class="ab-times">
+            <span class="ab-time" id="abCurrentTime">00:00</span>
+            <span class="ab-time" id="abDuration">00:00</span>
+          </div>
+
+          <div class="ab-main-controls">
+            <button class="ab-btn ab-btn-icon" id="abPrev" type="button" aria-label="Capítulo anterior"><svg class="ui-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5.5v13H5v-13z"/><path d="M19 5.9v12.2L9.4 12z"/></svg></button>
+            <button class="ab-btn ab-btn-play" id="abPlayPause" type="button" aria-label="Reproducir"><svg class="ui-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.8v14.4L19 12z"/></svg></button>
+            <button class="ab-btn ab-btn-icon" id="abNext" type="button" aria-label="Siguiente capítulo"><svg class="ui-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17 5.5v13h2v-13z"/><path d="M5 5.9v12.2L14.6 12z"/></svg></button>
+          </div>
+
+          <div class="ab-secondary-controls">
+            <button class="ab-chip" id="abRepeat" type="button" aria-label="Repetir capítulo" title="Repetir"><svg class="ui-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2.5l3.5 3.5L17 9.5"/><path d="M3.5 12V10a4 4 0 0 1 4-4h13"/><path d="M7 21.5L3.5 18 7 14.5"/><path d="M20.5 12v2a4 4 0 0 1-4 4h-13"/></svg></button>
+
+            <select class="ab-speed" id="abSpeed" aria-label="Velocidad de reproducción" title="Velocidad">
+              <option value="0.75">0.75x</option>
+              <option value="1" selected>1x</option>
+              <option value="1.25">1.25x</option>
+              <option value="1.5">1.5x</option>
+            </select>
+
+            <a class="ab-chip" id="abDownload" href="#" download aria-label="Descargar audio" title="Descargar"><svg class="ui-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5v12"/><path d="M7.2 11l4.8 4.8L16.8 11"/><path d="M4.5 20.5h15"/></svg></a>
+          </div>
+
+          <!-- El volumen tiene su propia línea. Antes compartía fila con la
+               repetición, la velocidad y la descarga: cuatro elementos en
+               250px, y al ser el único flexible se quedaba sin ancho. -->
+          <div class="ab-volume">
+            <span class="ab-vol-icon" id="abVolIcon" role="button" tabindex="0" title="Silenciar / activar sonido"><svg class="ui-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4.5 6.5 8.5H3v7h3.5L11 19.5z"/><path d="M15.5 8.8a4.4 4.4 0 0 1 0 6.4"/><path d="M18.4 6a8.4 8.4 0 0 1 0 12"/></svg></span>
+            <input type="range" id="abVolume" class="ab-vol-slider" min="0" max="100" value="100" aria-label="Volumen">
+          </div>
+
+          <!-- Elemento <audio> real, compartido por todos los capítulos:
+               al cargar una nueva fuente se detiene automáticamente
+               cualquier reproducción anterior. -->
+          <audio id="abAudio" preload="none"></audio>
+        </div>
+         </div>
+        </div>
+      </div>
+    </aside>
+
+    <section class="col-reader" id="libro">
+      <div class="book-wrap">
+        <button class="nav-btn" id="prevBtn" aria-label="Páginas anteriores">‹</button>
+
+        <div class="book-spread" id="bookSpread">
+          <div class="page-slot" data-side="left">
+            <div class="base-page" id="baseUnderL"><img id="imgUnderL" alt=""></div>
+            <div class="flip-page" id="flipPageL">
+              <div class="face front"><img id="imgFrontL" alt=""></div>
+              <div class="face back"><img id="imgBackL" alt=""></div>
+            </div>
+          </div>
+          <div class="spine"></div>
+          <div class="page-slot" data-side="right">
+            <div class="base-page" id="baseUnderR"><img id="imgUnderR" alt=""></div>
+            <div class="flip-page" id="flipPageR">
+              <div class="face front"><img id="imgFrontR" alt=""></div>
+              <div class="face back"><img id="imgBackR" alt=""></div>
+            </div>
+          </div>
+          <div class="page-click-zone left" id="zoneLeft"></div>
+          <div class="page-click-zone right" id="zoneRight"></div>
+        </div>
+
+        <button class="nav-btn" id="nextBtn" aria-label="Páginas siguientes">›</button>
+      </div>
+
+      <div class="page-indicator">
+        <span>Páginas</span>
+        <input type="number" id="pageInput" min="1" value="1">
+        <span id="totalPagesLbl">– 2 de 154</span>
+      </div>
+    </section>
+
+    <aside class="col-side">
+      <div class="side-cab">
+        <div class="side-title">Marcadores</div>
+        <p class="side-desc">¿Te cuesta leer? Sube el tamaño de la letra, mira por dónde vas o salta directo a una página.</p>
+      </div>
+
+      <div class="side-card zoom-row">
+        <span class="zoom-label">Tamaño de letra</span>
+        <div class="zoom-controls">
+          <button class="zoom-btn" id="zoomOut" type="button" aria-label="Reducir tamaño">A−</button>
+          <span class="zoom-level" id="zoomLevel">100%</span>
+          <button class="zoom-btn" id="zoomIn" type="button" aria-label="Aumentar tamaño">A+</button>
+        </div>
+      </div>
+
+      <!-- El texto "Leyendo ahora / Páginas 1–2" se ocultó a pedido del
+           usuario. El elemento #bmPage se conserva oculto (display:none)
+           en vez de eliminarse del todo porque el script principal
+           (más abajo) sigue escribiendo el número de página ahí en cada
+           cambio de página; quitarlo del DOM rompería esa lógica. -->
+      <div class="bookmark-card" style="display:none;">
+        <div class="cap">Leyendo ahora</div>
+        <div class="val" id="bmPage">Páginas 1–2</div>
+      </div>
+
+      <div class="side-card">
+        <div class="prog-head">
+          <div class="side-title">Progreso</div>
+          <div class="prog-pct" id="progressPct">1%</div>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-text" id="progressText">2 de 154 páginas</div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-title">Ir a página</div>
+        <form class="goto-form" id="gotoForm">
+          <input type="number" min="1" max="154" placeholder="N.º de página" id="gotoInput">
+          <button type="submit">Ir</button>
+        </form>
+      </div>
+
+      <div class="side-note">IMPULSOS · Siguiendo las señales de Dios para dejar un legado duradero.<br>Una autobiografía devocional de Lorenzo Anderson.</div>
+
+      <!-- Reproductor de video: "Celebración de Vida de Lorenzo Anderson".
+           Video HTML5 nativo con controles propios; al presionar play el
+           navegador carga y reproduce el archivo (ver assets/celebration-video.js
+           para las fuentes candidatas, con el mismo criterio de respaldo
+           jsDelivr → raw.githubusercontent.com usado en el audiolibro). -->
+      <div class="side-card side-video">
+        <div class="side-title">Celebración de Vida</div>
+        <video id="celebrationVideo" class="side-video-player" controls preload="none" playsinline>
+          Tu navegador no admite la reproducción de video HTML5.
+        </video>
+      </div>
+    </aside>
+
+  </main>
+
+  <!--
+    ======================================================================
+    SERVICIO EN HONOR A LORENZO ANDERSON — video incrustado de Vimeo
+    (código de inserción oficial de Vimeo, id de video: 1213322833, con
+    hash privado "h=cc39f60bb9"). Sección nueva, ubicada entre el
+    libro y "Momentos Históricos". El iframe vive dentro de
+    .tribute-video-wrap (contenedor responsive ya existente en el CSS de
+    arriba), en vez del "padding-top:56.25%" que trae el código oficial
+    de Vimeo, para no duplicar la misma técnica con otro nombre de clase.
+    ======================================================================
+  -->
+  <section class="tribute-service" id="celebracion">
+    <h2 class="hm-title">Servicio en Honor a Lorenzo Anderson</h2>
+    <div class="tribute-video-wrap">
+      <iframe
+        src="https://player.vimeo.com/video/1213322833?h=cc39f60bb9&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        title="Lorenzo Anderson Celebration of Life"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+    </div>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+  </section>
+
+  <!--
+    ======================================================================
+    MOMENTOS HISTÓRICOS — Carrusel de videos, sin autoplay (Swiper.js)
+    Sección nueva, independiente del resto del sitio. Las diapositivas
+    (.swiper-slide) se generan dinámicamente desde assets/historic-carousel.js
+    a partir del arreglo "videos"; aquí solo se deja el contenedor vacío.
+    ======================================================================
+  -->
+  <section class="historic-moments" id="momentos">
+    <h2 class="hm-title">Momentos Históricos</h2>
+
+    <div class="swiper historic-swiper" id="historicSwiper">
+      <!-- Las diapositivas (una por video) se insertan aquí vía JavaScript -->
+      <div class="swiper-wrapper" id="historicSwiperWrapper"></div>
+
+      <!-- Paginación inferior -->
+      <div class="swiper-pagination"></div>
+
+      <!-- Flechas de navegación -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT MODAL -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="bubble bubble-jotform">
+      <button class="close-x" id="closeContact" type="button">×</button>
+      <h2>Contacta a ImpulSOS</h2>
+      <div class="sub">Escríbenos y te responderemos pronto.</div>
+
+      <!-- ============================================================
+           INICIO: FORMULARIO JOTFORM ("Sí, quiero recibir ImpulSOS")
+           Reemplaza por completo el formulario de contacto anterior
+           (EmailJS). Se muestra el formulario oficial alojado en Jotform
+           mediante el código oficial de inserción (iframe + script de
+           ajuste automático de altura), sin copiar campos manualmente.
+           Formulario: https://form.jotform.com/261855499019874
+           ============================================================ -->
+      <div class="jotform-embed-wrap">
+        <iframe
+          id="JotFormIFrame-261855499019874"
+          title="Sí, quiero recibir ImpulSOS"
+          allowtransparency="true"
+          allow="geolocation; microphone; camera; fullscreen"
+          data-src="https://form.jotform.com/261855499019874"
+          frameborder="0"
+          style="width:100%;min-width:100%;height:539px;border:none;"
+          scrolling="no"
+        ></iframe>
+      </div>
+      <script>
+        /* Script oficial de Jotform: ajusta dinámicamente el alto del
+           iframe (mensajes "setHeight") y gestiona scroll/redirecciones
+           dentro del formulario embebido. No afecta nada fuera de este
+           iframe. */
+        (function () {
+          var ifr = document.getElementById("JotFormIFrame-261855499019874");
+          if (ifr) {
+            var src = ifr.getAttribute("data-src") || ifr.src;
+            var iframeParams = [];
+            if (window.location.href && window.location.href.indexOf("?") > -1) {
+              iframeParams = iframeParams.concat(window.location.href.substr(window.location.href.indexOf("?") + 1).split("&"));
+            }
+            if (src && src.indexOf("?") > -1) {
+              iframeParams = iframeParams.concat(src.substr(src.indexOf("?") + 1).split("&"));
+              src = src.substr(0, src.indexOf("?"));
+            }
+            iframeParams.push("isIframeEmbed=1");
+            ifr.setAttribute("data-src", src + "?" + iframeParams.join("&"));
+          }
+          window.handleIFrameMessage = function (e) {
+            if (typeof e.data === "object") { return; }
+            var args = e.data.split(":");
+            var iframe;
+            if (args.length > 2) {
+              iframe = document.getElementById("JotFormIFrame-" + args[args.length - 1]);
+            } else {
+              iframe = document.getElementById("JotFormIFrame");
+            }
+            if (!iframe) { return; }
+            switch (args[0]) {
+              case "scrollIntoView":
+                iframe.scrollIntoView();
+                break;
+              case "setHeight":
+                iframe.style.height = args[1] + "px";
+                break;
+              case "collapseErrorPage":
+                if (iframe.clientHeight > window.innerHeight) {
+                  iframe.style.height = window.innerHeight + "px";
+                }
+                break;
+              case "reloadPage":
+                window.location.reload();
+                break;
+              case "loadScript":
+                if (!window.jotformEmbedHandlerLoaded) {
+                  var jotformScript = document.createElement("script");
+                  jotformScript.src = args[1];
+                  jotformScript.onload = function () {
+                    if (typeof window.setupFormEventHandlers !== "undefined") {
+                      window.setupFormEventHandlers();
+                    }
+                  };
+                  document.body.appendChild(jotformScript);
+                  window.jotformEmbedHandlerLoaded = true;
+                }
+                break;
+              case "exitFullscreen":
+                if (window.document.exitFullscreen) window.document.exitFullscreen();
+                else if (window.document.mozCancelFullScreen) window.document.mozCancelFullScreen();
+                else if (window.document.webkitExitFullscreen) window.document.webkitExitFullscreen();
+                else if (window.document.msExitFullscreen) window.document.msExitFullscreen();
+                break;
+            }
+            var isJotForm = e.origin.indexOf("jotform") > -1;
+            if (isJotForm && "contentWindow" in iframe && "postMessage" in iframe.contentWindow) {
+              var urls = { docurl: encodeURIComponent(document.URL), referrer: encodeURIComponent(document.referrer) };
+              iframe.contentWindow.postMessage(JSON.stringify({ type: "urls", value: urls }), "*");
+            }
+          };
+          window.addEventListener("message", handleIFrameMessage, false);
+        })();
+      </script>
+      <!-- ============================ FIN: FORMULARIO JOTFORM ============================ -->
+    </div>
+  </div>
+
+
+<footer class="foot">
+
+  <!-- rectángulo flotante: mitad contacto, mitad pie -->
+  <div class="wrap ft-bridge rv">
+    <p>Todo esto empezó con un programa que decidió no soltar a nadie.</p>
+    <a class="btn btn-white" href="../es/sumate/index.html">Apoya el programa</a>
+  </div>
+
+  <div class="wrap ft-main">
+
+    <div class="ft-brand">
+      <img class="ft-logo" src="../logo-dark.png" alt="GuateStar">
+      <p>Organización sin fines de lucro 501(c)(3) con sede en Estados Unidos que rompe el ciclo de la pobreza mediante educación de calidad, acompañamiento integral y desarrollo del liderazgo en las comunidades rurales de Totonicapán, Guatemala.</p>
+      <div class="ft-social">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.25-1.5 1.55-1.5h1.65V4.63c-.29-.04-1.27-.13-2.41-.13-2.39 0-4.02 1.46-4.02 4.13v2.27H7.5V14h2.77v8h3.23z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 7.4a4.6 4.6 0 1 0 0 9.2 4.6 4.6 0 0 0 0-9.2zm0 7.6a3 3 0 1 1 0-6 3 3 0 0 1 0 6zM17 6.3a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2zM12 3.6c2.7 0 3 0 4.1.06 1 .05 1.5.2 1.9.35.5.18.8.4 1.2.8.4.4.62.7.8 1.2.15.4.3.9.35 1.9.05 1.1.06 1.4.06 4.1s0 3-.06 4.1c-.05 1-.2 1.5-.35 1.9-.18.5-.4.8-.8 1.2-.4.4-.7.62-1.2.8-.4.15-.9.3-1.9.35-1.1.05-1.4.06-4.1.06s-3 0-4.1-.06c-1-.05-1.5-.2-1.9-.35-.5-.18-.8-.4-1.2-.8-.4-.4-.62-.7-.8-1.2-.15-.4-.3-.9-.35-1.9C3.6 15 3.6 14.7 3.6 12s0-3 .06-4.1c.05-1 .2-1.5.35-1.9.18-.5.4-.8.8-1.2.4-.4.7-.62 1.2-.8.4-.15.9-.3 1.9-.35C9 3.6 9.3 3.6 12 3.6z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2s-.2-1.4-.8-2c-.75-.8-1.6-.8-2-.85C16 4.2 12 4.2 12 4.2h-.01s-4 0-6.8.2c-.4.05-1.25.05-2 .85-.6.6-.8 2-.8 2S2.2 8.8 2.2 10.5v1.6c0 1.6.2 3.3.2 3.3s.2 1.4.8 2c.75.8 1.75.77 2.2.86 1.6.15 6.8.2 6.8.2s4 0 6.8-.21c.4-.05 1.25-.05 2-.85.6-.6.8-2 .8-2s.2-1.65.2-3.3v-1.6c0-1.65-.2-3.3-.2-3.3zM10.1 14.2V8.9l5.15 2.66-5.15 2.64z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="ft-col">
+      <h4>Nuestra oficina</h4>
+      <address>
+        <span class="ft-place">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.6-7-11a7 7 0 1 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+          <span><b>Guatemala</b>2 Calle 6-44, Zona 2<br>San Cristóbal Totonicapán</span>
+        </span>
+        <span class="ft-place">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.6-7-11a7 7 0 1 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+          <span><b>Estados Unidos</b>P. O. Box 1333<br>Golden, Colorado 80402</span>
+        </span>
+      </address>
+      <a class="ft-write" href="../es/contacto/index.html">Contáctanos <span>→</span></a>
+    </div>
+
+    <div class="ft-col">
+      <h4>Transparencia y legal</h4>
+      <ul>
+        <li><a href="../index.html">Aviso de privacidad</a></li>
+        <li><a href="../index.html">Protección de la niñez</a></li>
+        <li><a href="../index.html">Términos de donación</a></li>
+      </ul>
+      <p class="ft-reg">Organización 501(c)(3) de Estados Unidos, con trabajo en Guatemala.</p>
+    </div>
+
+    <div class="ft-col ft-alloc rv">
+      <h4>Tu donación en acción</h4>
+      <p>Cada aporte se destina a los programas educativos: becas, tecnología, mentoría y acompañamiento a las familias.</p>
+      <ul class="ft-checks">
+        <li>Registros por comunidad y por estudiante, revisados periódicamente.</li>
+        <li>Sin discriminación por raza, sexo, color, religión u origen étnico.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="wrap ft-btm">
+    <span class="ft-cr">© 2026 GuateStar. Todos los derechos reservados. El contenido de este sitio es informativo y puede cambiar sin previo aviso. Las imágenes y testimonios se publican con autorización de las familias.</span>
+    <span class="ft-legal">Donaciones aceptadas desde cualquier país. Los aportes son voluntarios y no reembolsables; su deducibilidad fiscal depende de la legislación de cada país.</span>
+    <button class="ft-top" id="ftTop" aria-label="Volver arriba">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+    </button>
+  </div>
+</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var root = document.documentElement;
+  var themeToggle = document.getElementById('themeToggle');
+  var themeIcon = document.getElementById('themeIcon');
+  var themeLabel = document.getElementById('themeLabel');
+  function applyTheme(t){
+    root.setAttribute('data-theme', t);
+    if(t === 'dark'){ themeIcon.textContent=''; themeLabel.textContent='Día'; }
+    else { themeIcon.textContent=''; themeLabel.textContent='Noche'; }
+  }
+  applyTheme('light');
+  themeToggle.addEventListener('click', function(){
+    var current = root.getAttribute('data-theme');
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  });
+
+  /* ---------- LEER AHORA (ir a la sección de lectura) ---------- */
+  function scrollToReader(){
+    var target = document.querySelector('.col-reader');
+    if(target && target.scrollIntoView){
+      target.scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+  }
+  document.getElementById('headerReadBtn').addEventListener('click', scrollToReader);
+
+  /* ---------- MODAL DE CONTACTO (abrir / cerrar) ----------
+     El envío del formulario (validación + EmailJS) vive por separado
+     en assets/email.js para mantener el JavaScript organizado por
+     responsabilidad: este bloque solo controla la burbuja modal. */
+  var overlay = document.getElementById('modalOverlay');
+  document.getElementById('openContact').addEventListener('click', function(){
+    overlay.classList.add('open');
+    /* El formulario se carga la primera vez que se abre, no al entrar en
+       la página. Antes JotForm intentaba medir un iframe dentro de un
+       contenedor oculto y llenaba la consola con "iframe is not visible";
+       además se descargaba en cada visita aunque nadie fuera a escribir. */
+    var marco = overlay.querySelector('iframe[data-src]');
+    if(marco){
+      marco.src = marco.getAttribute('data-src');
+      marco.removeAttribute('data-src');
+    }
+  });
+  document.getElementById('closeContact').addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) closeModal(); });
+  function closeModal(){ overlay.classList.remove('open'); }
+  // Se expone para que assets/email.js pueda cerrar la burbuja tras un envío exitoso
+  window.IMPULSOS_closeContactModal = closeModal;
+
+  /* NOTA: el reproductor de audio "Lectura en voz alta" original fue
+     reemplazado por el nuevo AUDIOLIBRO (tarjetas + reproductor completo).
+     Su lógica vive ahora, de forma independiente, en assets/audiobook.js. */
+
+  /* ---------- ZOOM (tamaño de letra / lectura) ---------- */
+  var bookSpread = document.getElementById('bookSpread');
+  var zoomLevelLbl = document.getElementById('zoomLevel');
+  var zoomIn = document.getElementById('zoomIn');
+  var zoomOut = document.getElementById('zoomOut');
+  var zoom = 1;
+  var ZOOM_MIN = 0.7, ZOOM_MAX = 1.7, ZOOM_STEP = 0.1;
+  function applyZoom(){
+    bookSpread.style.setProperty('--zoom', zoom.toFixed(2));
+    zoomLevelLbl.textContent = Math.round(zoom*100) + '%';
+    zoomIn.disabled = zoom >= ZOOM_MAX - 0.001;
+    zoomOut.disabled = zoom <= ZOOM_MIN + 0.001;
+  }
+  zoomIn.addEventListener('click', function(){
+    zoom = Math.min(ZOOM_MAX, +(zoom + ZOOM_STEP).toFixed(2));
+    applyZoom();
+  });
+  zoomOut.addEventListener('click', function(){
+    zoom = Math.max(ZOOM_MIN, +(zoom - ZOOM_STEP).toFixed(2));
+    applyZoom();
+  });
+  applyZoom();
+
+  /* ---------- BOOK / TWO-PAGE SPREAD FLIP (escritorio) ----------
+     ---------- + VISOR DE UNA SOLA PÁGINA (móvil/tablet) ----------
+     "isMobile" se calcula una sola vez, al cargar la página (igual que
+     pide la especificación), usando el MISMO umbral (1024px) que el
+     CSS de arriba (@media max-width:1024px), para que el visor JS y el
+     diseño CSS coincidan siempre. Si es escritorio, se usa exactamente
+     el mismo visor de dos páginas de siempre (sin ningún cambio). Si es
+     móvil o tablet en vertical, se usa un visor de una sola página que
+     reutiliza el MISMO arreglo de imágenes (misma función "pageUrl" y
+     "TOTAL_PAGES") y los MISMOS elementos del lado izquierdo (imgFrontL/
+     imgUnderL/imgBackL/flipPageL): no se duplican imágenes ni lógica,
+     solo cambia la forma de mostrarlas. */
+  var TOTAL_PAGES = 154;
+  var isMobile = window.innerWidth <= 1024;
+  function pageUrl(n){
+    if(n < 1 || n > TOTAL_PAGES) return '';
+    var s = String(n);
+    while(s.length < 3) s = '0' + s;
+    /* Las páginas van repartidas en bloques de 40 (p1..p4) en vez de las
+       154 en una sola carpeta. Motivo práctico: el subidor web de GitHub
+       descarta archivos cuando se arrastran más de 100 de golpe, así que
+       ninguna carpeta debe pasar de ese número. El bloque se calcula, no
+       se escribe a mano: si mañana el libro tiene más páginas, sigue
+       funcionando sin tocar nada. */
+    var bloque = 'p' + (Math.floor((n - 1) / 40) + 1);
+    return 'assets/pages/' + bloque + '/pg-' + s + '.jpg';
+  }
+
+  var current = 1;       // escritorio: página izquierda del spread (impar) · móvil: página única visible
+  var maxReached = isMobile ? 1 : 2;
+  var animating = false;
+
+  var imgUnderL = document.getElementById('imgUnderL');
+  var imgFrontL = document.getElementById('imgFrontL');
+  var imgBackL  = document.getElementById('imgBackL');
+  var flipPageL = document.getElementById('flipPageL');
+
+  var imgUnderR = document.getElementById('imgUnderR');
+  var imgFrontR = document.getElementById('imgFrontR');
+  var imgBackR  = document.getElementById('imgBackR');
+  var flipPageR = document.getElementById('flipPageR');
+
+  var prevBtn = document.getElementById('prevBtn');
+  var nextBtn = document.getElementById('nextBtn');
+  var pageInput = document.getElementById('pageInput');
+  var bmPage = document.getElementById('bmPage');
+  var progressFill = document.getElementById('progressFill');
+  var progressText = document.getElementById('progressText');
+  var totalPagesLbl = document.getElementById('totalPagesLbl');
+
+  function rightOf(n){ return Math.min(n+1, TOTAL_PAGES); }
+
+  function preload(n){
+    if(n < 1 || n > TOTAL_PAGES) return;
+    var im = new Image(); im.src = pageUrl(n);
+  }
+
+  function renderStatic(){
+    // En móvil se usa el visor de una sola página; la lógica de doble
+    // página de abajo (escritorio) no se toca ni se ejecuta en ese caso.
+    if (isMobile) { renderMobile(); return; }
+
+    var l = current, r = rightOf(current);
+    imgFrontL.src = pageUrl(l);
+    imgUnderL.src = pageUrl(l);
+    imgBackL.src  = pageUrl(l);
+    imgFrontR.src = pageUrl(r);
+    imgUnderR.src = pageUrl(r);
+    imgBackR.src  = pageUrl(r);
+
+    [flipPageL, flipPageR].forEach(function(fp){
+      fp.style.transition = 'none';
+      fp.classList.remove('turning');
+    });
+    void flipPageL.offsetWidth;
+    flipPageL.style.transition = '';
+    flipPageR.style.transition = '';
+
+    updateUI();
+    preload(l-1); preload(l-2); preload(r+1); preload(r+2);
+  }
+
+  // Render de una sola página (móvil). Reutiliza "pageUrl"/"current" y
+  // los elementos del lado izquierdo del mismo visor: solo se muestra
+  // una imagen en vez de dos, sin duplicar el arreglo de páginas.
+  function renderMobile(){
+    var p = current;
+    imgFrontL.src = pageUrl(p);
+    imgUnderL.src = pageUrl(p);
+    imgBackL.src  = pageUrl(p);
+
+    flipPageL.style.transition = 'none';
+    flipPageL.classList.remove('turning');
+    void flipPageL.offsetWidth;
+    flipPageL.style.transition = '';
+
+    updateUI();
+    preload(p-1); preload(p+1);
+  }
+
+  /* El porcentaje se pintaba solo en la rama móvil, y esa rama termina
+     con return: en escritorio no se ejecutaba nunca. Con una función
+     aparte no puede volver a quedarse una rama sin actualizar. */
+  function pintaPorcentaje(){
+    var el = document.getElementById('progressPct');
+    if(el) el.textContent = Math.round((maxReached / TOTAL_PAGES) * 100) + '%';
+  }
+
+  function updateUI(){
+    if (isMobile) {
+      pageInput.value = current;
+      bmPage.textContent = 'Página ' + current;
+      totalPagesLbl.textContent = '– ' + current + ' de ' + TOTAL_PAGES;
+      if (current > maxReached) maxReached = current;
+      var pctM = (maxReached/TOTAL_PAGES)*100;
+      progressFill.style.width = pctM + '%';
+      progressText.textContent = maxReached + ' de ' + TOTAL_PAGES + ' páginas';
+      pintaPorcentaje();
+      prevBtn.disabled = (current <= 1);
+      nextBtn.disabled = (current >= TOTAL_PAGES);
+      return;
+    }
+
+    var l = current, r = rightOf(current);
+    pageInput.value = l;
+    bmPage.textContent = (l === r) ? ('Página ' + l) : ('Páginas ' + l + '–' + r);
+    totalPagesLbl.textContent = '– ' + r + ' de ' + TOTAL_PAGES;
+    if(r > maxReached) maxReached = r;
+    var pct = (maxReached/TOTAL_PAGES)*100;
+    progressFill.style.width = pct + '%';
+    progressText.textContent = maxReached + ' de ' + TOTAL_PAGES + ' páginas';
+    pintaPorcentaje();
+    prevBtn.disabled = (current <= 1);
+    nextBtn.disabled = (r >= TOTAL_PAGES);
+  }
+
+  function goNext(){
+    if (isMobile) {
+      if (animating || current >= TOTAL_PAGES) return;
+      animating = true;
+      var newP = current + 1;
+      imgBackL.src = pageUrl(newP);
+      imgUnderL.src = pageUrl(newP);
+      flipPageL.style.zIndex = 5;
+      requestAnimationFrame(function(){
+        flipPageL.classList.add('turning');
+      });
+      setTimeout(function(){
+        current = newP;
+        renderMobile();
+        animating = false;
+      }, 760);
+      return;
+    }
+
+    if(animating || rightOf(current) >= TOTAL_PAGES) return;
+    animating = true;
+    var newL = current + 2;
+    var newR = rightOf(newL);
+    imgBackL.src = pageUrl(newL);
+    imgUnderL.src = pageUrl(newL);
+    imgBackR.src = pageUrl(newR);
+    imgUnderR.src = pageUrl(newR);
+    flipPageL.style.zIndex = 5;
+    flipPageR.style.zIndex = 5;
+    requestAnimationFrame(function(){
+      flipPageL.classList.add('turning');
+      flipPageR.classList.add('turning');
+    });
+    setTimeout(function(){
+      current = newL;
+      renderStatic();
+      animating = false;
+    }, 760);
+  }
+
+  function goPrev(){
+    if (isMobile) {
+      if (animating || current <= 1) return;
+      animating = true;
+      var targetM = current - 1;
+      imgUnderL.src = pageUrl(current);
+      imgFrontL.src = pageUrl(targetM);
+      imgBackL.src  = pageUrl(current);
+
+      flipPageL.style.transition = 'none';
+      flipPageL.classList.add('turning');
+      void flipPageL.offsetWidth;
+      flipPageL.style.transition = '';
+
+      requestAnimationFrame(function(){
+        flipPageL.classList.remove('turning');
+      });
+      setTimeout(function(){
+        current = targetM;
+        renderMobile();
+        animating = false;
+      }, 760);
+      return;
+    }
+
+    if(animating || current <= 1) return;
+    animating = true;
+    var target = Math.max(1, current - 2);
+    imgUnderL.src = pageUrl(current);
+    imgFrontL.src = pageUrl(target);
+    imgBackL.src  = pageUrl(current);
+    imgUnderR.src = pageUrl(rightOf(current));
+    imgFrontR.src = pageUrl(rightOf(target));
+    imgBackR.src  = pageUrl(rightOf(current));
+
+    [flipPageL, flipPageR].forEach(function(fp){
+      fp.style.transition = 'none';
+      fp.classList.add('turning');
+    });
+    void flipPageL.offsetWidth;
+    flipPageL.style.transition = '';
+    flipPageR.style.transition = '';
+
+    requestAnimationFrame(function(){
+      flipPageL.classList.remove('turning');
+      flipPageR.classList.remove('turning');
+    });
+    setTimeout(function(){
+      current = target;
+      renderStatic();
+      animating = false;
+    }, 760);
+  }
+
+  function goTo(n){
+    n = Math.max(1, Math.min(TOTAL_PAGES, Math.round(n)));
+
+    if (isMobile) {
+      if (n === current || animating) return;
+      current = n;
+      renderMobile();
+      return;
+    }
+
+    var base = (n % 2 === 1) ? n : (n - 1);
+    if(base < 1) base = 1;
+    if(base > TOTAL_PAGES - 1) base = (TOTAL_PAGES % 2 === 0) ? TOTAL_PAGES - 1 : TOTAL_PAGES;
+    if(base === current || animating) return;
+    current = base;
+    renderStatic();
+  }
+
+  nextBtn.addEventListener('click', goNext);
+  prevBtn.addEventListener('click', goPrev);
+  document.getElementById('zoneRight').addEventListener('click', goNext);
+  document.getElementById('zoneLeft').addEventListener('click', goPrev);
+
+  // Deslizar (swipe) para pasar de página en móvil. Solo se activa si
+  // "isMobile" es verdadero, así que no agrega ningún comportamiento
+  // nuevo en escritorio.
+  if (isMobile) {
+    (function(){
+      var touchStartX = null;
+      var bookSpreadEl = document.getElementById('bookSpread');
+      bookSpreadEl.addEventListener('touchstart', function(e){
+        if (e.touches && e.touches.length === 1) {
+          touchStartX = e.touches[0].clientX;
+        }
+      }, { passive:true });
+      bookSpreadEl.addEventListener('touchend', function(e){
+        if (touchStartX === null) return;
+        var endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : touchStartX;
+        var dx = endX - touchStartX;
+        touchStartX = null;
+        if (Math.abs(dx) < 40) return; // umbral mínimo de arrastre
+        if (dx < 0) { goNext(); } else { goPrev(); }
+      }, { passive:true });
+    })();
+  }
+
+  document.addEventListener('keydown', function(e){
+    if(overlay.classList.contains('open')) return;
+    if(e.key === 'ArrowRight') goNext();
+    if(e.key === 'ArrowLeft') goPrev();
+  });
+
+  pageInput.addEventListener('change', function(){ goTo(parseInt(pageInput.value,10)||1); });
+  document.getElementById('gotoForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var v = parseInt(document.getElementById('gotoInput').value, 10);
+    if(v) goTo(v);
+  });
+
+  renderStatic();
+})();
+</script>
+
+<!-- SDK de EmailJS (v4) — debe cargarse antes de assets/email.js -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<!-- Lógica de validación y envío del formulario de contacto -->
+<script src="assets/email.js"></script>
+
+<!-- Swiper.js (CDN) — debe cargarse antes de assets/historic-carousel.js -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<!-- Carrusel "Momentos Históricos" (sin autoplay: solo el video central es interactivo) -->
+<script src="assets/historic-carousel.js"></script>
+
+<!-- Reproductor "AUDIO LIBRO": menú de capítulos + controles completos -->
+<script src="assets/audiobook.js"></script>
+
+<!-- Reproductor de video "Celebración de Vida de Lorenzo Anderson" (panel derecho) -->
+<script src="assets/celebration-video.js"></script>
+<script>
+  /* Audiolibro plegable. Solo abre y cierra: no toca nada del
+     reproductor, que sigue viviendo en assets/audiobook.js. */
+  (function(){
+    var caja = document.getElementById('audiobook');
+    var boton = document.getElementById('abToggle');
+    if(!caja || !boton) return;
+    boton.addEventListener('click', function(){
+      var abierto = caja.classList.toggle('open');
+      boton.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+    });
+    /* Si alguien pulsa un capítulo con el panel cerrado —por ejemplo
+       desde un enlace directo— se abre solo. */
+    document.addEventListener('click', function(e){
+      if(e.target.closest('.ab-item') && !caja.classList.contains('open')){
+        caja.classList.add('open');
+        boton.setAttribute('aria-expanded','true');
+      }
+    });
+  })();
+</script>
+<script>
+  /* Relleno de las barras y estado "sonando".
+     El navegador no pinta la parte ya reproducida de un <input range>,
+     así que se calcula el porcentaje y se guarda en --p, que es lo que
+     lee el degradado del track en el CSS. */
+  (function(){
+    var caja  = document.getElementById('audiobook');
+    var audio = document.getElementById('abAudio');
+    var seek  = document.getElementById('abSeek');
+    var vol   = document.getElementById('abVolume');
+    if(!caja) return;
+
+    function pinta(el){
+      if(!el) return;
+      var min = +el.min || 0, max = +el.max || 100;
+      var p = max === min ? 0 : ((+el.value - min) / (max - min)) * 100;
+      el.style.setProperty('--p', p);
+    }
+    [seek, vol].forEach(function(el){
+      if(!el) return;
+      pinta(el);
+      el.addEventListener('input', function(){ pinta(el); });
+    });
+
+    if(audio){
+      /* el propio <audio> avisa: no hace falta un temporizador propio */
+      audio.addEventListener('timeupdate', function(){ pinta(seek); });
+      audio.addEventListener('volumechange', function(){ pinta(vol); });
+      audio.addEventListener('play',  function(){ caja.classList.add('playing'); });
+      audio.addEventListener('pause', function(){ caja.classList.remove('playing'); });
+      audio.addEventListener('ended', function(){ caja.classList.remove('playing'); });
+    }
+  })();
+</script>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════
+   Comportamiento del encabezado · el mismo del sitio principal.
+   Copiado de su código, no reescrito: abrir y cerrar el menú, los
+   desplegables, el deslizamiento del panel y la sombra al despegar.
+   ══════════════════════════════════════════════════════════════════ */
+(function(){
+    var b=document.getElementById('burger');
+
+    /* ── deslizamiento del panel ───────────────────────────────────────
+       Se hace aquí y no en CSS porque element.animate() gana siempre:
+       ninguna regla de la hoja de estilos puede anularlo por accidente. */
+    var panel = document.getElementById('mainnav');
+    var ENTRA = 360, SALE = 300, CURVA = 'cubic-bezier(.32,.72,0,1)';
+    var mov = null;
+    function esMovil(){ return window.matchMedia('(max-width: 940px)').matches; }
+    function conMovimiento(){
+      return !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    }
+    function desliza(abriendo){
+      if(!panel || !panel.animate || !esMovil()){
+        document.body.classList.remove('nav-closing');
+        return;
+      }
+      if(mov){ mov.cancel(); mov = null; }
+      var fuera = 'translateY(-100%)', dentro = 'translateY(0)';
+      var d = conMovimiento() ? (abriendo ? ENTRA : SALE) : 1;
+
+      // al cerrar, la clase «nav-open» ya se ha quitado; sin esto el cajón
+      // desaparecería de golpe y no se vería el recorrido de salida
+      if(abriendo) document.body.classList.remove('nav-closing');
+      else         document.body.classList.add('nav-closing');
+
+      mov = panel.animate(
+        abriendo ? [{transform:fuera},{transform:dentro}]
+                 : [{transform:dentro},{transform:fuera}],
+        {duration:d, easing:CURVA, fill:'both'}
+      );
+      if(!abriendo) mov.onfinish = function(){
+        document.body.classList.remove('nav-closing');
+        if(mov){ mov.cancel(); mov = null; }   // el CSS lo deja fuera de vista
+      };
+    }
+    window.gsMenu = desliza;   // para poder probarlo
+
+    if(b)b.addEventListener('click',function(){
+      var open=document.body.classList.toggle('nav-open');
+      b.setAttribute('aria-expanded',open?'true':'false');
+      desliza(open);
+    });
+    var scrim=document.getElementById('navScrim');
+    if(scrim)scrim.addEventListener('click',function(){
+      if(!document.body.classList.contains('nav-open')) return;
+      document.body.classList.remove('nav-open');
+      if(b)b.setAttribute('aria-expanded','false');
+      desliza(false);
+    });
+    var items=document.querySelectorAll('.mainnav .has-drop');
+    items.forEach(function(li){
+      var t=li.querySelector('.navlink');
+      if(!t)return;
+      t.addEventListener('click',function(e){
+        e.preventDefault();
+        var was=li.classList.contains('open');
+        items.forEach(function(o){o.classList.remove('open');var ot=o.querySelector('.navlink');if(ot)ot.setAttribute('aria-expanded','false');});
+        if(!was){li.classList.add('open');t.setAttribute('aria-expanded','true');}
+      });
+    });
+    document.addEventListener('click',function(e){
+      if(e.target.closest('.mainnav'))return;
+      items.forEach(function(o){o.classList.remove('open');var ot=o.querySelector('.navlink');if(ot)ot.setAttribute('aria-expanded','false');});
+    });
+    document.addEventListener('keydown',function(e){
+      if(e.key!=='Escape')return;
+      items.forEach(function(o){o.classList.remove('open');});
+      if(document.body.classList.contains('nav-open')) desliza(false);
+      document.body.classList.remove('nav-open');
+      if(b)b.setAttribute('aria-expanded','false');
+    });
+    document.querySelectorAll('.mainnav a').forEach(function(a){
+      a.addEventListener('click',function(){
+        if(document.body.classList.contains('nav-open')) desliza(false);
+        document.body.classList.remove('nav-open');
+        items.forEach(function(o){o.classList.remove('open');});
+        if(b)b.setAttribute('aria-expanded','false');
+      });
+    });
+  })();
+
+(function(){
+    var hd=document.querySelector('.site-header'), strip=document.querySelector('.topstrip');
+    if(!hd)return;
+    var raf=null;
+    function onScroll(){raf=null;
+      var y=window.scrollY, h=strip?strip.offsetHeight:0;
+      document.body.classList.toggle('hd-stuck', y>h+4);
+    }
+    window.addEventListener('scroll',function(){if(!raf)raf=requestAnimationFrame(onScroll);},{passive:true});
+    onScroll();
+
+    var story=document.getElementById('scrolly');
+    if(story&&'IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){
+        es.forEach(function(e){
+          document.body.classList.toggle('hd-off', e.isIntersecting);
+          if(e.isIntersecting){document.body.classList.remove('nav-open');}
+        });
+      },{rootMargin:'-14% 0px -14% 0px',threshold:0});
+      io.observe(story);
+    }
+  })();
+
+/* Lo único añadido: los enlaces internos de esta página desplazan en
+   vez de saltar, cierran el menú y, si van al audiolibro, lo despliegan.
+   Llevar a alguien a un acordeón cerrado es llevarlo a nada. */
+(function(){
+  document.querySelectorAll('.mainnav a[data-ir], .hero-acc a[data-ir]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var destino = document.querySelector(a.getAttribute('href'));
+      if(!destino) return;
+      e.preventDefault();
+      document.body.classList.remove('nav-open');
+      var b = document.getElementById('burger');
+      if(b) b.setAttribute('aria-expanded','false');
+      if(window.gsMenu) window.gsMenu(false);
+      if(a.getAttribute('href') === '#audiobook'){
+        var caja = document.getElementById('audiobook');
+        var abre = document.getElementById('abToggle');
+        if(caja && !caja.classList.contains('open')){
+          caja.classList.add('open');
+          if(abre) abre.setAttribute('aria-expanded','true');
+        }
+      }
+      var suave = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      destino.scrollIntoView({behavior: suave ? 'smooth' : 'auto', block:'start'});
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var t=document.getElementById('ftTop'); if(!t) return;
+  t.addEventListener('click',function(){
+    window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});
+  });
+})();
+</script>
+<script>
+/* ══════════════════════════════════════════════════════════════════
+   Idioma. La portada arranca en inglés y el español vive en ?lang=es;
+   esta página hereda esa misma regla, así que el visitante llega en el
+   idioma que traía y no se le cambia debajo de los pies.
+
+   El marcado está escrito en español —igual que en la portada— y el
+   inglés se aplica encima. Traducir solo el encabezado y el pie: el
+   libro es en español y no se toca.
+   ══════════════════════════════════════════════════════════════════ */
+(function(){
+  var ES_EN = {"Acompañando a la niñez del altiplano desde 1952": "Walking alongside children in the Guatemalan highlands since 1952", "Programas": "Programs", "Próximamente": "Coming soon", "Mentoría": "Mentorship", "Familia y comunidad": "Family & community", "Nuestra historia": "Our Story", "Súmate": "Join Us", "Donar": "Donate", "Contáctanos": "Contact us", "Todo esto empezó con un programa que decidió no soltar a nadie.": "All of this began with a program that decided not to let anyone go.", "Apoya el programa": "Support the program", "Organización sin fines de lucro 501(c)(3) con sede en Estados Unidos que rompe el ciclo de la pobreza mediante educación de calidad, acompañamiento integral y desarrollo del liderazgo en las comunidades rurales de Totonicapán, Guatemala.": "A US-based 501(c)(3) nonprofit organization breaking the cycle of poverty through quality education, comprehensive support, and leadership development in the rural communities of Totonicapán, Guatemala.", "Aviso de privacidad": "Privacy notice", "Protección de la niñez": "Child protection", "Nuestra oficina": "Our office", "Transparencia y legal": "Transparency & legal", "Términos de donación": "Donation terms", "Organización 501(c)(3) de Estados Unidos, con trabajo en Guatemala.": "US-based 501(c)(3) nonprofit, working in Guatemala.", "Donaciones aceptadas desde cualquier país. Los aportes son voluntarios y no reembolsables; su deducibilidad fiscal depende de la legislación de cada país.": "Donations accepted from any country. Gifts are voluntary and non-refundable; tax deductibility depends on the laws of each country.", "Guatemala": "Guatemala", "Estados Unidos": "United States", "Tu donación en acción": "Your gift at work", "Registros por comunidad y por estudiante, revisados periódicamente.": "Records by community and student, reviewed regularly.", "Sin discriminación por raza, sexo, color, religión u origen étnico.": "No discrimination based on race, sex, color, religion, or ethnic origin.", "© 2026 GuateStar. Todos los derechos reservados. El contenido de este sitio es informativo y puede cambiar sin previo aviso. Las imágenes y testimonios se publican con autorización de las familias.": "© 2026 GuateStar. All rights reserved. The content of this site is informational and may change without notice. Images and testimonies are published with the families' consent.", "Solo": "Only", "Propósito": "Purpose", "Síguenos": "Follow us", "Cada aporte se destina a los programas educativos: becas, tecnología, mentoría y acompañamiento a las familias.": "Every gift goes to the educational programs: scholarships, technology, mentorship and support for families.", "Siguiendo las señales de Dios": "Following God's signs", "Leer el libro": "Read the book", "154 páginas": "154 pages", "Audiolibro": "Audiobook", "Escúchalo narrado": "Listen to it narrated", "Celebración de vida": "Celebration of Life", "Momentos históricos": "Historic Moments", "Ocho vídeos": "Eight videos", "Noche": "Night", "Modo de lectura": "Reading mode", "Quiero recibir avisos": "Send me updates", "Novedades del libro por correo": "News about the book by email", "IMPULSOS · Siguiendo las señales de Dios": "IMPULSOS · Following God’s signs", "¿Te cuesta leer? Sube el tamaño de la letra, mira por dónde vas o salta directo a una página.": "Hard to read? Make the text bigger, see how far you’ve got, or jump straight to a page.", "Marcadores": "Bookmarks"};
+
+  var es = /[?&]lang=es/.test(location.search) ||
+           (!/[?&]lang=en/.test(location.search) &&
+            /[?&]lang=es/.test(document.referrer || ''));
+
+  var aviso = document.querySelector('.ts-idioma');
+
+  if (es) {
+    /* Llega en español: se queda como está el marcado y se retira el
+       aviso, que solo tiene sentido para quien lee en inglés. */
+    document.documentElement.lang = 'es';
+    if (aviso) aviso.remove();
+    return;
+  }
+
+  document.documentElement.lang = 'en';
+
+  function traduce(raiz){
+    if(!raiz) return;
+    var it = document.createTreeWalker(raiz, NodeFilter.SHOW_TEXT, null);
+    var n, nodos = [];
+    while((n = it.nextNode())) nodos.push(n);
+    nodos.forEach(function(t){
+      var v = t.nodeValue.trim();
+      if(v && ES_EN[v]) t.nodeValue = t.nodeValue.replace(v, ES_EN[v]);
+    });
+  }
+  traduce(document.querySelector('.topstrip'));
+  traduce(document.querySelector('.site-header'));
+  traduce(document.querySelector('.hero-acc'));
+  traduce(document.querySelector('.foot'));
+})();
+</script>
+</body>
+</html>
