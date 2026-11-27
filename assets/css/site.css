@@ -1129,3 +1129,5 @@ main h2 { font-size: clamp(1.55rem, 3vw, 2.35rem); line-height: 1.12; }
 }
 
 .ib-cover { display: block; cursor: pointer; }
+
+.ib-lang-note { background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.4); border-radius: 12px; padding: .6rem .9rem; font-size: .95rem; margin: .4rem 0 1rem; }
