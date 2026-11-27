@@ -185,6 +185,26 @@
   }
 
   /* ---- Avisos con fecha de vencimiento (p. ej., Colorado Gives Day) ---- */
+  /* ---- Campañas de recaudación (definidas en assets/js/config.js) ---- */
+  (function () {
+    var list = (window.GS_CONFIG && window.GS_CONFIG.campaigns) || [];
+    var slots = document.querySelectorAll('[data-campaign-slot]');
+    if (!list.length || !slots.length) return;
+    var es = (document.documentElement.lang || 'en').indexOf('es') === 0;
+    var now = new Date();
+    var html = '';
+    list.forEach(function (k) {
+      if (!k || !k.inicio || !k.fin) return;
+      var a = new Date(k.inicio + 'T00:00:00-06:00'), b = new Date(k.fin + 'T23:59:59-07:00');
+      if (now < a || now > b) return;
+      var esc = function (s) { return String(s || '').replace(/[&<>"]/g, function (ch) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]; }); };
+      var title = es ? k.titulo_es : k.titulo_en, text = es ? k.texto_es : k.texto_en, btn = es ? k.boton_es : k.boton_en;
+      html += '<aside class="promo" aria-label="' + esc(title) + '"><div class="wrap"><p><strong>' + esc(title) + '</strong> — ' + esc(text) + '</p>' +
+        (k.enlace ? '<a class="btn btn-light btn-sm" href="' + esc(k.enlace) + '" target="_blank" rel="noopener" data-track="campaign_click">' + esc(btn || (es ? 'Donar' : 'Give')) + '</a>' : '') + '</div></aside>';
+    });
+    slots.forEach(function (s) { s.innerHTML = html; });
+  })();
+
   document.querySelectorAll('[data-until]').forEach(function (el) {
     var until = new Date(el.getAttribute('data-until') + 'T23:59:59-07:00');
     if (new Date() > until) el.hidden = true;
