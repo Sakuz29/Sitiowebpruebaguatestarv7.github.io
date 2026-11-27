@@ -1018,3 +1018,14 @@ a.rt-box:hover { border-color: var(--nav); transform: translateY(-2px); box-shad
 #chispa .info-card { background: #fff; }
 .checklist.principles { display: block; columns: auto; grid-template-columns: 1fr; }
 @media (min-width: 900px) { .leaders { grid-template-columns: repeat(3, 1fr); } }
+
+/* Mayúsculas en títulos de menú y en enlaces de acción */
+.main-nav .nav-top, .mega-head, .drawer details > summary, .drawer-link, .drawer-head-link a { text-transform: uppercase; letter-spacing: .04em; }
+.main-nav .nav-top { font-size: .95rem; }
+  .link-arrow, .card .link-arrow, .btn, .sf-more { text-transform: uppercase; letter-spacing: .04em; }
+.link-arrow { font-size: .9rem; }
+.btn { font-size: .92rem; }
+.mega-inner.cols-3 { grid-template-columns: repeat(3, minmax(0, 270px)) 1fr; gap: 1rem 2.6rem; }
+@media (max-width: 1200px) { .mega-inner.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) 240px; gap: 1rem 1.6rem; } .main-nav .nav-top { font-size: .9rem; } }
+.mega-inner.cols-3 .mega-head { font-size: 1.05rem; white-space: nowrap; }
+@media (max-width: 1200px) { .mega-inner.cols-3 .mega-head { font-size: .95rem; } }
