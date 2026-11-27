@@ -1971,69 +1971,319 @@ html{scroll-snap-type:none}
   }
 
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style id="gsx-chrome">
+.gsx-root *, .gsx-root *::before, .gsx-root *::after{box-sizing: border-box;}
+.gsx-root{--sky: #00b4c6;
+  --sky-deep: #007ea2;
+  --sky-dark: #005f7a;
+  --sky-wash: #e4f7fa;
+  --leaf: #90b412;
+  --leaf-deep: #5f7a0a;
+  --leaf-wash: #eef6dc;
+  --sun: #fcb400;
+  --sun-wash: #fff3d6;
+  --coral: #d81224;
+  --coral-wash: #fde8ea;
+  --ink: #1d3a42;
+  --ink-soft: #33525a;
+  --muted: #5f7480;
+  --line: #e6dfd2;
+  --sand: #fdf7ec;
+  --paper: #ffffff;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow: 0 10px 30px rgba(29, 58, 66, .10);
+  --shadow-sm: 0 3px 10px rgba(29, 58, 66, .08);
+  --wrap: 1200px;
+  --head-font: "Public Sans", "Segoe UI", Arial, sans-serif;
+  --body-font: "Public Sans", "Segoe UI", Arial, sans-serif;
+  --ease: cubic-bezier(.23, 1, .32, 1);}
+.gsx-root{scroll-behavior: smooth; -webkit-text-size-adjust: 100%;}
+@media (prefers-reduced-motion: reduce){.gsx-root{scroll-behavior: auto;}
+.gsx-root *, .gsx-root *::before, .gsx-root *::after{animation: none !important; transition: none !important;}}
+.gsx-root{margin: 0;
+  font-family: var(--body-font);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--ink);
+  background: var(--paper);
+  text-rendering: optimizeLegibility;}
+.gsx-root img{max-width: 100%; height: auto; display: block;}
+.gsx-root picture{display: block;}
+.gsx-root a{color: var(--sky-deep); text-underline-offset: 3px;}
+.gsx-root a:hover{color: var(--sky-dark);}
+.gsx-root :focus-visible{outline: 3px solid var(--sun); outline-offset: 3px; border-radius: 4px;}
+.gsx-root h1, .gsx-root h2, .gsx-root h3, .gsx-root h4{font-family: var(--head-font);
+  line-height: 1.15;
+  margin: 0 0 .6em;
+  color: var(--ink);
+  letter-spacing: -.01em;
+  text-wrap: balance;}
+.gsx-root h1{font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 900;}
+.gsx-root h2{font-size: clamp(1.7rem, 3.4vw, 2.5rem); font-weight: 800;}
+.gsx-root h3{font-size: clamp(1.2rem, 2vw, 1.45rem); font-weight: 800;}
+.gsx-root h4{font-size: 1.05rem; font-weight: 700;}
+.gsx-root p{margin: 0 0 1.1em; text-wrap: pretty;}
+.gsx-root ul, .gsx-root ol{margin: 0 0 1.1em; padding-left: 1.2em;}
+.gsx-root li{margin-bottom: .35em;}
+.gsx-root strong{font-weight: 600;}
+.gsx-root .gsx-wrap{width: min(100% - 2.5rem, var(--wrap)); margin-inline: auto;}
+.gsx-root .gsx-skip-link{position: absolute; left: 1rem; top: -60px; z-index: 200;
+  background: var(--ink); color: #fff; padding: .6rem 1rem; border-radius: var(--radius-sm);
+  font-weight: 600; transition: top .2s;}
+.gsx-root .gsx-skip-link:focus{top: 1rem; color: #fff;}
+.gsx-root .gsx-btn{display: inline-flex; align-items: center; justify-content: center; gap: .5em;
+  font-family: var(--head-font); font-weight: 800; font-size: .98rem; letter-spacing: .01em;
+  padding: .85em 1.6em; border-radius: 999px; border: 2px solid transparent;
+  text-decoration: none; cursor: pointer; line-height: 1.2; text-align: center;
+  transition: transform .25s var(--ease), background-color .2s, color .2s, border-color .2s, box-shadow .25s;}
+.gsx-root .gsx-btn:hover{transform: translateY(-2px);}
+.gsx-root .gsx-btn:active{transform: translateY(0) scale(.98);}
+.gsx-root .gsx-btn-donate{background: var(--sun); color: var(--ink); box-shadow: 0 6px 18px rgba(252, 180, 0, .35);}
+.gsx-root .gsx-btn-donate:hover{background: #ffc22e; color: var(--ink);}
+.gsx-root .gsx-btn-primary{background: var(--sky-deep); color: #fff;}
+.gsx-root .gsx-btn-primary:hover{background: var(--sky-dark); color: #fff;}
+.gsx-root .gsx-btn-ghost{background: transparent; color: var(--ink); border-color: var(--ink);}
+.gsx-root .gsx-btn-ghost:hover{background: var(--ink); color: #fff;}
+.gsx-root .gsx-btn-sm{padding: .55em 1.15em; font-size: .88rem;}
+.gsx-root .gsx-btn-row{display: flex; flex-wrap: wrap; gap: .8rem; align-items: center;}
+.gsx-root .gsx-utility{background: var(--ink); color: #dbe9ec; font-size: .82rem;}
+.gsx-root .gsx-utility .gsx-wrap{display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 40px;}
+.gsx-root .gsx-utility a{color: #fff; text-decoration: none;}
+.gsx-root .gsx-utility a:hover{color: var(--sun);}
+.gsx-root .gsx-utility-tag{display: flex; align-items: center; gap: .5rem;}
+.gsx-root .gsx-utility-tag svg{flex: none;}
+.gsx-root .gsx-utility-links{display: flex; align-items: center; gap: 1.2rem;}
+.gsx-root .gsx-lang-switch{display: inline-flex; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; overflow: hidden;}
+.gsx-root .gsx-lang-switch a, .gsx-root .gsx-lang-switch span{padding: .2rem .7rem; font-weight: 600; letter-spacing: .04em;}
+.gsx-root .gsx-lang-switch [aria-current="true"]{background: #fff; color: var(--ink);}
+@media (max-width: 640px){.gsx-root .gsx-utility-tag span.gsx-long{display: none;}
+.gsx-root .gsx-utility-links .gsx-hide-sm{display: none;}}
+.gsx-root .gsx-site-header{position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.97);
+  backdrop-filter: saturate(1.4) blur(8px); border-bottom: 1px solid var(--line);
+  transition: box-shadow .25s;}
+.gsx-root .gsx-site-header.gsx-scrolled{box-shadow: var(--shadow-sm);}
+.gsx-root .gsx-header-inner{display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; min-height: 78px;}
+.gsx-root .gsx-brand{display: flex; align-items: center; flex: none;}
+.gsx-root .gsx-brand img{height: 52px; width: auto;}
+.gsx-root .gsx-main-nav{display: flex; align-items: center; gap: .3rem;}
+.gsx-root .gsx-main-nav > ul{list-style: none; display: flex; gap: .15rem; margin: 0; padding: 0;}
+.gsx-root .gsx-main-nav li{margin: 0; position: relative;}
+.gsx-root .gsx-nav-top{display: flex; align-items: center; gap: .3rem; font-family: var(--head-font); font-weight: 700;
+  font-size: .95rem; color: var(--ink); text-decoration: none; padding: .7rem .8rem; border-radius: var(--radius-sm);
+  background: none; border: 0; cursor: pointer;}
+.gsx-root .gsx-nav-top:hover, .gsx-root .gsx-nav-top[aria-expanded="true"], .gsx-root .gsx-nav-top.gsx-active{color: var(--sky-deep); background: var(--sky-wash);}
+.gsx-root .gsx-nav-top svg{transition: transform .2s;}
+.gsx-root .gsx-nav-top[aria-expanded="true"] svg{transform: rotate(180deg);}
+.gsx-root .gsx-header-cta{display: flex; align-items: center; gap: .6rem;}
+.gsx-root .gsx-menu-toggle{display: none; align-items: center; gap: .45rem; background: none; border: 2px solid var(--ink); border-radius: 999px;
+  padding: .45rem .9rem; font-family: var(--head-font); font-weight: 800; color: var(--ink); cursor: pointer;}
+@media (max-width: 1080px){.gsx-root .gsx-main-nav{display: none;}
+.gsx-root .gsx-menu-toggle{display: inline-flex;}
+.gsx-root .gsx-brand img{height: 44px;}
+.gsx-root .gsx-header-inner{min-height: 68px;}}
+@media (max-width: 420px){.gsx-root .gsx-header-cta .gsx-btn-donate{padding: .55em 1em;}}
+.gsx-root .gsx-drawer{position: fixed; inset: 0; z-index: 150; background: #fff; overflow-y: auto;
+  transform: translateX(100%); transition: transform .35s var(--ease); visibility: hidden;}
+.gsx-root .gsx-drawer.gsx-open{transform: none; visibility: visible;}
+.gsx-root .gsx-drawer-head{display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; border-bottom: 1px solid var(--line);}
+.gsx-root .gsx-drawer-head img{height: 42px; width: auto;}
+.gsx-root .gsx-drawer-close{background: none; border: 0; font-size: 2rem; line-height: 1; cursor: pointer; color: var(--ink); padding: .2rem .5rem;}
+.gsx-root .gsx-drawer nav{padding: .5rem 1.25rem 2rem;}
+.gsx-root .gsx-drawer details{border-bottom: 1px solid var(--line);}
+.gsx-root .gsx-drawer summary, .gsx-root .gsx-drawer .gsx-drawer-link{display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; font-family: var(--head-font);
+  font-weight: 800; font-size: 1.1rem; color: var(--ink); text-decoration: none; cursor: pointer; list-style: none;}
+.gsx-root .gsx-drawer .gsx-drawer-link{border-bottom: 1px solid var(--line);}
+.gsx-root .gsx-drawer summary::-webkit-details-marker{display: none;}
+.gsx-root .gsx-drawer summary::after{content: "+"; font-size: 1.4rem; color: var(--sky-deep);}
+.gsx-root .gsx-drawer details[open] summary::after{content: "–";}
+.gsx-root .gsx-drawer details ul{list-style: none; margin: 0 0 1rem; padding: 0;}
+.gsx-root .gsx-drawer details a{display: block; padding: .5rem 0 .5rem .8rem; color: var(--ink-soft); text-decoration: none; border-left: 3px solid var(--sky-wash);}
+.gsx-root .gsx-drawer details a:hover{border-left-color: var(--sky); color: var(--sky-deep);}
+.gsx-root .gsx-drawer-foot{padding: 0 1.25rem 2rem; display: grid; gap: .8rem;}
+.gsx-root table{width: 100%; border-collapse: collapse; font-size: .95rem;}
+.gsx-root caption{text-align: left; padding: 1rem 1.2rem .3rem; font-family: var(--head-font); font-weight: 800; color: var(--ink);}
+.gsx-root th, .gsx-root td{padding: .75rem 1.2rem; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap;}
+.gsx-root th:first-child, .gsx-root td:first-child{text-align: left; white-space: normal;}
+.gsx-root thead th{font-family: var(--head-font); font-size: .82rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--sand);}
+.gsx-root tbody tr:last-child td{border-bottom: 0;}
+.gsx-root .gsx-site-footer{background: #10262c; color: #b9cdd2; font-size: .93rem; padding: 4rem 0 0;}
+.gsx-root .gsx-site-footer a{color: #e4f1f3; text-decoration: none;}
+.gsx-root .gsx-site-footer a:hover{color: var(--sun); text-decoration: underline;}
+.gsx-root .gsx-footer-grid{display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2.5rem;}
+.gsx-root .gsx-footer-brand img{height: 56px; width: auto; margin-bottom: 1rem;}
+.gsx-root .gsx-footer-brand p{max-width: 36ch;}
+.gsx-root .gsx-site-footer h2{font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: #fff; margin-bottom: 1rem;}
+.gsx-root .gsx-site-footer ul{list-style: none; padding: 0; margin: 0;}
+.gsx-root .gsx-site-footer li{margin-bottom: .55rem;}
+.gsx-root .gsx-site-footer address{font-style: normal; margin-bottom: 1.1rem; line-height: 1.6;}
+.gsx-root .gsx-site-footer address strong{color: #fff; display: block; font-weight: 600;}
+.gsx-root .gsx-footer-bottom{margin-top: 3rem; border-top: 1px solid rgba(255,255,255,.1); padding: 1.4rem 0 1.8rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; font-size: .82rem; color: #8fa7ad;}
+.gsx-root .gsx-footer-bottom p{margin: 0; max-width: 80ch;}
+@media (max-width: 900px){.gsx-root .gsx-footer-grid{grid-template-columns: 1fr 1fr;}}
+@media (max-width: 560px){.gsx-root .gsx-footer-grid{grid-template-columns: 1fr;}}
+.gsx-root .gsx-to-top{position: fixed; right: 1.2rem; bottom: 1.2rem; z-index: 90; width: 48px; height: 48px; border-radius: 50%; border: 0;
+  background: var(--ink); color: #fff; display: grid; place-items: center; cursor: pointer; box-shadow: var(--shadow);
+  opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .25s, transform .25s var(--ease), visibility .25s;}
+.gsx-root .gsx-to-top:hover{background: var(--sky-deep);}
+.gsx-root .gsx-consent{position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 160; max-width: 560px; background: #fff; border-radius: var(--radius); box-shadow: 0 12px 40px rgba(0,0,0,.2); padding: 1.2rem 1.3rem; font-size: .9rem; display: none;}
+.gsx-root .gsx-consent p{margin: 0 0 .9rem;}
+.gsx-root .gsx-mb-0{margin-bottom: 0;}
+.gsx-root{--nav: #0a6f96; --nav-dark: #075574; --nav-ink: #04425a; --mega-bg: #e3f4f9;}
+.gsx-root{font-weight: 400; letter-spacing: .005em;}
+.gsx-root h1, .gsx-root h2{font-weight: 800; letter-spacing: -.015em;}
+.gsx-root h3{font-weight: 700;}
+.gsx-root .gsx-btn{font-weight: 700;}
+.gsx-root .gsx-utility{background: var(--nav-ink);}
+.gsx-root .gsx-utility .gsx-wrap{min-height: 36px;}
+.gsx-root .gsx-utility-links a.gsx-hide-sm{font-weight: 500;}
+.gsx-root .gsx-site-header{background: var(--nav); border-bottom: 0; backdrop-filter: none;}
+.gsx-root .gsx-site-header.gsx-scrolled{box-shadow: 0 6px 20px rgba(4, 66, 90, .25);}
+.gsx-root .gsx-header-inner{min-height: 84px; position: static;}
+.gsx-root .gsx-site-header{position: sticky;}
+.gsx-root .gsx-brand img{height: 56px;}
+.gsx-root .gsx-main-nav > ul{gap: .4rem;}
+.gsx-root .gsx-main-nav li.gsx-has-mega{position: static;}
+.gsx-root .gsx-nav-top{color: #fff; font-family: var(--head-font); font-weight: 700; font-size: 1.12rem; padding: .6rem .9rem;
+  background: none; border-radius: 0; text-decoration: none; text-underline-offset: 8px; text-decoration-thickness: 2px;}
+.gsx-root .gsx-nav-top:hover, .gsx-root .gsx-nav-top[aria-expanded="true"], .gsx-root .gsx-nav-top.gsx-active{color: #fff; background: none; text-decoration: underline;}
+.gsx-root .gsx-header-cta .gsx-btn-donate{background: var(--sun); color: var(--nav-ink); padding: .8em 2em; font-size: 1.05rem; border-radius: 999px; box-shadow: none;}
+.gsx-root .gsx-header-cta .gsx-btn-donate:hover{background: #ffc93f;}
+.gsx-root .gsx-menu-toggle{color: #fff; border-color: #fff;}
+.gsx-root .gsx-mega{position: absolute; left: 0; right: 0; top: 100%; z-index: 99;
+  background-color: var(--mega-bg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='520' viewBox='0 0 1400 520'%3E%3Cg fill='%23ffffff' fill-opacity='.45'%3E%3Cpath d='M0 120 L260 520 H0Z'/%3E%3Cpath d='M380 0 L640 0 L520 520 L330 520Z'/%3E%3Cpath d='M820 0 H1000 L1180 520 H760Z' fill-opacity='.3'/%3E%3Cpath d='M1240 0 H1400 V420Z'/%3E%3C/g%3E%3Cg fill='%2300b4c6' fill-opacity='.06'%3E%3Cpath d='M1060 110 l36 74 82 12 -59 58 14 81 -73 -38 -73 38 14 -81 -59 -58 82 -12Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: cover; background-position: center;
+  border-top: 1px solid rgba(255,255,255,.4); box-shadow: 0 18px 40px rgba(4, 66, 90, .18);
+  opacity: 0; visibility: hidden; transform: translateY(-6px);
+  transition: opacity .2s, transform .25s var(--ease), visibility .2s;}
+.gsx-root .gsx-has-mega:hover > .gsx-mega, .gsx-root .gsx-has-mega:focus-within > .gsx-mega, .gsx-root .gsx-mega.gsx-open{opacity: 1; visibility: visible; transform: none;}
+.gsx-root .gsx-mega-inner{display: grid; grid-template-columns: repeat(2, minmax(0, 300px)) 1fr; gap: 1rem 4rem; padding: 2.4rem 0 2.8rem; align-items: start;}
+.gsx-root .gsx-mega-head{display: inline-flex; align-items: center; gap: .5rem; font-family: var(--head-font); font-weight: 800; font-size: 1.3rem;
+  color: var(--nav-dark); text-decoration: none; margin-bottom: 1.1rem;}
+.gsx-root .gsx-mega-head:hover{text-decoration: underline; text-underline-offset: 5px; color: var(--nav-ink);}
+.gsx-root .gsx-mega-head svg{transition: transform .2s var(--ease);}
+.gsx-root .gsx-mega-head:hover svg{transform: translateX(3px);}
+.gsx-root .gsx-mega ul{list-style: none; margin: 0; padding: 0; display: grid; gap: .25rem;}
+.gsx-root .gsx-mega li{margin: 0;}
+.gsx-root .gsx-mega li a{display: block; padding: .38rem 0; font-size: 1.12rem; font-weight: 500; color: #12313a; text-decoration: none; line-height: 1.35;}
+.gsx-root .gsx-mega li a:hover, .gsx-root .gsx-mega li a[aria-current="page"]{color: var(--nav-dark); text-decoration: underline; text-underline-offset: 5px;}
+.gsx-root .gsx-mega-promo{justify-self: end; width: min(100%, 340px); background: #fff; border-radius: var(--radius); overflow: hidden; text-decoration: none;
+  box-shadow: 0 10px 28px rgba(4, 66, 90, .14); transition: transform .25s var(--ease);}
+.gsx-root .gsx-mega-promo:hover{transform: translateY(-3px);}
+.gsx-root .gsx-mega-promo img{width: 100%; aspect-ratio: 16/9; object-fit: cover;}
+.gsx-root .gsx-mega-promo .gsx-mp-body{display: block; padding: 1rem 1.2rem 1.2rem;}
+.gsx-root .gsx-mega-promo strong{display: block; font-family: var(--head-font); font-weight: 800; font-size: 1.15rem; color: var(--nav-dark);}
+.gsx-root .gsx-mega-promo span span, .gsx-root .gsx-mega-promo .gsx-mp-body > span{display: block; color: var(--ink-soft); font-size: .95rem; margin-top: .2rem;}
+@media (max-width: 1200px){.gsx-root .gsx-mega-inner{grid-template-columns: repeat(2, minmax(0, 1fr)) 280px; gap: 1rem 2.5rem;}
+.gsx-root .gsx-nav-top{font-size: 1.02rem; padding: .6rem .6rem;}}
+@media (max-width: 1080px){.gsx-root .gsx-header-inner{min-height: 72px;}
+.gsx-root .gsx-brand img{height: 46px;}}
+.gsx-root .gsx-drawer{background: var(--mega-bg);}
+.gsx-root .gsx-drawer-head{background: var(--nav); border-bottom: 0;}
+.gsx-root .gsx-drawer-close{color: #fff;}
+.gsx-root .gsx-drawer summary, .gsx-root .gsx-drawer .gsx-drawer-link{font-weight: 800; color: var(--nav-ink); border-color: rgba(4,66,90,.15);}
+.gsx-root .gsx-drawer details{border-color: rgba(4,66,90,.15);}
+.gsx-root .gsx-drawer .gsx-drawer-head-link{margin: .4rem 0 .3rem;}
+.gsx-root .gsx-drawer .gsx-drawer-head-link a{font-weight: 800; color: var(--nav-dark); text-decoration: none; font-size: 1.02rem;}
+.gsx-root .gsx-drawer details ul{margin-bottom: .8rem;}
+.gsx-root .gsx-drawer details li a{border-left-color: rgba(10,111,150,.25); color: #12313a; font-weight: 500;}
+.gsx-root .gsx-drawer-lang{justify-self: center; border-color: rgba(4,66,90,.3) !important;}
+.gsx-root .gsx-drawer-lang a{color: var(--nav-ink);}
+.gsx-root .gsx-drawer-lang [aria-current="true"]{background: var(--nav-ink); color: #fff;}
+.gsx-root .gsx-main-nav > ul{align-items: center;}
+.gsx-root .gsx-nav-top{display: inline-flex; align-items: center; line-height: 1.2;}
+.gsx-root .gsx-drawer details .gsx-drawer-head-link a{border-left: 0; padding: .3rem 0;}
+.gsx-root .gsx-mega-inner{padding-left: 0; padding-right: 0;}
+@keyframes tlIn{ from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@media (min-width: 1081px){.gsx-root .gsx-header-inner{align-items: stretch;}
+.gsx-root .gsx-brand, .gsx-root .gsx-header-cta{align-self: center;}
+.gsx-root .gsx-main-nav, .gsx-root .gsx-main-nav > ul, .gsx-root .gsx-main-nav > ul > li{display: flex; align-items: stretch; height: auto;}
+.gsx-root .gsx-main-nav > ul > li > .gsx-nav-top{height: 100%; padding-top: 0; padding-bottom: 0;}
+.gsx-root .gsx-mega{top: 100%;}
+.gsx-root .gsx-mega::before{content: ""; position: absolute; left: 0; right: 0; top: -14px; height: 14px;}}
+.gsx-root .gsx-main-nav .gsx-nav-top, .gsx-root .gsx-mega-head, .gsx-root .gsx-drawer details > summary, .gsx-root .gsx-drawer-link, .gsx-root .gsx-drawer-head-link a{text-transform: uppercase; letter-spacing: .04em;}
+.gsx-root .gsx-main-nav .gsx-nav-top{font-size: .95rem;}
+.gsx-root .gsx-btn{text-transform: uppercase; letter-spacing: .04em;}
+.gsx-root .gsx-btn{font-size: .92rem;}
+.gsx-root .gsx-mega-inner.gsx-cols-3{grid-template-columns: repeat(3, minmax(0, 270px)) 1fr; gap: 1rem 2.6rem;}
+@media (max-width: 1200px){.gsx-root .gsx-mega-inner.gsx-cols-3{grid-template-columns: repeat(3, minmax(0, 1fr)) 240px; gap: 1rem 1.6rem;}
+.gsx-root .gsx-main-nav .gsx-nav-top{font-size: .9rem;}}
+.gsx-root .gsx-mega-inner.gsx-cols-3 .gsx-mega-head{font-size: 1.05rem; white-space: nowrap;}
+@media (max-width: 1200px){.gsx-root .gsx-mega-inner.gsx-cols-3 .gsx-mega-head{font-size: .95rem;}}
+.gsx-root .gsx-site-footer{background: var(--nav); color: #e6f4f8;}
+.gsx-root .gsx-site-footer a{color: #fff;}
+.gsx-root .gsx-footer-bottom{color: #d4ecf3; border-top-color: rgba(255,255,255,.25);}
+@media (max-width: 420px){.gsx-root .gsx-header-cta{gap: .4rem;}
+.gsx-root .gsx-header-cta .gsx-btn-donate{padding: .55rem .95rem; font-size: .82rem;}
+.gsx-root .gsx-menu-toggle{padding: .5rem .7rem; font-size: .8rem; gap: .3rem;}}
+@media (max-width: 760px){.gsx-root img, .gsx-root picture, .gsx-root video, .gsx-root iframe{max-width: 100%;}}
+.gsx-root { --nav: #c1592f; --nav-dark: #9c4423; --nav-ink: #7a3418; --mega-bg: #fbeee3; --sky: #e08a4a; --sky-deep: #c1592f; --sky-wash: #f6e5d4; font-family: var(--body-font); color: var(--ink); line-height: 1.6; font-size: 16px; }
+.gsx-root, .gsx-root * { box-sizing: border-box; }
+.gsx-root img { max-width: 100%; height: auto; display: block; }
+.gsx-root a { text-decoration: none; }
+.gsx-root .gsx-site-header { position: relative; z-index: 70; }
+.gsx-sticky { position: sticky; top: 0; z-index: 70; }
+.gsx-root .gsx-book-note { font-size: .78rem; opacity: .9; margin: 0 1rem; }
+@media (max-width: 900px) { .gsx-root .gsx-book-note { display: none; } }
+html[lang="en"] .gsx-only-es, html[lang="es"] .gsx-only-en { display: none !important; }
+.gsx-root .gsx-site-footer { margin-top: 0; }
+.gsx-root .gsx-drawer { position: fixed; }
+.gsx-root.gsx-drawer-open .gsx-drawer, .gsx-root .gsx-drawer.gsx-open { transform: none; visibility: visible; }
+
+</style>
 </head>
 <body>
+<script>
+/* Idioma de la página (misma regla que el resto del sitio): ?lang=es o ?lang=en;
+   si no viene, se usa el idioma de la página desde la que se llegó. */
+(function(){
+  var q = location.search, r = document.referrer || '';
+  var es = /[?&]lang=es/.test(q) || (!/[?&]lang=en/.test(q) && (/[?&]lang=es/.test(r) || /\/es\//.test(r)));
+  document.documentElement.lang = es ? 'es' : 'en';
+})();
+</script>
+<div class="gsx-root gsx-sticky gsx-only-es"><a class="gsx-skip-link" href="#impulsos-inicio">Saltar al contenido</a>
+<div class="gsx-utility"><div class="gsx-wrap">
+  <p class="gsx-utility-tag gsx-mb-0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Totonicapán, Guatemala</span><span class="gsx-long">· acompañando a la niñez del altiplano por décadas</span></p>
+  <div class="gsx-utility-links"><a class="gsx-hide-sm" href="../es/quienes-somos/preguntas-frecuentes/index.html">Preguntas frecuentes</a><a class="gsx-hide-sm" href="../es/contacto/index.html">Contacto</a><div class="gsx-lang-switch" role="group" aria-label="Idioma"><a href="index.html?lang=en" hreflang="en" lang="en">EN</a><span aria-current="true" lang="es">ES</span></div></div>
+</div></div>
+<header class="gsx-site-header"><div class="gsx-wrap gsx-header-inner">
+  <a class="gsx-brand" href="../es/index.html" aria-label="GuateStar — inicio"><picture><source type="image/webp" srcset="../assets/img/logo-light.webp"><img src="../assets/img/logo-light.png" alt="GuateStar" width="484" height="240"></picture></a>
+  <nav class="gsx-main-nav" aria-label="Principal"><ul><li class="gsx-has-mega"><button class="gsx-nav-top" aria-expanded="false" aria-controls="gsx-mega-0">Sobre nosotros</button><div class="gsx-mega" id="gsx-mega-0"><div class="gsx-wrap gsx-mega-inner gsx-cols-2"><div class="gsx-mega-col"><a class="gsx-mega-head" href="../es/quienes-somos/index.html">Quiénes somos <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><ul><li><a href="../es/quienes-somos/index.html#mision">Misión y visión 2030</a></li><li><a href="../es/quienes-somos/index.html#como-trabajamos">Cómo trabajamos</a></li><li><a href="../es/quienes-somos/nuestro-enfoque/index.html">Nuestro enfoque</a></li><li><a href="../es/quienes-somos/index.html#liderazgo">Liderazgo</a></li></ul></div><div class="gsx-mega-col"><a class="gsx-mega-head" href="../es/quienes-somos/index.html#historia">Nuestra historia <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><ul><li><a href="../es/quienes-somos/index.html#historia">De un aula a ocho comunidades</a></li><li><a href="../es/quienes-somos/index.html#desafio">Por qué Totonicapán</a></li><li><a href="../es/quienes-somos/index.html#aliados">Nuestros aliados</a></li><li><a href="../es/quienes-somos/preguntas-frecuentes/index.html">Preguntas frecuentes</a></li></ul></div><a class="gsx-mega-promo" href="../es/quienes-somos/index.html"><picture><source type="image/webp" srcset="../assets/img/familia-chuixacol-800.webp 800w, ../assets/img/familia-chuixacol-1600.webp 1600w" sizes="320px"><img src="../assets/img/familia-chuixacol.jpg" alt="" width="1600" height="899" loading="lazy" decoding="async"></picture><span class="gsx-mp-body"><strong>Por décadas en el altiplano</strong><span>Una organización 501(c)(3) con oficina en San Cristóbal Totonicapán.</span></span></a></div></div></li><li class="gsx-has-mega"><button class="gsx-nav-top" aria-expanded="false" aria-controls="gsx-mega-1">La Ruta</button><div class="gsx-mega" id="gsx-mega-1"><div class="gsx-wrap gsx-mega-inner gsx-cols-3"><div class="gsx-mega-col"><a class="gsx-mega-head" href="../es/programas/index.html#etapa-1">Camino escolar <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><ul><li><a href="../es/programas/club-extra/index.html">Etapa 1 · Club Extra (6 a 12 años)</a></li><li><a href="../es/programas/becas/index.html">Etapa 5 · Beca de diversificado o INTECAP</a></li><li><a href="../es/programas/becas/index.html">Etapa 6 · Universidad o técnico</a></li></ul></div><div class="gsx-mega-col"><a class="gsx-mega-head" href="../es/programas/index.html#etapa-2">Camino de liderazgo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><ul><li><a href="../es/programas/voluntarios-facilitadores/index.html">Etapa 2 · Voluntarios</a></li><li><a href="../es/programas/voluntarios-facilitadores/index.html">Etapa 3 · Facilitadores</a></li><li><a href="../es/programas/mentores/index.html">Etapa 4 · Mentoría empresarial (14 a 17 años)</a></li></ul></div><div class="gsx-mega-col"><a class="gsx-mega-head" href="../es/programas/tecnologia/index.html">Herramientas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><ul><li><a href="../es/programas/tecnologia/index.html">Tecnología y conectividad</a></li><li><a href="../es/programas/tecnologia/index.html#chispa">Chispa, tutor de inteligencia artificial</a></li><li><a href="../es/programas/index.html">Ver la Ruta completa</a></li></ul></div><a class="gsx-mega-promo" href="../es/programas/index.html"><picture><source type="image/webp" srcset="../assets/img/clubextra-laptops-800.webp 800w, ../assets/img/clubextra-laptops-1600.webp 1600w" sizes="320px"><img src="../assets/img/clubextra-laptops.jpg" alt="" width="1350" height="1800" loading="lazy" decoding="async"></picture><span class="gsx-mp-body"><strong>Dos caminos, seis etapas</strong><span>Estudios y liderazgo, de Club Extra a la universidad.</span></span></a></div></div></li><li class="gsx-has-mega"><button class="gsx-nav-top" aria-expanded="false" aria-controls="gsx-mega-2">Impacto e historias</button><div class="gsx-mega" id="gsx-mega-2"><div class="gsx-wrap gsx-mega-inner gsx-cols-2"><div class="gsx-mega-col"><a class="gsx-mega-head" href="../es/impacto/index.html">Nuestro impacto <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><ul><li><a href="../es/impacto/index.html">2026 en cifras</a></li><li><a href="../es/impacto/index.html#comunidades">Comunidades</a></li><li><a href="../es/impacto/index.html#transparencia">Transparencia</a></li></ul></div><div class="gsx-mega-col"><a class="gsx-mega-head" href="../es/historias/index.html">Historias <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><ul><li><a href="../es/historias/jonathan/index.html">Jonathan</a></li><li><a href="../es/historias/inaki-y-aragon/index.html">Iñaki y Aragón</a></li><li><a href="../es/historias/cuatro-hijos-cuatro-suenos/index.html">Cuatro hijos, cuatro sueños</a></li><li><a href="../es/historias/nimasac/index.html">Nimasac</a></li><li><a href="../es/historias/la-decision-de-una-madre/index.html">La decisión de una madre</a></li></ul></div><a class="gsx-mega-promo" href="../es/impacto/index.html"><picture><source type="image/webp" srcset="../assets/img/ninos-pintura-800.webp 800w, ../assets/img/ninos-pintura-1600.webp 1600w" sizes="320px"><img src="../assets/img/ninos-pintura.jpg" alt="" width="1600" height="1200" loading="lazy" decoding="async"></picture><span class="gsx-mp-body"><strong>285 familias en 2026</strong><span>Casi el doble que el año anterior.</span></span></a></div></div></li><li class="gsx-has-mega"><button class="gsx-nav-top" aria-expanded="false" aria-controls="gsx-mega-3">Cómo participar</button><div class="gsx-mega" id="gsx-mega-3"><div class="gsx-wrap gsx-mega-inner gsx-cols-2"><div class="gsx-mega-col"><a class="gsx-mega-head" href="../es/sumate/formas-de-dar/index.html">Dar <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><ul><li><a href="../es/donar/index.html">Donar</a></li><li><a href="../es/sumate/donacion-mensual/index.html">Donación mensual</a></li><li><a href="../es/sumate/legado/index.html">Deja un legado</a></li><li><a href="../es/sumate/otras-formas-de-dar/index.html">Fondos, empresas y equipos</a></li></ul></div><div class="gsx-mega-col"><a class="gsx-mega-head" href="../es/sumate/index.html">Participar <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><ul><li><a href="../es/sumate/index.html#voluntariado">Voluntariado</a></li><li><a href="../es/sumate/otras-formas-de-dar/index.html#alianzas">Alianzas con empresas e iglesias</a></li><li><a href="../es/contacto/index.html">Contacto</a></li></ul></div><a class="gsx-mega-promo" href="../es/sumate/donacion-mensual/index.html"><picture><source type="image/webp" srcset="../assets/img/nina-sonrisa-800.webp 800w, ../assets/img/nina-sonrisa-1600.webp 1600w" sizes="320px"><img src="../assets/img/nina-sonrisa.jpg" alt="" width="1500" height="842" loading="lazy" decoding="async"></picture><span class="gsx-mp-body"><strong>$30 al mes</strong><span>Un mes completo de Club Extra para un niño.</span></span></a></div></div></li></ul></nav>
+  <div class="gsx-header-cta">
+    <a class="gsx-btn gsx-btn-donate" href="../es/donar/index.html" data-track="donate_header_click">Donar</a>
+    <button class="gsx-menu-toggle" aria-expanded="false" aria-controls="gsx-drawer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>Menú</button>
+  </div>
+</div></header>
+<div class="gsx-drawer" id="gsx-drawer" aria-hidden="true" role="dialog" aria-label="Menú">
+  <div class="gsx-drawer-head"><img src="../assets/img/logo-light.png" alt="GuateStar" width="484" height="240"><button class="gsx-drawer-close" aria-label="Cerrar menú">×</button></div>
+  <nav aria-label="Menú móvil"><a class="gsx-drawer-link" href="../es/index.html">Inicio</a><details><summary>Sobre nosotros</summary><p class="gsx-drawer-head-link"><a href="../es/quienes-somos/index.html">Quiénes somos ›</a></p><ul><li><a href="../es/quienes-somos/index.html#mision">Misión y visión 2030</a></li><li><a href="../es/quienes-somos/index.html#como-trabajamos">Cómo trabajamos</a></li><li><a href="../es/quienes-somos/nuestro-enfoque/index.html">Nuestro enfoque</a></li><li><a href="../es/quienes-somos/index.html#liderazgo">Liderazgo</a></li></ul><p class="gsx-drawer-head-link"><a href="../es/quienes-somos/index.html#historia">Nuestra historia ›</a></p><ul><li><a href="../es/quienes-somos/index.html#historia">De un aula a ocho comunidades</a></li><li><a href="../es/quienes-somos/index.html#desafio">Por qué Totonicapán</a></li><li><a href="../es/quienes-somos/index.html#aliados">Nuestros aliados</a></li><li><a href="../es/quienes-somos/preguntas-frecuentes/index.html">Preguntas frecuentes</a></li></ul></details><details><summary>La Ruta</summary><p class="gsx-drawer-head-link"><a href="../es/programas/index.html#etapa-1">Camino escolar ›</a></p><ul><li><a href="../es/programas/club-extra/index.html">Etapa 1 · Club Extra (6 a 12 años)</a></li><li><a href="../es/programas/becas/index.html">Etapa 5 · Beca de diversificado o INTECAP</a></li><li><a href="../es/programas/becas/index.html">Etapa 6 · Universidad o técnico</a></li></ul><p class="gsx-drawer-head-link"><a href="../es/programas/index.html#etapa-2">Camino de liderazgo ›</a></p><ul><li><a href="../es/programas/voluntarios-facilitadores/index.html">Etapa 2 · Voluntarios</a></li><li><a href="../es/programas/voluntarios-facilitadores/index.html">Etapa 3 · Facilitadores</a></li><li><a href="../es/programas/mentores/index.html">Etapa 4 · Mentoría empresarial (14 a 17 años)</a></li></ul><p class="gsx-drawer-head-link"><a href="../es/programas/tecnologia/index.html">Herramientas ›</a></p><ul><li><a href="../es/programas/tecnologia/index.html">Tecnología y conectividad</a></li><li><a href="../es/programas/tecnologia/index.html#chispa">Chispa, tutor de inteligencia artificial</a></li><li><a href="../es/programas/index.html">Ver la Ruta completa</a></li></ul></details><details><summary>Impacto e historias</summary><p class="gsx-drawer-head-link"><a href="../es/impacto/index.html">Nuestro impacto ›</a></p><ul><li><a href="../es/impacto/index.html">2026 en cifras</a></li><li><a href="../es/impacto/index.html#comunidades">Comunidades</a></li><li><a href="../es/impacto/index.html#transparencia">Transparencia</a></li></ul><p class="gsx-drawer-head-link"><a href="../es/historias/index.html">Historias ›</a></p><ul><li><a href="../es/historias/jonathan/index.html">Jonathan</a></li><li><a href="../es/historias/inaki-y-aragon/index.html">Iñaki y Aragón</a></li><li><a href="../es/historias/cuatro-hijos-cuatro-suenos/index.html">Cuatro hijos, cuatro sueños</a></li><li><a href="../es/historias/nimasac/index.html">Nimasac</a></li><li><a href="../es/historias/la-decision-de-una-madre/index.html">La decisión de una madre</a></li></ul></details><details><summary>Cómo participar</summary><p class="gsx-drawer-head-link"><a href="../es/sumate/formas-de-dar/index.html">Dar ›</a></p><ul><li><a href="../es/donar/index.html">Donar</a></li><li><a href="../es/sumate/donacion-mensual/index.html">Donación mensual</a></li><li><a href="../es/sumate/legado/index.html">Deja un legado</a></li><li><a href="../es/sumate/otras-formas-de-dar/index.html">Fondos, empresas y equipos</a></li></ul><p class="gsx-drawer-head-link"><a href="../es/sumate/index.html">Participar ›</a></p><ul><li><a href="../es/sumate/index.html#voluntariado">Voluntariado</a></li><li><a href="../es/sumate/otras-formas-de-dar/index.html#alianzas">Alianzas con empresas e iglesias</a></li><li><a href="../es/contacto/index.html">Contacto</a></li></ul></details></nav>
+  <div class="gsx-drawer-foot"><a class="gsx-btn gsx-btn-donate" href="../es/donar/index.html" data-track="donate_menu_click">Donar ahora</a><div class="gsx-lang-switch gsx-drawer-lang" role="group" aria-label="Idioma"><a href="../index.html" hreflang="en" lang="en">EN</a><span aria-current="true" lang="es">ES</span></div></div>
+</div></div><div class="gsx-root gsx-sticky gsx-only-en"><a class="gsx-skip-link" href="#impulsos-inicio">Skip to content</a>
+<div class="gsx-utility"><div class="gsx-wrap">
+  <p class="gsx-utility-tag gsx-mb-0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Totonicapán, Guatemala</span><span class="gsx-long">· supporting highland children for decades</span></p>
+  <span class="gsx-book-note">This book is available in Spanish only. The videos include English subtitles.</span><div class="gsx-utility-links"><a class="gsx-hide-sm" href="../about/faq/index.html">FAQ</a><a class="gsx-hide-sm" href="../contact/index.html">Contact</a><div class="gsx-lang-switch" role="group" aria-label="Language"><span aria-current="true" lang="en">EN</span><a href="index.html?lang=es" hreflang="es" lang="es">ES</a></div></div>
+</div></div>
+<header class="gsx-site-header"><div class="gsx-wrap gsx-header-inner">
+  <a class="gsx-brand" href="../index.html" aria-label="GuateStar — home"><picture><source type="image/webp" srcset="../assets/img/logo-light.webp"><img src="../assets/img/logo-light.png" alt="GuateStar" width="484" height="240"></picture></a>
+  <nav class="gsx-main-nav" aria-label="Main"><ul><li class="gsx-has-mega"><button class="gsx-nav-top" aria-expanded="false" aria-controls="gsx-mega-0">About us</button><div class="gsx-mega" id="gsx-mega-0"><div class="gsx-wrap gsx-mega-inner gsx-cols-2"><div class="gsx-mega-col"><a class="gsx-mega-head" href="../about/index.html">Who we are <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><ul><li><a href="../about/index.html#mission">Mission and 2030 vision</a></li><li><a href="../about/index.html#how-we-work">How we work</a></li><li><a href="../about/our-approach/index.html">Our approach</a></li><li><a href="../about/index.html#leadership">Leadership</a></li></ul></div><div class="gsx-mega-col"><a class="gsx-mega-head" href="../about/index.html#history">Our history <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><ul><li><a href="../about/index.html#history">From one classroom to eight communities</a></li><li><a href="../about/index.html#challenge">Why Totonicapán</a></li><li><a href="../about/index.html#partners">Our partners</a></li><li><a href="../about/faq/index.html">FAQ</a></li></ul></div><a class="gsx-mega-promo" href="../about/index.html"><picture><source type="image/webp" srcset="../assets/img/familia-chuixacol-800.webp 800w, ../assets/img/familia-chuixacol-1600.webp 1600w" sizes="320px"><img src="../assets/img/familia-chuixacol.jpg" alt="" width="1600" height="899" loading="lazy" decoding="async"></picture><span class="gsx-mp-body"><strong>Decades in the highlands</strong><span>A 501(c)(3) nonprofit with an office in San Cristóbal Totonicapán.</span></span></a></div></div></li><li class="gsx-has-mega"><button class="gsx-nav-top" aria-expanded="false" aria-controls="gsx-mega-1">The Pathway</button><div class="gsx-mega" id="gsx-mega-1"><div class="gsx-wrap gsx-mega-inner gsx-cols-3"><div class="gsx-mega-col"><a class="gsx-mega-head" href="../our-work/index.html#stage-1">School path <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><ul><li><a href="../our-work/club-extra/index.html">Stage 1 · Club Extra (ages 6–12)</a></li><li><a href="../our-work/scholarships/index.html">Stage 5 · High school or INTECAP scholarship</a></li><li><a href="../our-work/scholarships/index.html">Stage 6 · College or technical</a></li></ul></div><div class="gsx-mega-col"><a class="gsx-mega-head" href="../our-work/index.html#stage-2">Leadership path <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><ul><li><a href="../our-work/volunteers-facilitators/index.html">Stage 2 · Volunteers</a></li><li><a href="../our-work/volunteers-facilitators/index.html">Stage 3 · Facilitators</a></li><li><a href="../our-work/mentors/index.html">Stage 4 · Business mentoring (ages 14–17)</a></li></ul></div><div class="gsx-mega-col"><a class="gsx-mega-head" href="../our-work/technology/index.html">Tools <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><ul><li><a href="../our-work/technology/index.html">Technology &amp; connectivity</a></li><li><a href="../our-work/technology/index.html#chispa">Chispa, AI tutor</a></li><li><a href="../our-work/index.html">See the full Pathway</a></li></ul></div><a class="gsx-mega-promo" href="../our-work/index.html"><picture><source type="image/webp" srcset="../assets/img/clubextra-laptops-800.webp 800w, ../assets/img/clubextra-laptops-1600.webp 1600w" sizes="320px"><img src="../assets/img/clubextra-laptops.jpg" alt="" width="1350" height="1800" loading="lazy" decoding="async"></picture><span class="gsx-mp-body"><strong>Two paths, six stages</strong><span>School and leadership, from Club Extra to college.</span></span></a></div></div></li><li class="gsx-has-mega"><button class="gsx-nav-top" aria-expanded="false" aria-controls="gsx-mega-2">Impact &amp; stories</button><div class="gsx-mega" id="gsx-mega-2"><div class="gsx-wrap gsx-mega-inner gsx-cols-2"><div class="gsx-mega-col"><a class="gsx-mega-head" href="../impact/index.html">Our impact <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><ul><li><a href="../impact/index.html">2026 in numbers</a></li><li><a href="../impact/index.html#communities">Communities</a></li><li><a href="../impact/index.html#transparency">Transparency</a></li></ul></div><div class="gsx-mega-col"><a class="gsx-mega-head" href="../stories/index.html">Stories <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><ul><li><a href="../stories/jonathan/index.html">Jonathan</a></li><li><a href="../stories/inaki-and-aragon/index.html">Iñaki and Aragón</a></li><li><a href="../stories/four-children-four-dreams/index.html">Four children, four dreams</a></li><li><a href="../stories/nimasac/index.html">Nimasac</a></li><li><a href="../stories/a-mothers-decision/index.html">A mother&#x27;s decision</a></li></ul></div><a class="gsx-mega-promo" href="../impact/index.html"><picture><source type="image/webp" srcset="../assets/img/ninos-pintura-800.webp 800w, ../assets/img/ninos-pintura-1600.webp 1600w" sizes="320px"><img src="../assets/img/ninos-pintura.jpg" alt="" width="1600" height="1200" loading="lazy" decoding="async"></picture><span class="gsx-mp-body"><strong>285 families in 2026</strong><span>Nearly twice as many as the year before.</span></span></a></div></div></li><li class="gsx-has-mega"><button class="gsx-nav-top" aria-expanded="false" aria-controls="gsx-mega-3">Get involved</button><div class="gsx-mega" id="gsx-mega-3"><div class="gsx-wrap gsx-mega-inner gsx-cols-2"><div class="gsx-mega-col"><a class="gsx-mega-head" href="../get-involved/ways-to-give/index.html">Give <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><ul><li><a href="../donate/index.html">Donate</a></li><li><a href="../get-involved/monthly-giving/index.html">Monthly giving</a></li><li><a href="../get-involved/legacy-giving/index.html">Legacy giving</a></li><li><a href="../get-involved/other-ways-to-give/index.html">Funds, employers and equipment</a></li></ul></div><div class="gsx-mega-col"><a class="gsx-mega-head" href="../get-involved/index.html">Take part <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><ul><li><a href="../get-involved/index.html#volunteer">Volunteering</a></li><li><a href="../get-involved/other-ways-to-give/index.html#alianzas">Business &amp; church partnerships</a></li><li><a href="../contact/index.html">Contact</a></li></ul></div><a class="gsx-mega-promo" href="../get-involved/monthly-giving/index.html"><picture><source type="image/webp" srcset="../assets/img/nina-sonrisa-800.webp 800w, ../assets/img/nina-sonrisa-1600.webp 1600w" sizes="320px"><img src="../assets/img/nina-sonrisa.jpg" alt="" width="1500" height="842" loading="lazy" decoding="async"></picture><span class="gsx-mp-body"><strong>$30 a month</strong><span>A full month of Club Extra for one child.</span></span></a></div></div></li></ul></nav>
+  <div class="gsx-header-cta">
+    <a class="gsx-btn gsx-btn-donate" href="../donate/index.html" data-track="donate_header_click">Donate</a>
+    <button class="gsx-menu-toggle" aria-expanded="false" aria-controls="gsx-drawer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>Menu</button>
+  </div>
+</div></header>
+<div class="gsx-drawer" id="gsx-drawer" aria-hidden="true" role="dialog" aria-label="Menu">
+  <div class="gsx-drawer-head"><img src="../assets/img/logo-light.png" alt="GuateStar" width="484" height="240"><button class="gsx-drawer-close" aria-label="Close menu">×</button></div>
+  <nav aria-label="Mobile menu"><a class="gsx-drawer-link" href="../index.html">Home</a><details><summary>About us</summary><p class="gsx-drawer-head-link"><a href="../about/index.html">Who we are ›</a></p><ul><li><a href="../about/index.html#mission">Mission and 2030 vision</a></li><li><a href="../about/index.html#how-we-work">How we work</a></li><li><a href="../about/our-approach/index.html">Our approach</a></li><li><a href="../about/index.html#leadership">Leadership</a></li></ul><p class="gsx-drawer-head-link"><a href="../about/index.html#history">Our history ›</a></p><ul><li><a href="../about/index.html#history">From one classroom to eight communities</a></li><li><a href="../about/index.html#challenge">Why Totonicapán</a></li><li><a href="../about/index.html#partners">Our partners</a></li><li><a href="../about/faq/index.html">FAQ</a></li></ul></details><details><summary>The Pathway</summary><p class="gsx-drawer-head-link"><a href="../our-work/index.html#stage-1">School path ›</a></p><ul><li><a href="../our-work/club-extra/index.html">Stage 1 · Club Extra (ages 6–12)</a></li><li><a href="../our-work/scholarships/index.html">Stage 5 · High school or INTECAP scholarship</a></li><li><a href="../our-work/scholarships/index.html">Stage 6 · College or technical</a></li></ul><p class="gsx-drawer-head-link"><a href="../our-work/index.html#stage-2">Leadership path ›</a></p><ul><li><a href="../our-work/volunteers-facilitators/index.html">Stage 2 · Volunteers</a></li><li><a href="../our-work/volunteers-facilitators/index.html">Stage 3 · Facilitators</a></li><li><a href="../our-work/mentors/index.html">Stage 4 · Business mentoring (ages 14–17)</a></li></ul><p class="gsx-drawer-head-link"><a href="../our-work/technology/index.html">Tools ›</a></p><ul><li><a href="../our-work/technology/index.html">Technology &amp; connectivity</a></li><li><a href="../our-work/technology/index.html#chispa">Chispa, AI tutor</a></li><li><a href="../our-work/index.html">See the full Pathway</a></li></ul></details><details><summary>Impact &amp; stories</summary><p class="gsx-drawer-head-link"><a href="../impact/index.html">Our impact ›</a></p><ul><li><a href="../impact/index.html">2026 in numbers</a></li><li><a href="../impact/index.html#communities">Communities</a></li><li><a href="../impact/index.html#transparency">Transparency</a></li></ul><p class="gsx-drawer-head-link"><a href="../stories/index.html">Stories ›</a></p><ul><li><a href="../stories/jonathan/index.html">Jonathan</a></li><li><a href="../stories/inaki-and-aragon/index.html">Iñaki and Aragón</a></li><li><a href="../stories/four-children-four-dreams/index.html">Four children, four dreams</a></li><li><a href="../stories/nimasac/index.html">Nimasac</a></li><li><a href="../stories/a-mothers-decision/index.html">A mother&#x27;s decision</a></li></ul></details><details><summary>Get involved</summary><p class="gsx-drawer-head-link"><a href="../get-involved/ways-to-give/index.html">Give ›</a></p><ul><li><a href="../donate/index.html">Donate</a></li><li><a href="../get-involved/monthly-giving/index.html">Monthly giving</a></li><li><a href="../get-involved/legacy-giving/index.html">Legacy giving</a></li><li><a href="../get-involved/other-ways-to-give/index.html">Funds, employers and equipment</a></li></ul><p class="gsx-drawer-head-link"><a href="../get-involved/index.html">Take part ›</a></p><ul><li><a href="../get-involved/index.html#volunteer">Volunteering</a></li><li><a href="../get-involved/other-ways-to-give/index.html#alianzas">Business &amp; church partnerships</a></li><li><a href="../contact/index.html">Contact</a></li></ul></details></nav>
+  <div class="gsx-drawer-foot"><a class="gsx-btn gsx-btn-donate" href="../donate/index.html" data-track="donate_menu_click">Donate now</a><div class="gsx-lang-switch gsx-drawer-lang" role="group" aria-label="Language"><span aria-current="true" lang="en">EN</span><a href="../es/index.html" hreflang="es" lang="es">ES</a></div></div>
+</div></div>
+<span id="impulsos-inicio"></span>
 
 <div class="stage">
 
-<div class="topstrip">
-  <div class="wrap">
-    <span class="ts-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 1 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>Totonicapán, Guatemala</span>
-    <span class="ts-b">Acompañando a la niñez del altiplano desde 1952</span>
-    <span class="ts-idioma">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18z"/></svg>
-      This book is available in Spanish only. The videos include English subtitles.
-    </span>
-  </div>
-</div>
-
 <div class="nav-scrim" id="navScrim" aria-hidden="true"></div>
-
-<header class="site-header">
-  <div class="wrap hd">
-    <a class="logo" href="../index.html" aria-label="GuateStar — inicio"><img class="lg-dark" src="../logo-dark.png" alt="GuateStar"><img class="lg-light" src="../logo-light.png" alt="" aria-hidden="true"></a>
-
-
-
-    <div class="nav-wrap"><ul class="mainnav" id="mainnav">
-      <li><a class="navlink" href="../es/quienes-somos/index.html#desafio"><i>01</i>Propósito</a></li>
-      <li class="has-drop">
-        <button class="navlink"><i>02</i>Programas
-          <svg class="cv" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg>
-        </button>
-        <ul class="drop">
-          <li><a href="../es/programas/index.html"><b>Club Extra</b><span>Próximamente</span></a></li>
-          <li><a href="../es/programas/index.html"><b>Mentoría</b><span>Próximamente</span></a></li>
-          <li><a href="../es/programas/index.html"><b>Pathway</b><span>Próximamente</span></a></li>
-          <li><a href="../es/programas/index.html"><b>Familia y comunidad</b><span>Próximamente</span></a></li>
-        </ul>
-      </li>
-      <li class="has-drop">
-        <button class="navlink" aria-expanded="false"><i>03</i>Nuestra historia
-          <svg class="cv" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg>
-        </button>
-        <ul class="drop">
-          <li><a href="index.html"><b>IMPULSOS</b><span>Siguiendo las señales de Dios</span></a></li>
-        </ul>
-      </li>
-      <li><a class="navlink" href="../es/sumate/index.html"><i>04</i>Súmate</a></li>
-      <li class="mob-cta"><a class="btn btn-sky" href="../es/sumate/index.html">Donar</a></li>
-      <li class="nav-foot">
-        <span class="nf-t">Síguenos</span>
-        <div class="nav-social">
-          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.25-1.5 1.55-1.5h1.65V4.63c-.29-.04-1.27-.13-2.41-.13-2.39 0-4.02 1.46-4.02 4.13v2.27H7.5V14h2.77v8h3.23z"/></svg></a>
-          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 7.4a4.6 4.6 0 1 0 0 9.2 4.6 4.6 0 0 0 0-9.2zm0 7.6a3 3 0 1 1 0-6 3 3 0 0 1 0 6zM17 6.3a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2zM12 3.6c2.7 0 3 0 4.1.06 1 .05 1.5.2 1.9.35.5.18.8.4 1.2.8.4.4.62.7.8 1.2.15.4.3.9.35 1.9.05 1.1.06 1.4.06 4.1s0 3-.06 4.1c-.05 1-.2 1.5-.35 1.9-.18.5-.4.8-.8 1.2-.4.4-.7.62-1.2.8-.4.15-.9.3-1.9.35-1.1.05-1.4.06-4.1.06s-3 0-4.1-.06c-1-.05-1.5-.2-1.9-.35-.5-.18-.8-.4-1.2-.8-.4-.4-.62-.7-.8-1.2-.15-.4-.3-.9-.35-1.9C3.6 15 3.6 14.7 3.6 12s0-3 .06-4.1c.05-1 .2-1.5.35-1.9.18-.5.4-.8.8-1.2.4-.4.7-.62 1.2-.8.4-.15.9-.3 1.9-.35C9 3.6 9.3 3.6 12 3.6z"/></svg></a>
-          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2s-.2-1.4-.8-2c-.75-.8-1.6-.8-2-.85C16 4.2 12 4.2 12 4.2h-.01s-4 0-6.8.2c-.4.05-1.25.05-2 .85-.6.6-.8 2-.8 2S2.2 8.8 2.2 10.5v1.6c0 1.6.2 3.3.2 3.3s.2 1.4.8 2c.75.8 1.75.77 2.2.86 1.6.15 6.8.2 6.8.2s4 0 6.8-.21c.4-.05 1.25-.05 2-.85.6-.6.8-2 .8-2s.2-1.65.2-3.3v-1.6c0-1.65-.2-3.3-.2-3.3zM10.1 14.2V8.9l5.15 2.66-5.15 2.64z"/></svg></a>
-        </div>
-      </li>
-    </ul></div>
-
-    <div class="acciones">
-      <a class="btn btn-sky" href="../es/sumate/index.html">Donar</a>
-      <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainnav"><span class="bl" aria-hidden="true"><span></span><span></span><span></span></span></button>
-    </div>
-  </div>
-</header>
 
 <button id="headerReadBtn" type="button" hidden aria-hidden="true"></button>
 
@@ -2413,70 +2663,7 @@ html{scroll-snap-type:none}
   </div>
 
 
-<footer class="foot">
 
-  <!-- rectángulo flotante: mitad contacto, mitad pie -->
-  <div class="wrap ft-bridge rv">
-    <p>Todo esto empezó con un programa que decidió no soltar a nadie.</p>
-    <a class="btn btn-white" href="../es/sumate/index.html">Apoya el programa</a>
-  </div>
-
-  <div class="wrap ft-main">
-
-    <div class="ft-brand">
-      <img class="ft-logo" src="../logo-dark.png" alt="GuateStar">
-      <p>Organización sin fines de lucro 501(c)(3) con sede en Estados Unidos que rompe el ciclo de la pobreza mediante educación de calidad, acompañamiento integral y desarrollo del liderazgo en las comunidades rurales de Totonicapán, Guatemala.</p>
-      <div class="ft-social">
-        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.25-1.5 1.55-1.5h1.65V4.63c-.29-.04-1.27-.13-2.41-.13-2.39 0-4.02 1.46-4.02 4.13v2.27H7.5V14h2.77v8h3.23z"/></svg></a>
-        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 7.4a4.6 4.6 0 1 0 0 9.2 4.6 4.6 0 0 0 0-9.2zm0 7.6a3 3 0 1 1 0-6 3 3 0 0 1 0 6zM17 6.3a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2zM12 3.6c2.7 0 3 0 4.1.06 1 .05 1.5.2 1.9.35.5.18.8.4 1.2.8.4.4.62.7.8 1.2.15.4.3.9.35 1.9.05 1.1.06 1.4.06 4.1s0 3-.06 4.1c-.05 1-.2 1.5-.35 1.9-.18.5-.4.8-.8 1.2-.4.4-.7.62-1.2.8-.4.15-.9.3-1.9.35-1.1.05-1.4.06-4.1.06s-3 0-4.1-.06c-1-.05-1.5-.2-1.9-.35-.5-.18-.8-.4-1.2-.8-.4-.4-.62-.7-.8-1.2-.15-.4-.3-.9-.35-1.9C3.6 15 3.6 14.7 3.6 12s0-3 .06-4.1c.05-1 .2-1.5.35-1.9.18-.5.4-.8.8-1.2.4-.4.7-.62 1.2-.8.4-.15.9-.3 1.9-.35C9 3.6 9.3 3.6 12 3.6z"/></svg></a>
-        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2s-.2-1.4-.8-2c-.75-.8-1.6-.8-2-.85C16 4.2 12 4.2 12 4.2h-.01s-4 0-6.8.2c-.4.05-1.25.05-2 .85-.6.6-.8 2-.8 2S2.2 8.8 2.2 10.5v1.6c0 1.6.2 3.3.2 3.3s.2 1.4.8 2c.75.8 1.75.77 2.2.86 1.6.15 6.8.2 6.8.2s4 0 6.8-.21c.4-.05 1.25-.05 2-.85.6-.6.8-2 .8-2s.2-1.65.2-3.3v-1.6c0-1.65-.2-3.3-.2-3.3zM10.1 14.2V8.9l5.15 2.66-5.15 2.64z"/></svg></a>
-      </div>
-    </div>
-
-    <div class="ft-col">
-      <h4>Nuestra oficina</h4>
-      <address>
-        <span class="ft-place">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.6-7-11a7 7 0 1 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
-          <span><b>Guatemala</b>2 Calle 6-44, Zona 2<br>San Cristóbal Totonicapán</span>
-        </span>
-        <span class="ft-place">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.6-7-11a7 7 0 1 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
-          <span><b>Estados Unidos</b>P. O. Box 1333<br>Golden, Colorado 80402</span>
-        </span>
-      </address>
-      <a class="ft-write" href="../es/contacto/index.html">Contáctanos <span>→</span></a>
-    </div>
-
-    <div class="ft-col">
-      <h4>Transparencia y legal</h4>
-      <ul>
-        <li><a href="../index.html">Aviso de privacidad</a></li>
-        <li><a href="../index.html">Protección de la niñez</a></li>
-        <li><a href="../index.html">Términos de donación</a></li>
-      </ul>
-      <p class="ft-reg">Organización 501(c)(3) de Estados Unidos, con trabajo en Guatemala.</p>
-    </div>
-
-    <div class="ft-col ft-alloc rv">
-      <h4>Tu donación en acción</h4>
-      <p>Cada aporte se destina a los programas educativos: becas, tecnología, mentoría y acompañamiento a las familias.</p>
-      <ul class="ft-checks">
-        <li>Registros por comunidad y por estudiante, revisados periódicamente.</li>
-        <li>Sin discriminación por raza, sexo, color, religión u origen étnico.</li>
-      </ul>
-    </div>
-
-  </div>
-
-  <div class="wrap ft-btm">
-    <span class="ft-cr">© 2026 GuateStar. Todos los derechos reservados. El contenido de este sitio es informativo y puede cambiar sin previo aviso. Las imágenes y testimonios se publican con autorización de las familias.</span>
-    <span class="ft-legal">Donaciones aceptadas desde cualquier país. Los aportes son voluntarios y no reembolsables; su deducibilidad fiscal depende de la legislación de cada país.</span>
-    <button class="ft-top" id="ftTop" aria-label="Volver arriba">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
-    </button>
-  </div>
-</footer>
 </div>
 
 <script>
@@ -3080,7 +3267,7 @@ html{scroll-snap-type:none}
    libro es en español y no se toca.
    ══════════════════════════════════════════════════════════════════ */
 (function(){
-  var ES_EN = {"Acompañando a la niñez del altiplano desde 1952": "Walking alongside children in the Guatemalan highlands since 1952", "Programas": "Programs", "Próximamente": "Coming soon", "Mentoría": "Mentorship", "Familia y comunidad": "Family & community", "Nuestra historia": "Our Story", "Súmate": "Join Us", "Donar": "Donate", "Contáctanos": "Contact us", "Todo esto empezó con un programa que decidió no soltar a nadie.": "All of this began with a program that decided not to let anyone go.", "Apoya el programa": "Support the program", "Organización sin fines de lucro 501(c)(3) con sede en Estados Unidos que rompe el ciclo de la pobreza mediante educación de calidad, acompañamiento integral y desarrollo del liderazgo en las comunidades rurales de Totonicapán, Guatemala.": "A US-based 501(c)(3) nonprofit organization breaking the cycle of poverty through quality education, comprehensive support, and leadership development in the rural communities of Totonicapán, Guatemala.", "Aviso de privacidad": "Privacy notice", "Protección de la niñez": "Child protection", "Nuestra oficina": "Our office", "Transparencia y legal": "Transparency & legal", "Términos de donación": "Donation terms", "Organización 501(c)(3) de Estados Unidos, con trabajo en Guatemala.": "US-based 501(c)(3) nonprofit, working in Guatemala.", "Donaciones aceptadas desde cualquier país. Los aportes son voluntarios y no reembolsables; su deducibilidad fiscal depende de la legislación de cada país.": "Donations accepted from any country. Gifts are voluntary and non-refundable; tax deductibility depends on the laws of each country.", "Guatemala": "Guatemala", "Estados Unidos": "United States", "Tu donación en acción": "Your gift at work", "Registros por comunidad y por estudiante, revisados periódicamente.": "Records by community and student, reviewed regularly.", "Sin discriminación por raza, sexo, color, religión u origen étnico.": "No discrimination based on race, sex, color, religion, or ethnic origin.", "© 2026 GuateStar. Todos los derechos reservados. El contenido de este sitio es informativo y puede cambiar sin previo aviso. Las imágenes y testimonios se publican con autorización de las familias.": "© 2026 GuateStar. All rights reserved. The content of this site is informational and may change without notice. Images and testimonies are published with the families' consent.", "Solo": "Only", "Propósito": "Purpose", "Síguenos": "Follow us", "Cada aporte se destina a los programas educativos: becas, tecnología, mentoría y acompañamiento a las familias.": "Every gift goes to the educational programs: scholarships, technology, mentorship and support for families.", "Siguiendo las señales de Dios": "Following God's signs", "Leer el libro": "Read the book", "154 páginas": "154 pages", "Audiolibro": "Audiobook", "Escúchalo narrado": "Listen to it narrated", "Celebración de vida": "Celebration of Life", "Momentos históricos": "Historic Moments", "Ocho vídeos": "Eight videos", "Noche": "Night", "Modo de lectura": "Reading mode", "Quiero recibir avisos": "Send me updates", "Novedades del libro por correo": "News about the book by email", "IMPULSOS · Siguiendo las señales de Dios": "IMPULSOS · Following God’s signs", "¿Te cuesta leer? Sube el tamaño de la letra, mira por dónde vas o salta directo a una página.": "Hard to read? Make the text bigger, see how far you’ve got, or jump straight to a page.", "Marcadores": "Bookmarks"};
+  var ES_EN = {"Acompañando a la niñez del altiplano por décadas": "Walking alongside children in the Guatemalan highlands since 1952", "Programas": "Programs", "Próximamente": "Coming soon", "Mentoría": "Mentorship", "Familia y comunidad": "Family & community", "Nuestra historia": "Our Story", "Súmate": "Join Us", "Donar": "Donate", "Contáctanos": "Contact us", "Todo esto empezó con un programa que decidió no soltar a nadie.": "All of this began with a program that decided not to let anyone go.", "Apoya el programa": "Support the program", "Organización sin fines de lucro 501(c)(3) con sede en Estados Unidos que rompe el ciclo de la pobreza mediante educación de calidad, acompañamiento integral y desarrollo del liderazgo en las comunidades rurales de Totonicapán, Guatemala.": "A US-based 501(c)(3) nonprofit organization breaking the cycle of poverty through quality education, comprehensive support, and leadership development in the rural communities of Totonicapán, Guatemala.", "Aviso de privacidad": "Privacy notice", "Protección de la niñez": "Child protection", "Nuestra oficina": "Our office", "Transparencia y legal": "Transparency & legal", "Términos de donación": "Donation terms", "Organización 501(c)(3) de Estados Unidos, con trabajo en Guatemala.": "US-based 501(c)(3) nonprofit, working in Guatemala.", "Donaciones aceptadas desde cualquier país. Los aportes son voluntarios y no reembolsables; su deducibilidad fiscal depende de la legislación de cada país.": "Donations accepted from any country. Gifts are voluntary and non-refundable; tax deductibility depends on the laws of each country.", "Guatemala": "Guatemala", "Estados Unidos": "United States", "Tu donación en acción": "Your gift at work", "Registros por comunidad y por estudiante, revisados periódicamente.": "Records by community and student, reviewed regularly.", "Sin discriminación por raza, sexo, color, religión u origen étnico.": "No discrimination based on race, sex, color, religion, or ethnic origin.", "© 2026 GuateStar. Todos los derechos reservados. El contenido de este sitio es informativo y puede cambiar sin previo aviso. Las imágenes y testimonios se publican con autorización de las familias.": "© 2026 GuateStar. All rights reserved. The content of this site is informational and may change without notice. Images and testimonies are published with the families' consent.", "Solo": "Only", "Propósito": "Purpose", "Síguenos": "Follow us", "Cada aporte se destina a los programas educativos: becas, tecnología, mentoría y acompañamiento a las familias.": "Every gift goes to the educational programs: scholarships, technology, mentorship and support for families.", "Siguiendo las señales de Dios": "Following God's signs", "Leer el libro": "Read the book", "154 páginas": "154 pages", "Audiolibro": "Audiobook", "Escúchalo narrado": "Listen to it narrated", "Celebración de vida": "Celebration of Life", "Momentos históricos": "Historic Moments", "Ocho vídeos": "Eight videos", "Noche": "Night", "Modo de lectura": "Reading mode", "Quiero recibir avisos": "Send me updates", "Novedades del libro por correo": "News about the book by email", "IMPULSOS · Siguiendo las señales de Dios": "IMPULSOS · Following God’s signs", "¿Te cuesta leer? Sube el tamaño de la letra, mira por dónde vas o salta directo a una página.": "Hard to read? Make the text bigger, see how far you’ve got, or jump straight to a page.", "Marcadores": "Bookmarks"};
 
   var es = /[?&]lang=es/.test(location.search) ||
            (!/[?&]lang=en/.test(location.search) &&
@@ -3112,6 +3299,132 @@ html{scroll-snap-type:none}
   traduce(document.querySelector('.site-header'));
   traduce(document.querySelector('.hero-acc'));
   traduce(document.querySelector('.foot'));
+})();
+</script>
+<div class="gsx-root gsx-only-es"><footer class="gsx-site-footer">
+  <div class="gsx-wrap gsx-footer-grid">
+    <div class="gsx-footer-brand">
+      <picture><source type="image/webp" srcset="../assets/img/logo-light.webp"><img src="../assets/img/logo-light.png" alt="GuateStar" width="484" height="240" loading="lazy"></picture>
+      <p>Organización sin fines de lucro 501(c)(3) con sede en Estados Unidos que rompe el ciclo de la pobreza mediante educación de calidad, acompañamiento integral y desarrollo del liderazgo en las comunidades rurales de Totonicapán, Guatemala.</p>
+      <a class="gsx-btn gsx-btn-donate gsx-btn-sm" href="../es/donar/index.html" data-track="donate_footer_click">Donar</a>
+    </div>
+    <div>
+      <h2>Oficinas</h2>
+      <address><strong>Guatemala</strong>2 Calle 6-44, Zona 2<br>San Cristóbal Totonicapán</address>
+      <address><strong>Estados Unidos</strong>P. O. Box 1333<br>Golden, Colorado 80402</address>
+      <a href="../es/contacto/index.html">Escríbenos →</a>
+    </div>
+    <div>
+      <h2>Enlaces</h2>
+      <ul>
+        <li><a href="../es/quienes-somos/index.html">Quiénes somos</a></li>
+        <li><a href="../es/programas/index.html">La Ruta GuateStar</a></li>
+        <li><a href="../es/impacto/index.html">Impacto</a></li>
+        <li><a href="../es/historias/index.html">Historias</a></li>
+        <li><a href="../es/sumate/formas-de-dar/index.html">Formas de dar</a></li>
+        <li><a href="../es/quienes-somos/preguntas-frecuentes/index.html">Preguntas frecuentes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Transparencia y legal</h2>
+      <ul>
+        <li><a href="../es/impacto/index.html#transparencia">Tu donación en acción</a></li>
+        <li><a href="../es/privacidad/index.html">Aviso de privacidad</a></li>
+        <li><a href="../es/proteccion-de-la-ninez/index.html">Protección de la niñez</a></li>
+        <li><a href="../es/terminos-de-donacion/index.html">Términos de donación</a></li>
+      </ul>
+      
+    </div>
+  </div>
+  <div class="gsx-wrap gsx-footer-bottom">
+    <p>© 2026 GuateStar. Organización 501(c)(3) de Estados Unidos (EIN 47-2953590), con trabajo en Guatemala. Las imágenes y testimonios se publican con autorización de las familias.</p>
+    <p>Donaciones aceptadas desde cualquier país; su deducibilidad fiscal depende de la legislación de cada país.</p>
+  </div>
+</footer>
+<button class="gsx-to-top" aria-label="Volver arriba"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<div class="gsx-consent" role="dialog" aria-label="Preferencias de medición">
+  <p>¿Nos permites medir visitas de forma anónima para mejorar el sitio? No usamos cookies publicitarias. <a href="../es/privacidad/index.html">Más información</a></p>
+  <div class="gsx-btn-row"><button class="gsx-btn gsx-btn-primary gsx-btn-sm" data-consent="yes">Aceptar</button><button class="gsx-btn gsx-btn-ghost gsx-btn-sm" data-consent="no">No, gracias</button></div>
+</div></div><div class="gsx-root gsx-only-en"><footer class="gsx-site-footer">
+  <div class="gsx-wrap gsx-footer-grid">
+    <div class="gsx-footer-brand">
+      <picture><source type="image/webp" srcset="../assets/img/logo-light.webp"><img src="../assets/img/logo-light.png" alt="GuateStar" width="484" height="240" loading="lazy"></picture>
+      <p>A US-based 501(c)(3) nonprofit breaking the cycle of poverty through quality education, holistic support and leadership development in the rural communities of Totonicapán, Guatemala.</p>
+      <a class="gsx-btn gsx-btn-donate gsx-btn-sm" href="../donate/index.html" data-track="donate_footer_click">Donate</a>
+    </div>
+    <div>
+      <h2>Offices</h2>
+      <address><strong>Guatemala</strong>2 Calle 6-44, Zona 2<br>San Cristóbal Totonicapán</address>
+      <address><strong>United States</strong>P. O. Box 1333<br>Golden, Colorado 80402</address>
+      <a href="../contact/index.html">Write to us →</a>
+    </div>
+    <div>
+      <h2>Quick links</h2>
+      <ul>
+        <li><a href="../about/index.html">About us</a></li>
+        <li><a href="../our-work/index.html">The GuateStar Pathway</a></li>
+        <li><a href="../impact/index.html">Impact</a></li>
+        <li><a href="../stories/index.html">Stories</a></li>
+        <li><a href="../get-involved/ways-to-give/index.html">Ways to give</a></li>
+        <li><a href="../about/faq/index.html">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Transparency & legal</h2>
+      <ul>
+        <li><a href="../impact/index.html#transparency">Your gift at work</a></li>
+        <li><a href="../privacy/index.html">Privacy notice</a></li>
+        <li><a href="../child-protection/index.html">Child protection</a></li>
+        <li><a href="../donation-terms/index.html">Donation terms</a></li>
+      </ul>
+      
+    </div>
+  </div>
+  <div class="gsx-wrap gsx-footer-bottom">
+    <p>© 2026 GuateStar. US-based 501(c)(3) nonprofit (EIN 47-2953590) working in Guatemala. Images and testimonies are published with the families' consent.</p>
+    <p>Donations accepted from any country; tax deductibility depends on the laws of each country.</p>
+  </div>
+</footer>
+<button class="gsx-to-top" aria-label="Back to top"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<div class="gsx-consent" role="dialog" aria-label="Measurement preferences">
+  <p>May we measure visits anonymously to improve the site? We don't use advertising cookies. <a href="../privacy/index.html">Learn more</a></p>
+  <div class="gsx-btn-row"><button class="gsx-btn gsx-btn-primary gsx-btn-sm" data-consent="yes">Accept</button><button class="gsx-btn gsx-btn-ghost gsx-btn-sm" data-consent="no">No, thanks</button></div>
+</div></div>
+<script>
+(function(){
+  /* Encabezado del sitio en la página del libro: menús que se abren al pasar el
+     ratón (o al tocar) y menú lateral en el teléfono. */
+  var roots = document.querySelectorAll('.gsx-root');
+  var canHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  roots.forEach(function(root){
+    var items = root.querySelectorAll('.gsx-has-mega');
+    function mega(li){ return li.querySelector('.gsx-mega'); }
+    function closeAll(except){ items.forEach(function(li){ if(li!==except){ var m=mega(li); if(m) m.classList.remove('gsx-open'); var b=li.querySelector('.gsx-nav-top'); if(b) b.setAttribute('aria-expanded','false'); }}); }
+    items.forEach(function(li){
+      var btn = li.querySelector('.gsx-nav-top'), t = null;
+      function open(){ clearTimeout(t); closeAll(li); mega(li).classList.add('gsx-open'); btn.setAttribute('aria-expanded','true'); }
+      function close(){ mega(li).classList.remove('gsx-open'); btn.setAttribute('aria-expanded','false'); }
+      if(canHover){
+        li.addEventListener('mouseenter', open);
+        li.addEventListener('mouseleave', function(){ t = setTimeout(close, 250); });
+      }
+      btn.addEventListener('click', function(e){ e.preventDefault(); mega(li).classList.contains('gsx-open') && !canHover ? close() : open(); });
+    });
+    document.addEventListener('click', function(e){ if(!e.target.closest('.gsx-has-mega')) closeAll(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeAll(); setDrawer(false); } });
+    var toggle = root.querySelector('.gsx-menu-toggle'), drawer = root.querySelector('.gsx-drawer'), closeBtn = root.querySelector('.gsx-drawer-close');
+    function setDrawer(on){
+      if(!drawer) return;
+      drawer.classList.toggle('gsx-open', on);
+      drawer.setAttribute('aria-hidden', on ? 'false' : 'true');
+      if(toggle) toggle.setAttribute('aria-expanded', on ? 'true' : 'false');
+      document.documentElement.style.overflow = on ? 'hidden' : '';
+    }
+    if(toggle) toggle.addEventListener('click', function(){ setDrawer(!drawer.classList.contains('gsx-open')); });
+    if(closeBtn) closeBtn.addEventListener('click', function(){ setDrawer(false); });
+    var top = root.querySelector('.gsx-to-top');
+    if(top) top.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+  });
 })();
 </script>
 </body>

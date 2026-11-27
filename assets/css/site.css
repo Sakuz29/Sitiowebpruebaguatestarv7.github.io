@@ -1127,3 +1127,5 @@ main h2 { font-size: clamp(1.55rem, 3vw, 2.35rem); line-height: 1.12; }
   .amounts { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: .5rem; }
   .amounts button { padding-left: .3rem; padding-right: .3rem; }
 }
+
+.ib-cover { display: block; cursor: pointer; }
