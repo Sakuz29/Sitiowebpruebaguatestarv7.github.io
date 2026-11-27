@@ -1017,3 +1017,4 @@ a.rt-box:hover { border-color: var(--nav); transform: translateY(-2px); box-shad
 .rt-age { font-size: .8rem; font-weight: 700; color: var(--nav-ink); }
 #chispa .info-card { background: #fff; }
 .checklist.principles { display: block; columns: auto; grid-template-columns: 1fr; }
+@media (min-width: 900px) { .leaders { grid-template-columns: repeat(3, 1fr); } }
