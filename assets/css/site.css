@@ -1006,3 +1006,14 @@ a.rt-box:hover { border-color: var(--nav); transform: translateY(-2px); box-shad
 }
 .principles li { margin-bottom: .9rem; font-size: 1.05rem; }
 .card-tag .story-stage { margin-bottom: .25rem; }
+
+/* Misión y visión */
+.mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; margin: 1.4rem 0 1rem; }
+.mv-card { background: #fff; border: 2px solid #e3eef1; border-radius: 18px; padding: 1.3rem 1.4rem; }
+.mv-card p { margin: .4rem 0 0; font-size: 1.06rem; line-height: 1.6; }
+.mv-vision { background: #e3f4f9; border-color: #bfe3ee; }
+.mv-motto { font-weight: 800; color: var(--nav-ink); font-size: 1.1rem; margin: .4rem 0 1.4rem; }
+@media (max-width: 760px) { .mv-grid { grid-template-columns: 1fr; } }
+.rt-age { font-size: .8rem; font-weight: 700; color: var(--nav-ink); }
+#chispa .info-card { background: #fff; }
+.checklist.principles { display: block; columns: auto; grid-template-columns: 1fr; }
